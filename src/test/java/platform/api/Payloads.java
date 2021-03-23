@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.testng.ITestContext;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
 import com.beust.jcommander.Parameters;
@@ -44,7 +45,7 @@ public class Payloads {
 //	public static String url="https://qa1-bots.kore.ai";
 	public static String urlKC=url+"/api/public/stream/";
 	public static String cloningbot="";
-
+	public static String TimeinHHMMSS = null;
 	
 	@BeforeSuite()
 	public void extractEnviromentURL(ITestContext ctx) {
@@ -52,9 +53,6 @@ public class Payloads {
 		System.out.println("Executing in folowing enviroment ::"+urlfromxmal);
 		url=urlfromxmal;
 	}
-	
-
-	public static String TimeinHHMMSS = null;
 
 	public static String fntoreturntimeinHHMMSS()
 	{
@@ -160,12 +158,11 @@ public class Payloads {
 		return ctruserHeaders;
 	}	
 
-	public static String createUserPayLoad()
-	{				
-		Payloads.fntoreturntimeinHHMMSS();
+	public static String createUserPayLoad(String sTimeinHHMMSS)
+	{						
 		return "{\n" + 
-		"\"emailId\": \"korausr"+TimeinHHMMSS+"@usr"+TimeinHHMMSS+".com\",\n" + 
-		"\"firstName\": \"koraFname"+TimeinHHMMSS+"\",\n" + 
+		"\"emailId\": \"korausr"+sTimeinHHMMSS+"@usr"+sTimeinHHMMSS+".com\",\n" + 
+		"\"firstName\": \"koraFname"+sTimeinHHMMSS+"\",\n" + 
 		"\"lastName\": \"Admin user\",\n" + 
 		"\"isFromBt\": \"true\",\n" + 
 		"\"refererPath\": \"botbuilder\",\n" + 

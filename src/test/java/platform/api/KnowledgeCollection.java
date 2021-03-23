@@ -11,13 +11,14 @@ import io.restassured.response.Response;
 
 public class KnowledgeCollection extends Payloads{
 
-	@Test(priority = 1, enabled = true)
+	@Test(priority = 31, enabled = true)
 	public static void createUser() {
 		try {
 			System.out.println("-01-----------------createUser Knowledge Collection---------------------------");
+			TimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
 			Response response = RestAssured
-					.given().headers(KnowledgeCollection.HeadersWithAPIKey()).log().all() 
-					.body(KnowledgeCollection.createUserPayLoad())
+					.given().headers(KnowledgeCollection.HeadersWithAPIKey()) 
+					.body(KnowledgeCollection.createUserPayLoad(TimeinHHMMSS))
 					.when()
 					.post(url+internalAccountResource)
 					.then().log().all()
@@ -27,16 +28,18 @@ public class KnowledgeCollection extends Payloads{
 			collectappnbotdetails = new LinkedHashMap<String, String>();			
 			collectappnbotdetails.put("emailId", response.jsonPath().get("emailId").toString());			
 			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
-			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());	
+			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());				  
 			System.out.println(collectappnbotdetails);
-			Assert.assertEquals(String.valueOf(response.getStatusCode()),"200");
+			TimeinHHMMSS=null;
 		}catch(Exception e)
 		{
+			TimeinHHMMSS=null;
 			e.printStackTrace();
+			
 		}		
 	}
 
-	@Test(priority = 2, enabled = true)
+	@Test(priority = 32, enabled = true)
 	public static void createAdminApp() {
 		try {						
 			System.out.println("---02---------------createAdminApp---------------------------");
@@ -63,7 +66,7 @@ public class KnowledgeCollection extends Payloads{
 		}		
 	}
 
-	@Test(priority = 3, enabled = true)
+	@Test(priority = 33, enabled = true)
 	public static void genereateJWTtoken()
 	{
 		System.out.println("-03--------genereateJWTtoken------------------"); 
@@ -84,7 +87,7 @@ public class KnowledgeCollection extends Payloads{
 	 *  This  Steps depends on "configure as wf admin" step after Onboard env level user :: Here are not linking with any bot so we are skipping this step
 	 * @throws InterruptedException 
 	 */
-	@Test(priority = 4, enabled = true)
+	@Test(priority = 34, enabled = true)
 	public static void cloningSmapleBot() throws InterruptedException
 	{	
 		System.out.println("-04--------cloning KnowledgeCollection BOT------------------");
@@ -109,7 +112,7 @@ public class KnowledgeCollection extends Payloads{
 		
 	}
 
-	@Test(priority = 5, enabled = true)
+	@Test(priority = 35, enabled = true)
 	public static void clonedBotSetup() throws InterruptedException
 	{
 		System.out.println("-05--------cloned BOT Setup------------------"); 
@@ -121,13 +124,13 @@ public class KnowledgeCollection extends Payloads{
 				.put(url+"/api/public/bot/"+ collectappnbotdetails.get("clonnedBot_StreamID")+"/setup")  					
 				.then().log().all()
 				.extract().response();
-		Thread.sleep(50000);
+		Thread.sleep(5000);
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBotsetup.getStatusCode()),"200");
 		System.out.println("Clonned bot Setup Status ::" +responsecloningSmapleBotsetup.getStatusCode());	
 	}
 
 
-	@Test(priority = 6, enabled = true)
+	@Test(priority = 36, enabled = true)
 	public static void createbuilderAppnonAdmin() throws InterruptedException
 	{
 		System.out.println("-06----------------------Create Non-Amin Builder app----------importedBot_streamId-----------------"); 
@@ -148,7 +151,7 @@ public class KnowledgeCollection extends Payloads{
 						
 	}
 
-	@Test(priority = 7, enabled = true)
+	@Test(priority = 37, enabled = true)
 	public static void enableRTM() throws InterruptedException
 	{
 		System.out.println("-07---------------------- enableRTM ------------importedBot_streamId---------------"); 
@@ -166,7 +169,7 @@ public class KnowledgeCollection extends Payloads{
 	}
 
 
-	@Test(priority = 8, enabled = true)
+	@Test(priority = 38, enabled = true)
 	public static void getRole() throws InterruptedException
 	{
 		System.out.println("--8--------------------------Get Role------------------------------------"); 
@@ -200,7 +203,7 @@ public class KnowledgeCollection extends Payloads{
 	 * As testing practice here Giving developer email address same everytime
 	 * ?? Here we have to give linked botID
 	 */
-	@Test(priority = 9, enabled = true)
+	@Test(priority = 39, enabled = true)
 	public static void AddingDeveloperasOwner() throws InterruptedException
 	{
 		System.out.println("-----9----------------------Adding Developer as Owner MAP to Owner------------------------------------"); 
@@ -224,7 +227,7 @@ public class KnowledgeCollection extends Payloads{
 		}
 	}	 
 
-	@Test(priority = 10, enabled = true)
+	@Test(priority = 40, enabled = true)
 	public static void ExtractFAQs() throws InterruptedException
 	{
 		System.out.println("-10--------------------------Extract FAQ's ------------------------------------"); 
@@ -242,7 +245,7 @@ public class KnowledgeCollection extends Payloads{
 		
 	}
 
-	@Test(priority = 11, enabled = true)
+	@Test(priority = 41, enabled = true)
 	public static void GetQsofExtract() throws InterruptedException
 	{
 		System.out.println("-11----------------GET Questions of Extract --"); 
@@ -265,7 +268,7 @@ public class KnowledgeCollection extends Payloads{
 	}
 
 
-	@Test(priority = 12, enabled = true)
+	@Test(priority = 42, enabled = true)
 	public static void GetKTofTaskofCollection() throws InterruptedException
 	{
 		try {
@@ -287,7 +290,7 @@ public class KnowledgeCollection extends Payloads{
 		}
 	}
 
-	@Test(priority = 13, enabled = true)
+	@Test(priority = 43, enabled = true)
 	public static void AddQstoCollection() throws InterruptedException
 	{
 		int maxqs=2;	
@@ -316,7 +319,7 @@ public class KnowledgeCollection extends Payloads{
 		}
 	}
 
-	@Test(priority = 14, enabled = true)
+	@Test(priority = 44, enabled = true)
 	public static void publishbot() throws InterruptedException
 	{
 		System.out.println("--14--------------------- Publish Bot ---------------------------");
@@ -333,7 +336,7 @@ public class KnowledgeCollection extends Payloads{
 		System.out.println("Publish bot Status code "+responsPublishBot.jsonPath().get("status"));
 	}
 
-	@Test(priority = 15, enabled = true)
+	@Test(priority = 45, enabled = true)
 	public static void GetFAQsCollection() throws InterruptedException
 	{
 		System.out.println("--15-------------------------GET FAQ's Collection------------------------------------"); 
@@ -350,7 +353,7 @@ public class KnowledgeCollection extends Payloads{
 		System.out.println("Questions Fetched FAQ's Collection :"+collectappnbotdetails.get("QuestionsFetched"));
 	}
 
-	@Test(priority = 16, enabled = true)
+	@Test(priority = 46, enabled = true)
 	public static void GetExtractsofCollection() throws InterruptedException
 	{
 		System.out.println("---16------------------------GET EXTRACTION OF COLLECTION------------------------------------"); 
@@ -375,7 +378,7 @@ public class KnowledgeCollection extends Payloads{
 		}
 	}		
 
-	@Test(priority = 17, enabled = true)
+	@Test(priority = 47, enabled = true)
 	public static void genereateJWTtokenforNonAmdinApp()
 	{
 		System.out.println("---------genereateJWTtoken for non Admin app------------------"); 
@@ -392,7 +395,7 @@ public class KnowledgeCollection extends Payloads{
 				
 	}
 
-	@Test(priority = 18, enabled = true)
+	@Test(priority = 48, enabled = true)
 	public static void findIntent() throws InterruptedException
 	{
 		System.out.println("--18--------------------- findIntent  ---------------");

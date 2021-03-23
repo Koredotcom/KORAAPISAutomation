@@ -16,9 +16,10 @@ public class EnviromentSetup extends Payloads{
 	public static void createUser() {
 		try {
 			System.out.println("-01-----------------createUser in Env setup---------------------------");
+			TimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
 			Response response = RestAssured
-					.given().headers(EnviromentSetup.HeadersWithAPIKey()).log().all() 
-					.body(EnviromentSetup.createUserPayLoad()).log().all()
+					.given().headers(EnviromentSetup.HeadersWithAPIKey()) 
+					.body(EnviromentSetup.createUserPayLoad(TimeinHHMMSS))
 					.when()
 					.post(url+internalAccountResource)
 					.then().log().all()
@@ -30,9 +31,12 @@ public class EnviromentSetup extends Payloads{
 			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
 			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());				  
 			System.out.println(collectappnbotdetails);
+			TimeinHHMMSS=null;
 		}catch(Exception e)
 		{
+			TimeinHHMMSS=null;
 			e.printStackTrace();
+			
 		}		
 	}
 
@@ -163,12 +167,10 @@ public class EnviromentSetup extends Payloads{
 				.when()
 				.post(url+publicimportBOTresource)					
 				.then().log().all()
-				.extract().response();
-		Thread.sleep(60000);
+				.extract().response();		
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
 		collectappnbotdetails.put("streamRefId",responsejwtToken.jsonPath().get("streamRefId").toString()); 
-		collectappnbotdetails.put("bir_id",responsejwtToken.jsonPath().get("_id").toString());
-		  
+		collectappnbotdetails.put("bir_id",responsejwtToken.jsonPath().get("_id").toString());		  
 	}
 
 	@Test(priority = 7, enabled = true)

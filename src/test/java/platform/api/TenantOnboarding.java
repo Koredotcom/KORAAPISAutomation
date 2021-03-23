@@ -14,13 +14,14 @@ import java.util.LinkedHashMap;
 
 public class TenantOnboarding extends Payloads{
 
-	@Test(priority = 1, enabled = true)
+	@Test(priority = 15, enabled = true)
 	public static void createUser() {
 		try {
 			System.out.println("-01-----------------createUser  Tenant Onboarding---------------------------");
+			TimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
 			Response response = RestAssured
 					.given().headers(TenantOnboarding.HeadersWithAPIKey()).log().all() 
-					.body(TenantOnboarding.createUserPayLoad())
+					.body(TenantOnboarding.createUserPayLoad(TimeinHHMMSS))
 					.when()
 					.post(url+internalAccountResource)
 					.then().log().all()
@@ -32,14 +33,15 @@ public class TenantOnboarding extends Payloads{
 			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());	
 			System.out.println(collectappnbotdetails);
 			Assert.assertEquals(String.valueOf(response.getStatusCode()),"200");
-			
+			TimeinHHMMSS=null;
 		}catch(Exception e)
 		{
+			TimeinHHMMSS=null;
 			e.printStackTrace();
 		}		
 	}
 
-	@Test(priority = 2, enabled = true)
+	@Test(priority = 16, enabled = true)
 	public static void createAdminApp() {
 		try {						
 			System.out.println("---02---------------createAdminApp---------------------------");
@@ -69,7 +71,7 @@ public class TenantOnboarding extends Payloads{
 	/**
 	 * Token Gnerated with Admin is used for only Public APIS'
 	 */
-	@Test(priority = 3, enabled = true)
+	@Test(priority = 17, enabled = true)
 	public static void genereateJWTtoken()
 	{
 		System.out.println("-03--------genereateJWTtoken------------------"); 
@@ -90,7 +92,7 @@ public class TenantOnboarding extends Payloads{
 	 *  This  Steps depends on "configure as wf admin" step after Onboard env level user :: Here are not linking with any bot so we are skipping this step
 	 * @throws InterruptedException 
 	 */
-	@Test(priority = 4, enabled = true)
+	@Test(priority = 18, enabled = true)
 	public static void cloningSmapleBot() throws InterruptedException
 	{
 		System.out.println("-04--------cloning UB BOT------------------");
@@ -116,7 +118,7 @@ public class TenantOnboarding extends Payloads{
 		
 	}
 
-	@Test(priority = 5, enabled = true)
+	@Test(priority = 19, enabled = true)
 	public static void clonedBotSetup() throws InterruptedException
 	{
 		System.out.println("-05--------cloned BOT Setup------------------"); 
@@ -134,7 +136,7 @@ public class TenantOnboarding extends Payloads{
 	}
 
 
-	@Test(priority = 6, enabled = true)
+	@Test(priority = 20, enabled = true)
 	public static void createbuilderAppnforUB() throws InterruptedException
 	{
 		System.out.println("-06----------------------Create Non-Amin Builder app  for UB---------------------------"); 
@@ -155,7 +157,7 @@ public class TenantOnboarding extends Payloads{
 						
 	}
 
-	@Test(priority = 7, enabled = true)
+	@Test(priority = 21, enabled = true)
 	public static void enableRTMforUBbuilderAPP() throws InterruptedException
 	{
 		System.out.println("-07--------------------- enableRTM for UB bot builder app---------------------------"); 
@@ -173,7 +175,7 @@ public class TenantOnboarding extends Payloads{
 	}
 
 
-	@Test(priority = 8, enabled = true)
+	@Test(priority = 22, enabled = true)
 	public static void genereateJWTtokenUB_BuilderApp()
 	{
 		System.out.println("-----08---genereateJWTtokenUB_BuilderApp------------------"); 
@@ -193,7 +195,7 @@ public class TenantOnboarding extends Payloads{
 	/*
 	 * Setting up KORA BOT
 	 */
-	@Test(priority = 9, enabled = true)
+	@Test(priority = 23, enabled = true)
 	public static void uploadFile() throws InterruptedException
 	{
 		System.out.println("--09----------------uploadFile_botDef---------------------------");   
@@ -243,7 +245,7 @@ public class TenantOnboarding extends Payloads{
 		collectappnbotdetails.put("BotIcon_fileId",jsonPathEvaluatoradminboticon.get("fileId").toString()); 
 	}
 
-	@Test(priority = 10, enabled = true)
+	@Test(priority = 24, enabled = true)
 	public static void importBot() throws InterruptedException
 	{
 		System.out.println("-10--------------------------ImportBot------------------------------------"); 
@@ -262,7 +264,7 @@ public class TenantOnboarding extends Payloads{
 		
 	}
 
-	@Test(priority = 11, enabled = true)
+	@Test(priority = 25, enabled = true)
 	public static void importBotStatus() throws InterruptedException
 	{
 		System.out.println("-11----------------------ImportBot_Status---------------------------"); 
@@ -284,13 +286,12 @@ public class TenantOnboarding extends Payloads{
 			}
 		}
 		while (waitincreamentalLoop <= 5 || (!responseimportBotStatus.jsonPath().get("status").toString().equalsIgnoreCase("success"))) ;
-
 		collectappnbotdetails.put("importedBot_status",responseimportBotStatus.jsonPath().get("status").toString());
 		collectappnbotdetails.put("importedBot_streamId",responseimportBotStatus.jsonPath().get("streamId").toString());
 						
 	}
 
-	@Test(priority = 12, enabled = true)
+	@Test(priority = 26, enabled = true)
 	public static void createbuilderAppNONAdmin() throws InterruptedException
 	{
 		System.out.println("-12----------------------Create Non-Amin Builder app---------------------------"); 
@@ -311,7 +312,7 @@ public class TenantOnboarding extends Payloads{
 						
 	}
 
-	@Test(priority = 13, enabled = true)
+	@Test(priority = 27, enabled = true)
 	public static void enableRTM() throws InterruptedException
 	{
 		System.out.println("-13---------------------- enableRTM ---------------------------"); 
@@ -328,7 +329,7 @@ public class TenantOnboarding extends Payloads{
 			
 	}
 
-	@Test(priority = 14, enabled = true)
+	@Test(priority = 28, enabled = true)
 	public static void genereateJWTtokenbuilderapp()
 	{
 		System.out.println("14--------genereateJWTtokenbuilderapp------------------"); 
@@ -345,7 +346,7 @@ public class TenantOnboarding extends Payloads{
 		
 	}
 
-	@Test(priority = 15, enabled = true)
+	@Test(priority = 29, enabled = true)
 	public static void publishbotStandardBot() throws InterruptedException
 	{
 		System.out.println("--15--------------------- Publish Bot standard bot---------------------------");
@@ -362,7 +363,7 @@ public class TenantOnboarding extends Payloads{
 		Assert.assertEquals(String.valueOf(responsPublishBot.getStatusCode()),"200");			
 	}
 
-	@Test(priority = 16, enabled = true)
+	@Test(priority = 30, enabled = true)
 	public static void linkChildBot() throws InterruptedException
 	{
 		System.out.println("---16--------------------Linking Child bot to UB---------------------------"); 

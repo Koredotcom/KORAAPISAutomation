@@ -11,13 +11,14 @@ import java.util.LinkedHashMap;
 
 public class SearchSkill extends Payloads{
 
-	@Test(priority = 1, enabled = true)
+	@Test(priority = 49, enabled = true)
 	public static void createUser() {
 		try {
 			System.out.println("-01-----------------createUser SearchSkill---------------------------");
+			TimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
 			Response response = RestAssured
 					.given().headers(SearchSkill.HeadersWithAPIKey()).log().all() 
-					.body(SearchSkill.createUserPayLoad())
+					.body(SearchSkill.createUserPayLoad(TimeinHHMMSS))
 					.when()
 					.post(url+internalAccountResource)
 					.then().log().all()
@@ -27,14 +28,16 @@ public class SearchSkill extends Payloads{
 			collectappnbotdetails = new LinkedHashMap<String, String>();			
 			collectappnbotdetails.put("emailId", response.jsonPath().get("emailId").toString());			
 			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
-			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());			
+			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());
+			TimeinHHMMSS=null;
 		}catch(Exception e)
 		{
+			TimeinHHMMSS=null;
 			e.printStackTrace();
 		}		
 	}
 
-	@Test(priority = 2, enabled = true)
+	@Test(priority = 50, enabled = true)
 	public static void createAdminApp() {
 		try {						
 			System.out.println("---02---------------createAdminApp---------------------------");
@@ -61,7 +64,7 @@ public class SearchSkill extends Payloads{
 		}		
 	}
 
-	@Test(priority = 3, enabled = true)
+	@Test(priority = 51, enabled = true)
 	public static void genereateJWTtoken()
 	{
 		System.out.println("-03--------genereateJWTtoken------------------"); 
@@ -82,7 +85,7 @@ public class SearchSkill extends Payloads{
 	 *  This  Steps depends on "configure as wf admin" step after Onboard env level user :: Here are not linking with any bot so we are skipping this step
 	 * @throws InterruptedException 
 	 */
-	@Test(priority = 4, enabled = true)
+	@Test(priority = 52, enabled = true)
 	public static void cloningSmapleBot() throws InterruptedException
 	{	
 		System.out.println("-04--------cloning SearchSkill BOT------------------");
@@ -107,7 +110,7 @@ public class SearchSkill extends Payloads{
 		
 	}
 
-	@Test(priority = 5, enabled = true)
+	@Test(priority = 53, enabled = true)
 	public static void clonedBotSetup() throws InterruptedException
 	{
 		System.out.println("-05--------Setting SearchSkill BOT Setup------------------"); 
@@ -119,13 +122,13 @@ public class SearchSkill extends Payloads{
 				.put(url+"/api/public/bot/"+ collectappnbotdetails.get("clonnedBot_StreamID")+"/setup")  					
 				.then().log().all()
 				.extract().response();
-		Thread.sleep(50000);
+		Thread.sleep(5000);
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
 		System.out.println("Clonned bot Setup Status ::" +responsecloningSmapleBot.getStatusCode());	
 	}
 
 
-	@Test(priority = 6, enabled = true)
+	@Test(priority = 54, enabled = true)
 	public static void configuringENVvar() throws InterruptedException
 	{
 		if(collectappnbotdetails.get("clonnedBot_StreamID").equalsIgnoreCase("success"))
@@ -155,7 +158,7 @@ public class SearchSkill extends Payloads{
 
 	}
 	
-	@Test(priority = 7, enabled = true)
+	@Test(priority = 55, enabled = true)
 	public static void createbuilderAppnonAdmin() throws InterruptedException
 	{
 		System.out.println("-07----------------------Create Non-Amin Builder app----------importedBot_streamId-----------------"); 
@@ -176,7 +179,7 @@ public class SearchSkill extends Payloads{
 						
 	}
 
-	@Test(priority = 8, enabled = true)
+	@Test(priority = 56, enabled = true)
 	public static void enableWebHook() throws InterruptedException 
 	{
 		System.out.println("-08---------------------- enable WEBHOOK ------------importedBot_streamId---------------"); 
@@ -193,7 +196,7 @@ public class SearchSkill extends Payloads{
 		System.out.println(" Status code Enable WebHook "+responseadmin.jsonPath().get("status"));			
 	}
 
-	@Test(priority = 9, enabled = true)
+	@Test(priority = 57, enabled = true)
 	public static void publishbot() throws InterruptedException
 	{
 		System.out.println("--09-------------------- Publish Bot ---------------------------");
@@ -211,7 +214,7 @@ public class SearchSkill extends Payloads{
 	}
  
 
-	@Test(priority = 10, enabled = true)
+	@Test(priority = 58, enabled = true)
 	public static void getRole() throws InterruptedException
 	{
 		System.out.println("---10--------------------------Get Role------------------------------------"); 
@@ -246,7 +249,7 @@ public class SearchSkill extends Payloads{
 	 * As testing practice here Giving developer email address same everytime
 	 * ?? Here we have to give linked botID
 	 */
-	@Test(priority = 11, enabled = true)
+	@Test(priority = 59, enabled = true)
 	public static void AddingDeveloperasOwner() throws InterruptedException
 	{
 		System.out.println("-----11----------------------Adding Developer as Owner MAP to Owner------------------------------------"); 
@@ -272,7 +275,7 @@ public class SearchSkill extends Payloads{
 	}	 
 
 	
-	@Test(priority = 12, enabled = true)
+	@Test(priority = 60, enabled = true)
 	public static void genereateJWTtokenforNonAmdinApp()
 	{
 		System.out.println("------12---genereateJWTtoken for non Admin app------------------"); 
@@ -289,7 +292,7 @@ public class SearchSkill extends Payloads{
 				
 	}
 	
-	@Test(priority = 13, enabled = true)
+	@Test(priority = 61, enabled = true)
 	public static void triggerWebHook() throws InterruptedException
 	{
 		System.out.println("-13---------------------- trigger WebHook toEngage with bot ---------------------------"); 

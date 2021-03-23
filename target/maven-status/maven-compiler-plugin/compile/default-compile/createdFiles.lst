@@ -1,0 +1,5 @@
+platform/api/KnowledgeCollection.class
+platform/api/SearchSkill.class
+platform/api/TenantOnboarding.class
+platform/api/EnviromentSetup.class
+platform/api/Payloads.class

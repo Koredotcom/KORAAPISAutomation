@@ -1,0 +1,533 @@
+{
+    "name": "abiold",
+    "envVariables": [
+        {
+            "key": "AAEControlRoomBasePath",
+            "value": "https://abinbevbrasila.my.automationanywhere.digital",
+            "variableType": "env",
+            "hint": "Baser url for Automation Anywhere Control Room",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "ABI_DW_AzFunction_AppServerUrl",
+            "value": "https://nexthink-dw-functionapp-gb-prod.azurewebsites.net",
+            "variableType": "env",
+            "hint": "ABI Azure Function for the DW AIOPs.",
+            "scope": "prePopulated",
+            "group": "Azure Function",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AD_ONE_DomainName",
+            "value": "one.ofc.locc",
+            "variableType": "env",
+            "hint": "AD Name for ONE domain (ref: \"onPremisesDomainName\").",
+            "scope": "prePopulated",
+            "group": "Azure AD",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AEE_API_key",
+            "value": "`RM1,'y[urjC%u3KrZqSP='hTH=I&b?hXpAh6;G'",
+            "variableType": "env",
+            "hint": "The AAE apiKey for the API Authentication.",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AEE_API_serverUrl",
+            "value": "https://abinbevbrasila.my.automationanywhere.digital",
+            "variableType": "env",
+            "hint": "The AAE Server URL of the API.",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AEE_API_username",
+            "value": "kora@ab-inbev.com",
+            "variableType": "env",
+            "hint": "The AAE username for API Authentication.",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AEE_BOT_resetPasswordDeviceId",
+            "value": "13",
+            "variableType": "env",
+            "hint": "The Device Id for Reset Password Bot to run.",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AEE_BOT_resetPasswordFileId",
+            "value": "139",
+            "variableType": "env",
+            "hint": "The AAE File Id for the Reset Password BOT.",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AEE_BOT_resetPasswordUserId",
+            "value": "24",
+            "variableType": "env",
+            "hint": "The AAE runAsUserId for the SRV_GHQ_KORA Bot Runner user.",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AEE_BOT_unlockAccountDeviceId",
+            "value": "13",
+            "variableType": "env",
+            "hint": "The Device Id for Reset Password Bot to run (ONEAZRAP).",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AEE_BOT_unlockAccountFileId",
+            "value": "143",
+            "variableType": "env",
+            "hint": "The AAE File Id for the Unlock Account BOT.",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "AEE_BOT_unlockAccountUserId",
+            "value": "24",
+            "variableType": "env",
+            "hint": "The AAE runAsUserId for the Bot Runner user (SRV_GHQ_KORA).",
+            "scope": "prePopulated",
+            "group": "AAE",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "GraphAPI_mfaAPI",
+            "value": "https://graph.microsoft.com/beta/reports/credentialUserRegistrationDetails",
+            "variableType": "env",
+            "hint": "Graph API for getting MFA registration.",
+            "scope": "prePopulated",
+            "group": "Azure AD",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "GraphAPI_userProfileAPI",
+            "value": "https://graph.microsoft.com/v1.0/me/?$select=aboutMe,accountEnabled,ageGroup,assignedLicenses,assignedPlans,birthday,businessPhones,city,companyName,consentProvidedForMinor,country,createdDateTime,creationType,department,displayName,employeeId,faxNumber,givenName,hireDate,id,identities,imAddresses,interests,isResourceAccount,jobTitle,legalAgeGroupClassification,licenseAssignmentStates,lastPasswordChangeDateTime,mail,mailboxSettings,mailNickname,mobilePhone,mySite,officeLocation,onPremisesDistinguishedName,onPremisesDomainName,onPremisesExtensionAttributes,onPremisesImmutableId,onPremisesLastSyncDateTime,onPremisesProvisioningErrors,onPremisesSamAccountName,onPremisesSecurityIdentifier,onPremisesSyncEnabled,onPremisesUserPrincipalName,otherMails,passwordPolicies,passwordProfile,pastProjects,postalCode,preferredDataLocation,preferredLanguage,preferredName,provisionedPlans,proxyAddresses,responsibilities,schools,showInAddressList,signInSessionsValidFromDateTime,skills,state,streetAddress,surname,usageLocation,userPrincipalName,userType,calendar,calendarGroups,calendarView,calendars,contacts,contactFolders,createdObjects,directReports,drive,drives,events,inferenceClassification,mailFolders,manager,memberOf,messages,outlook,ownedDevices,ownedObjects,photo,registeredDevices",
+            "variableType": "env",
+            "hint": "Graph API - Get User Profile from Azure AD.",
+            "scope": "prePopulated",
+            "group": "Azure AD",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Kora_APIGetSSOToken",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6InNjLTA0ZTFmYjUwLTlmM2QtNWIwOC04Y2FlLTEwMDQ1MDQ2MTMwMyIsImlhdCI6MTUxNjIzOTAyMn0.iV9EE_GdWpKwQ8AkfGYkQsBo9hxBBxdVg436yInooVY",
+            "variableType": "env",
+            "hint": "Kora API needs an \"auth\" token in header to allow us to make requests, So this is where you set this token.",
+            "scope": "prePopulated",
+            "group": "Kora",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Kora_APIGetSSOUrl",
+            "value": "https://kora.kore.ai/api/public/skills/ks-cc984992-86aa-5243-bf3b-8b05cabe3c71/ssotoken",
+            "variableType": "env",
+            "hint": "endpoint to get kora user token to make requests to microsoft graph api.",
+            "scope": "prePopulated",
+            "group": "Kora",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Kora_APISendNotificationToken",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6InNjLTA0ZTFmYjUwLTlmM2QtNWIwOC04Y2FlLTEwMDQ1MDQ2MTMwMyIsImlhdCI6MTUxNjIzOTAyMn0.iV9EE_GdWpKwQ8AkfGYkQsBo9hxBBxdVg436yInooVY",
+            "variableType": "env",
+            "hint": "Kora API send notification needs an \"auth\" token in header to allow us to make requests, so this is where you set this token.",
+            "scope": "prePopulated",
+            "group": "Kora",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Kora_APISendNotificationUrl",
+            "value": "https://kora.kore.ai/api/public/skills/ks-cc984992-86aa-5243-bf3b-8b05cabe3c71/alert",
+            "variableType": "env",
+            "hint": "endpoint to send kora notifications to user",
+            "scope": "prePopulated",
+            "group": "Kora",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Kora_APIServerUrl",
+            "value": "https://kora.kore.ai",
+            "variableType": "env",
+            "hint": "The Kora public API server URL.",
+            "scope": "prePopulated",
+            "group": "Kora",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Kora_isProduction",
+            "value": "true",
+            "variableType": "env",
+            "hint": "Indicates if it is using Kora production.",
+            "scope": "prePopulated",
+            "group": "Kora",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Kora_testEnvironment",
+            "value": "true",
+            "variableType": "env",
+            "hint": "if we are testing things in KORA environment, set this to true",
+            "scope": "prePopulated",
+            "group": "Kora",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Kora_tokenMock",
+            "value": "eyJ0eXAiOiJKV1QiLCJub25jZSI6IjVab2t4RjN5V1VKU2VWNExjc2RvMzdWbTVWX1dUS0h2S08xWFZab1U2cHciLCJhbGciOiJSUzI1NiIsIng1dCI6IlNzWnNCTmhaY0YzUTlTNHRycFFCVEJ5TlJSSSIsImtpZCI6IlNzWnNCTmhaY0YzUTlTNHRycFFCVEJ5TlJSSSJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9jZWYwNGIxOS03Nzc2LTRhOTQtYjg5Yi0zNzVjNzdhOGY5MzYvIiwiaWF0IjoxNTkyMDg0NDc5LCJuYmYiOjE1OTIwODQ0NzksImV4cCI6MTU5MjA4ODM3OSwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFTUUEyLzhQQUFBQUwycC9vV3VxNmRRMGprdnVDZnRkcXVZa0ZldUl2bm5yNVppSkFJdndpZjA9IiwiYW1yIjpbInB3ZCJdLCJhcHBfZGlzcGxheW5hbWUiOiJHcmFwaCBleHBsb3JlciIsImFwcGlkIjoiZGU4YmM4YjUtZDlmOS00OGIxLWE4YWQtYjc0OGRhNzI1MDY0IiwiYXBwaWRhY3IiOiIwIiwiZmFtaWx5X25hbWUiOiJQaW5oZWlybyIsImdpdmVuX25hbWUiOiJEZW5pcyIsImlwYWRkciI6IjE4OS4xMy4yMzIuMTQxIiwibmFtZSI6IlBpbmhlaXJvLCBEZW5pcyhHTE9CQUwtVikiLCJvaWQiOiIxYTg3N2ZiMC02N2JhLTQxYjItODM0OC04NWYwMWIyMTI0Y2EiLCJvbnByZW1fc2lkIjoiUy0xLTUtMjEtMzcyMjM3MTU2OC0zMzA0NzkxNzcxLTI3Nzc1OTEyNDQtNDE0MjM1IiwicGxhdGYiOiIzIiwicHVpZCI6IjEwMDMyMDAwOTdDQ0MzQzMiLCJzY3AiOiJBY2Nlc3NSZXZpZXcuUmVhZC5BbGwgQWNjZXNzUmV2aWV3LlJlYWRXcml0ZS5BbGwgQWdyZWVtZW50LlJlYWQuQWxsIEFncmVlbWVudC5SZWFkV3JpdGUuQWxsIEFncmVlbWVudEFjY2VwdGFuY2UuUmVhZCBBZ3JlZW1lbnRBY2NlcHRhbmNlLlJlYWQuQWxsIEFuYWx5dGljcy5SZWFkIEFwcENhdGFsb2cuUmVhZFdyaXRlLkFsbCBDYWxlbmRhcnMuUmVhZFdyaXRlIENvbnRhY3RzLlJlYWQgQ29udGFjdHMuUmVhZC5TaGFyZWQgQ29udGFjdHMuUmVhZFdyaXRlIENvbnRhY3RzLlJlYWRXcml0ZS5TaGFyZWQgRGV2aWNlLkNvbW1hbmQgRGV2aWNlLlJlYWQgRGV2aWNlTWFuYWdlbWVudEFwcHMuUmVhZC5BbGwgRGV2aWNlTWFuYWdlbWVudEFwcHMuUmVhZFdyaXRlLkFsbCBEZXZpY2VNYW5hZ2VtZW50Q29uZmlndXJhdGlvbi5SZWFkLkFsbCBEZXZpY2VNYW5hZ2VtZW50Q29uZmlndXJhdGlvbi5SZWFkV3JpdGUuQWxsIERldmljZU1hbmFnZW1lbnRNYW5hZ2VkRGV2aWNlcy5Qcml2aWxlZ2VkT3BlcmF0aW9ucy5BbGwgRGV2aWNlTWFuYWdlbWVudE1hbmFnZWREZXZpY2VzLlJlYWQuQWxsIERldmljZU1hbmFnZW1lbnRNYW5hZ2VkRGV2aWNlcy5SZWFkV3JpdGUuQWxsIERldmljZU1hbmFnZW1lbnRSQkFDLlJlYWQuQWxsIERldmljZU1hbmFnZW1lbnRSQkFDLlJlYWRXcml0ZS5BbGwgRGV2aWNlTWFuYWdlbWVudFNlcnZpY2VDb25maWcuUmVhZC5BbGwgRGV2aWNlTWFuYWdlbWVudFNlcnZpY2VDb25maWcuUmVhZFdyaXRlLkFsbCBEaXJlY3RvcnkuQWNjZXNzQXNVc2VyLkFsbCBEaXJlY3RvcnkuUmVhZC5BbGwgRGlyZWN0b3J5LlJlYWRXcml0ZS5BbGwgRmlsZXMuUmVhZCBGaWxlcy5SZWFkV3JpdGUgRmlsZXMuUmVhZFdyaXRlLkFsbCBHcm91cC5SZWFkLkFsbCBHcm91cC5SZWFkV3JpdGUuQWxsIElkZW50aXR5Umlza0V2ZW50LlJlYWQuQWxsIE1haWwuUmVhZFdyaXRlIE1haWxib3hTZXR0aW5ncy5SZWFkV3JpdGUgTm90ZXMuUmVhZFdyaXRlLkFsbCBvcGVuaWQgUGVvcGxlLlJlYWQgUG9saWN5LlJlYWQuQWxsIFBvbGljeS5SZWFkV3JpdGUuQ29uZGl0aW9uYWxBY2Nlc3MgUG9saWN5LlJlYWRXcml0ZS5UcnVzdEZyYW1ld29yayBwcm9maWxlIFJlcG9ydHMuUmVhZC5BbGwgU2l0ZXMuUmVhZFdyaXRlLkFsbCBUYXNrcy5SZWFkV3JpdGUgVXNlci5SZWFkIFVzZXIuUmVhZC5BbGwgVXNlci5SZWFkQmFzaWMuQWxsIFVzZXIuUmVhZFdyaXRlIFVzZXIuUmVhZFdyaXRlLkFsbCBlbWFpbCIsInNpZ25pbl9zdGF0ZSI6WyJrbXNpIl0sInN1YiI6IlJuWEsyV3dyenQ4Q3diYkl6Y0dESWR3aWRmNVkwR09hYm5Cc2xNdHFPQjgiLCJ0ZW5hbnRfcmVnaW9uX3Njb3BlIjoiTkEiLCJ0aWQiOiJjZWYwNGIxOS03Nzc2LTRhOTQtYjg5Yi0zNzVjNzdhOGY5MzYiLCJ1bmlxdWVfbmFtZSI6IkRlbmlzLlBpbmhlaXJvLWV4dEBhYi1JbmJldi5jb20iLCJ1cG4iOiJEZW5pcy5QaW5oZWlyby1leHRAYWItSW5iZXYuY29tIiwidXRpIjoiMnk1c04wN19xRVd4OFM4Z1ZrQ09BQSIsInZlciI6IjEuMCIsInhtc19zdCI6eyJzdWIiOiJZdmhlZWZkd2pxaFoxRHJoTkFXYkN1bzY0ZTZWZThURm5BLW0zc0hmMVhFIn0sInhtc190Y2R0IjoxMzEzNTMxODM0fQ.qv9WmKtX2SD1ajheeLNEbKdl064wnbMWT1ZEBHzWlj_W8dx_NvnBqMU2NJiZArnkoBAkxi50a-wq-N_4i9L9Fm5N_FntVrOxWQ8_l5b_83aZhZDS_6u0PVBzNTtbLNjiV3NE9L_3NNJBgxP6M1lfQS4RxpVzXNXl9MNEDDmtbSM5cTMUTIPGyr8g8WkTMuf_FV99XGzH5o5GUMyT-TKFOr44x1DNPn0duXekMQMRYT9OjCTUkPgWPdzw3jsb2NCt2Q1xWMe2c8FlteGtWCykRYPXUTbViXvKnZlseAibw4s6Mb02ripsFvxJClKDwPRYTN0VoJYxTenCKuXO_a6R1A",
+            "variableType": "env",
+            "hint": "When using KorE environment, we will use this mock token. \nGet your token in graph explorer and paste it in this variable value.",
+            "scope": "prePopulated",
+            "group": "Kora",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Nexthink_actionDiskCleanUpUID",
+            "value": "a190ad5b-2921-3a0d-5dc4-bfa408b4feda",
+            "variableType": "env",
+            "hint": "Nexthink Disk Clean Up remote action UID.",
+            "scope": "prePopulated",
+            "group": "Nexthink",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Nexthink_actionRestartDeviceUID",
+            "value": "00aae534-f766-3151-9c51-4caa7502c550",
+            "variableType": "env",
+            "hint": "Nexthink Restart Device remote action UID.",
+            "scope": "prePopulated",
+            "group": "Nexthink",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Nexthink_authorizationCode",
+            "value": "a29yYS5pbnRlZ3JhdGlvbjpBQklAMjAyMA==",
+            "variableType": "env",
+            "hint": "Nexthink Integration authorization code.",
+            "scope": "prePopulated",
+            "group": "Nexthink",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Nexthink_nxqlApiUrl",
+            "value": "ab-inbev-engine-1.eu.nexthink.cloud",
+            "variableType": "env",
+            "hint": "Nexthink NXQL API URL (prefix for query)",
+            "scope": "prePopulated",
+            "group": "Nexthink",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Nexthink_nxqlGetDeviceListQuery",
+            "value": "%28select%20%28device_uid%29%20%28from%20device%20%28where%20device%20%28eq%20last_logged_on_user%20%28pattern%20%22Daniel.Manzato%2A%22%29%29%29%29%29",
+            "variableType": "env",
+            "hint": "NXQL query for the device list of the user.",
+            "scope": "prePopulated",
+            "group": "Nexthink",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Nexthink_platformApiUrl",
+            "value": "https://ab-inbev.eu.nexthink.cloud",
+            "variableType": "env",
+            "hint": "Nexthink Platform API URL",
+            "scope": "prePopulated",
+            "group": "Nexthink",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "RunDiskCleanUp_threshold",
+            "value": "53687091200",
+            "variableType": "env",
+            "hint": "Threshold (bytes) for Disk Clean Up suggestion (50G).",
+            "scope": "prePopulated",
+            "group": "Nexthink",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "RunRestartDevice_threshold",
+            "value": "5",
+            "variableType": "env",
+            "hint": "Threshold (days) for Device Restart suggestion.",
+            "scope": "prePopulated",
+            "group": "Nexthink",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "SNow_apiServerUrl",
+            "value": "https://abinbevwwqa.service-now.com",
+            "variableType": "env",
+            "hint": "ServiceNow API Server URL (does not ends with '/').",
+            "scope": "prePopulated",
+            "group": "ServiceNow",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "SNow_apiServerUrl_PROD",
+            "value": "https://abinbevww.service-now.com/",
+            "variableType": "env",
+            "hint": "url used to create requests in prod",
+            "scope": "prePopulated",
+            "group": "ServiceNow",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "SNow_defaultGSDGroupId",
+            "value": "ae969519db93d3c0bc3bd2b4ce9619cb",
+            "variableType": "env",
+            "hint": "Global Service Desk Group (sys_id). To be used as \"assignment_group\" param on SNow ticket creation.",
+            "scope": "prePopulated",
+            "group": "ServiceNow",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "SNow_koraUserId",
+            "value": "f567e558dbbcd4506ee970c4f39619ee",
+            "variableType": "env",
+            "hint": "Kora Integration User ID (sys_id). This is the default REQUESTOR user for the Snow Tickets.",
+            "scope": "prePopulated",
+            "group": "ServiceNow",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Snow_emailServicesCatId",
+            "value": "35c920fedb900090f17eb29f29961959",
+            "variableType": "env",
+            "hint": "The Snow Email Services catalog ID.",
+            "scope": "prePopulated",
+            "group": "ServiceNow",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "Snow_onSiteSupportCatId",
+            "value": "2b81966edb745c906ee970c4f396192c",
+            "variableType": "env",
+            "hint": "The Snow On Site Support request catalog ID.",
+            "scope": "prePopulated",
+            "group": "ServiceNow",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "debug",
+            "value": "true",
+            "variableType": "env",
+            "hint": "Debug flag",
+            "scope": "prePopulated",
+            "group": "Debug",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "groupNameResetPassword",
+            "value": "AADS_A_ALL_AzureSSPR",
+            "variableType": "env",
+            "hint": "Security Group for SSPR enablement - All Zones",
+            "scope": "prePopulated",
+            "group": "Azure AD",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "microsoftGraphChangePassword",
+            "value": "https://graph.microsoft.com/v1.0/me/",
+            "variableType": "env",
+            "hint": "link to access microsoft graph api to change the user password",
+            "scope": "prePopulated",
+            "group": "Azure AD",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "microsoftGraphGetGroups",
+            "value": "https://graph.microsoft.com/v1.0/me/memberOf",
+            "variableType": "env",
+            "hint": "Get groups and directory roles that the user is a direct member of.",
+            "scope": "prePopulated",
+            "group": "Azure AD",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "microsoftGraphMe",
+            "value": "https://graph.microsoft.com/v1.0/me/",
+            "variableType": "env",
+            "hint": "link to access microsoft graph api to get personal information about the user",
+            "scope": "prePopulated",
+            "group": "Azure AD",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "serviceNowAuthToken",
+            "value": "aW50ZWdyYXRpb24ua29yYTpBYmluYmV2QDIwMjA=",
+            "variableType": "env",
+            "hint": "",
+            "scope": "prePopulated",
+            "group": "ServiceNow",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "serviceNowUrl",
+            "value": "https://abinbevwwqa.service-now.com/api/now/v2/table/",
+            "variableType": "env",
+            "hint": "url used to create requests",
+            "scope": "prePopulated",
+            "group": "ServiceNow",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        },
+        {
+            "key": "userInfoServiceNowCountry",
+            "value": "BR_US_AR_MX",
+            "variableType": "env",
+            "hint": "Country service now",
+            "scope": "prePopulated",
+            "group": "Service now",
+            "vNameSpace": [
+                "84aba9d5-b76a-5beb-94ea-a42696bccb0f",
+                "5fa4af077bc00d1ae4982830"
+            ]
+        }
+    ]
+}

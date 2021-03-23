@@ -1,0 +1,165 @@
+{
+  "total": 3,
+  "availableMore": false,
+  "roles": [
+    {
+      "roleType": "bot",
+      "_id": "603fa5290212c3111c970282",
+      "role": "Bot Owner",
+      "rDesc": "Role of bot owners with full access to bot definition",
+      "permissions": {
+        "Tasks": [
+          "FULL"
+        ],
+        "Natural Language": [
+          "FULL"
+        ],
+        "Knowledge Graph": [
+          "FULL"
+        ],
+        "Batch Testing": [
+          "FULL"
+        ],
+        "Bot Developers": [
+          "FULL"
+        ],
+        "Bot Settings": [
+          "FULL"
+        ],
+        "Bot Import": [
+          "YES"
+        ],
+        "Extensions": [
+          "YES"
+        ],
+        "Bot Builder API Scopes": [
+          "YES"
+        ],
+        "Publish bot": [
+          "YES"
+        ],
+        "Channels": [
+          "YES"
+        ],
+        "Dashboard": [
+          "YES"
+        ],
+        "Bot Analytics": [
+          "YES"
+        ],
+        "Custom Dashboards": [
+          "FULL"
+        ],
+        "Storyboard": [
+          "FULL"
+        ]
+      }
+    },
+    {
+      "roleType": "bot",
+      "_id": "603fa5290212c3111c970283",
+      "role": "Bot Developer",
+      "rDesc": "Role for bot co-developers",
+      "permissions": {
+        "Tasks": [
+          "FULL"
+        ],
+        "Natural Language": [
+          "FULL"
+        ],
+        "Knowledge Graph": [
+          "FULL"
+        ],
+        "Batch Testing": [
+          "FULL"
+        ],
+        "Bot Developers": [
+          "VIEW"
+        ],
+        "Bot Settings": [
+          "FULL"
+        ],
+        "Bot Import": [
+          "YES"
+        ],
+        "Extensions": [
+          "YES"
+        ],
+        "Bot Builder API Scopes": [
+          "YES"
+        ],
+        "Publish bot": [
+          "YES"
+        ],
+        "Channels": [
+          "YES"
+        ],
+        "Dashboard": [
+          "YES"
+        ],
+        "Bot Analytics": [
+          "YES"
+        ],
+        "Custom Dashboards": [
+          "FULL"
+        ],
+        "Storyboard": [
+          "FULL"
+        ]
+      }
+    },
+    {
+      "roleType": "bot",
+      "_id": "603fa5290212c3111c970284",
+      "role": "Bot Tester",
+      "rDesc": "Role for bot testers with read-only access to bot definition",
+      "permissions": {
+        "Tasks": [
+          "VIEW"
+        ],
+        "Natural Language": [
+          "VIEW"
+        ],
+        "Knowledge Graph": [
+          "VIEW"
+        ],
+        "Batch Testing": [
+          "VIEW"
+        ],
+        "Bot Developers": [
+          "VIEW"
+        ],
+        "Bot Settings": [
+          "NO"
+        ],
+        "Bot Import": [
+          "NO"
+        ],
+        "Extensions": [
+          "NO"
+        ],
+        "Bot Builder API Scopes": [
+          "NO"
+        ],
+        "Publish bot": [
+          "NO"
+        ],
+        "Channels": [
+          "NO"
+        ],
+        "Dashboard": [
+          "YES"
+        ],
+        "Bot Analytics": [
+          "YES"
+        ],
+        "Custom Dashboards": [
+          "VIEW"
+        ],
+        "Storyboard": [
+          "VIEW"
+        ]
+      }
+    }
+  ]
+}

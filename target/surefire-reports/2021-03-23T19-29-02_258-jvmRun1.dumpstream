@@ -1,0 +1,376 @@
+# Created at 2021-03-23T19:29:26.060
+TestSet has not finished before stream error has appeared >> initializing exit by non-null configuration: DEFAULT
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.maven.surefire.booter.MasterProcessCommand.decode(MasterProcessCommand.java:115)
+	at org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:390)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+# Created at 2021-03-23T19:29:26.381
+Unexpected IOException with stream: {emailId=korausr192919@usr192919.com, accountId=6059f439c38b1378efc99bd5, userId=u-37d327cc-8f26-55b5-93ff-831add7b15c0}
+
+# Created at 2021-03-23T19:29:26.382
+Unexpected IOException with stream: 
+
+
+# Created at 2021-03-23T19:29:26.383
+Unexpected IOException: 6,1,platform.api.TenantOnboarding,createUser(platform.api.TenantOnboarding),null,null,null
+
+
+# Created at 2021-03-23T19:29:26.385
+Unexpected IOException: 5,1,platform.api.KnowledgeCollection,createUser(platform.api.KnowledgeCollection),platform.api.KnowledgeCollection,null,null
+
+
+# Created at 2021-03-23T19:29:26.386
+Unexpected IOException with stream: -01-----------------createUser Knowledge Collection---------------------------
+
+
+# Created at 2021-03-23T19:29:26.412
+Unexpected IOException with stream: Request method:	POST
+Request URI:	https://koradev-bots.kora.ai/api/internal/account
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		apikey=ydsjyderjdzfwhhM3wQkjhsfiaHqSBxTpc4XXOP7v/rHdPYfD
+				User-Agent=KoreAssistant
+				Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:
+{
+    "emailId": "korausr192926@usr192926.com",
+    "firstName": "koraFname192926",
+    "lastName": "Admin user",
+    "isFromBt": "true",
+    "refererPath": "botbuilder",
+    "displayName": "koraqa2 com Admin user",
+    "password": "Kore@12345"
+}
+
+
+# Created at 2021-03-23T19:29:28.609
+Unexpected IOException with stream: HTTP/1.1 200 OK
+Server: Kore
+Date: Tue, 23 Mar 2021 13:59:28 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 1088
+Connection: keep-alive
+Vary: X-HTTP-Method-Override
+X-Frame-Options: sameorigin
+Content-Security-Policy: frame-ancestors 'self'
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Expires: -1
+Pragma: no-cache, no-store
+Cache-Control: no-cache, no-store
+Strict-Transport-Security: max-age=31536000; includeSubdomains;
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Expires: -1
+Pragma: no-cache
+Strict-Transport-Security: max-age=31536000; includeSubdomains;
+Content-Security-Policy: frame-ancestors https://*.kora.ai https://*.kore.ai
+X-Response-Time: 0.086
+X-Request-Start: 1616507968.436
+
+{
+    "emailId": "korausr192926@usr192926.com",
+    "firstName": "koraFname192926",
+    "lastName": "Admin user",
+    "isFromBt": "true",
+    "refererPath": "botbuilder",
+    "displayName": "koraqa2 com Admin user",
+    "password": {
+        "p": "8gak4wBDB8KZAWNuWHn+u0495SrFwFZKgCmUcF3zpgU=",
+        "s": "3e8.K5D5PyIXxSKW4ciQ45jobu+w5eeczvnn14tQhfwgRfQ="
+    },
+    "licenseId": "6059f440c38b1378efc99be5",
+    "licenseBotsId": "botsworkforce0",
+    "orgId": "o-3453255e-977c-5380-86a5-48e3683649c3",
+    "status": "active",
+    "accountName": "korausr192926@usr192926.com",
+    "enableDebugInfo": true,
+    "organization": "o-3453255e-977c-5380-86a5-48e3683649c3",
+    "domain": "korausr192926@usr192926.com",
+    "botOrgId": "o-3453255e-977c-5380-86a5-48e3683649c3",
+    "allowedDomains": [
+        "usr192926.com"
+    ],
+    "accountId": "6059f440c38b1378efc99be4",
+    "staticLicense": "botsworkforce0",
+    "makeConsentPolicyAccept": false,
+    "sourceType": "Self SignUp",
+    "orgDomain": "korausr192926@usr192926.com",
+    "searchVisibility": false,
+    "userId": "u-78eb5b62-b6d9-5890-8cf8-d9e15fdbb299",
+    "profileImage": "no-avatar",
+    "profileColour": "#2e8b57",
+    "isBTAccessAllowed": true,
+    "requestType": "createProfile",
+    "accountType": "Standard",
+    "productName": "Bots"
+}
+
+
+# Created at 2021-03-23T19:29:33.663
+Unexpected IOException with stream: {emailId=korausr192926@usr192926.com, accountId=6059f440c38b1378efc99be4, userId=u-78eb5b62-b6d9-5890-8cf8-d9e15fdbb299}
+
+# Created at 2021-03-23T19:29:33.671
+Unexpected IOException with stream: 
+
+
+# Created at 2021-03-23T19:29:33.672
+Unexpected IOException: 6,1,platform.api.KnowledgeCollection,createUser(platform.api.KnowledgeCollection),null,null,null
+
+
+# Created at 2021-03-23T19:29:33.673
+Unexpected IOException: 5,1,platform.api.SearchSkill,createUser(platform.api.SearchSkill),platform.api.SearchSkill,null,null
+
+
+# Created at 2021-03-23T19:29:33.674
+Unexpected IOException with stream: -01-----------------createUser SearchSkill---------------------------
+
+
+# Created at 2021-03-23T19:29:33.680
+Unexpected IOException with stream: Request method:	POST
+Request URI:	https://koradev-bots.kora.ai/api/internal/account
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		apikey=ydsjyderjdzfwhhM3wQkjhsfiaHqSBxTpc4XXOP7v/rHdPYfD
+				User-Agent=KoreAssistant
+				Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:
+{
+    "emailId": "korausr192933@usr192933.com",
+    "firstName": "koraFname192933",
+    "lastName": "Admin user",
+    "isFromBt": "true",
+    "refererPath": "botbuilder",
+    "displayName": "koraqa2 com Admin user",
+    "password": "Kore@12345"
+}
+
+
+# Created at 2021-03-23T19:29:35.858
+Unexpected IOException with stream: HTTP/1.1 200 OK
+Server: Kore
+Date: Tue, 23 Mar 2021 13:59:35 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 1088
+Connection: keep-alive
+Vary: X-HTTP-Method-Override
+X-Frame-Options: sameorigin
+Content-Security-Policy: frame-ancestors 'self'
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Expires: -1
+Pragma: no-cache, no-store
+Cache-Control: no-cache, no-store
+Strict-Transport-Security: max-age=31536000; includeSubdomains;
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Expires: -1
+Pragma: no-cache
+Strict-Transport-Security: max-age=31536000; includeSubdomains;
+Content-Security-Policy: frame-ancestors https://*.kora.ai https://*.kore.ai
+X-Response-Time: 0.132
+X-Request-Start: 1616507975.642
+
+{
+    "emailId": "korausr192933@usr192933.com",
+    "firstName": "koraFname192933",
+    "lastName": "Admin user",
+    "isFromBt": "true",
+    "refererPath": "botbuilder",
+    "displayName": "koraqa2 com Admin user",
+    "password": {
+        "p": "wqS+9Vhx4m/t2Unp+UaWzjt4vz21izF37MujJshM/QI=",
+        "s": "3e8.+gyO+BWihbGb2CIw+JmziLQIK5y8+RMLeWjyARgaeEw="
+    },
+    "licenseId": "6059f447c38b1378efc99bf3",
+    "licenseBotsId": "botsworkforce0",
+    "orgId": "o-cf1e09e2-df74-5d96-b8c5-f091a1d2621c",
+    "status": "active",
+    "accountName": "korausr192933@usr192933.com",
+    "enableDebugInfo": true,
+    "organization": "o-cf1e09e2-df74-5d96-b8c5-f091a1d2621c",
+    "domain": "korausr192933@usr192933.com",
+    "botOrgId": "o-cf1e09e2-df74-5d96-b8c5-f091a1d2621c",
+    "allowedDomains": [
+        "usr192933.com"
+    ],
+    "accountId": "6059f447c38b1378efc99bf2",
+    "staticLicense": "botsworkforce0",
+    "makeConsentPolicyAccept": false,
+    "sourceType": "Self SignUp",
+    "orgDomain": "korausr192933@usr192933.com",
+    "searchVisibility": false,
+    "userId": "u-373d5565-39e4-55a2-a21e-5e803e965be2",
+    "profileImage": "no-avatar",
+    "profileColour": "#ff4500",
+    "isBTAccessAllowed": true,
+    "requestType": "createProfile",
+    "accountType": "Standard",
+    "productName": "Bots"
+}
+
+
+# Created at 2021-03-23T19:29:40.900
+Unexpected IOException: 6,1,platform.api.SearchSkill,createUser(platform.api.SearchSkill),null,null,null
+
+
+# Created at 2021-03-23T19:29:40.909
+Unexpected IOException: 5,1,platform.api.EnviromentSetup,createAdminApp(platform.api.EnviromentSetup),platform.api.EnviromentSetup,null,null
+
+
+# Created at 2021-03-23T19:29:40.910
+Unexpected IOException with stream: ---02---------------createAdminApp---------------------------
+
+
+# Created at 2021-03-23T19:29:40.916
+Unexpected IOException with stream: Request method:	POST
+Request URI:	https://koradev-bots.kora.ai/api/internal/clientapp
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		apikey=ydsjyderjdzfwhhM3wQkjhsfiaHqSBxTpc4XXOP7v/rHdPYfD
+				User-Agent=KoreAssistant
+				Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:
+{
+    "appName": "AdminApp192933",
+    "accountId": "6059f447c38b1378efc99bf2",
+    "userId": "u-373d5565-39e4-55a2-a21e-5e803e965be2",
+    "pns": {
+        "enable": false,
+        "webhookUrl": ""
+    },
+    "bots": [
+        
+    ],
+    "state": 0,
+    "algorithm": "HS256",
+    "isAdminApp": true,
+    "__v": 0,
+    "scope": [
+        {
+            "scopes": [
+                "bot_definition:bot_import",
+                "bot_definition:bot_export",
+                "bot_definition:bot_create",
+                "bot_publish:publish_request",
+                "test_and_train:ml",
+                "test_and_train:faq",
+                "test_and_train:ml_import",
+                "test_and_train:ml_export",
+                "logs:change_logs",
+                "logs:admin_console_audit_logs",
+                "role_management:role_management",
+                "delete:delete_user_data",
+                "chat_history:read",
+                "bot_sessions:read",
+                "user_management:user_management",
+                "custom_dashboards:custom_dashboards",
+                "knowledge_graph:knowledge_graph",
+                "channel_management:channel_management",
+                "botkit:botkit",
+                "master_admin:master_admin"
+            ]
+        }
+    ]
+}
+
+
+# Created at 2021-03-23T19:29:42.760
+Unexpected IOException with stream: HTTP/1.1 200 OK
+Server: Kore
+Date: Tue, 23 Mar 2021 13:59:42 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 1084
+Connection: keep-alive
+Vary: X-HTTP-Method-Override
+X-Frame-Options: sameorigin
+Content-Security-Policy: frame-ancestors 'self'
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Expires: -1
+Pragma: no-cache, no-store
+Cache-Control: no-cache, no-store
+Strict-Transport-Security: max-age=31536000; includeSubdomains;
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Expires: -1
+Pragma: no-cache
+Strict-Transport-Security: max-age=31536000; includeSubdomains;
+Content-Security-Policy: frame-ancestors https://*.kora.ai https://*.kore.ai
+X-Response-Time: 0.033
+X-Request-Start: 1616507982.584
+
+{
+    "pns": {
+        "enable": false
+    },
+    "bots": [
+        
+    ],
+    "scope": [
+        {
+            "scopes": [
+                "bot_definition:bot_import",
+                "bot_definition:bot_export",
+                "bot_definition:bot_create",
+                "bot_publish:publish_request",
+                "test_and_train:ml",
+                "test_and_train:faq",
+                "test_and_train:ml_import",
+                "test_and_train:ml_export",
+                "logs:change_logs",
+                "logs:admin_console_audit_logs",
+                "role_management:role_management",
+                "delete:delete_user_data",
+                "chat_history:read",
+                "bot_sessions:read",
+                "user_management:user_management",
+                "custom_dashboards:custom_dashboards",
+                "knowledge_graph:knowledge_graph",
+                "channel_management:channel_management",
+                "botkit:botkit",
+                "master_admin:master_admin"
+            ]
+        }
+    ],
+    "createdOn": "2021-03-23T13:59:42.568Z",
+    "lastModified": "2021-03-23T13:59:42.568Z",
+    "state": 0,
+    "_id": "6059f44e506b787949aa5a92",
+    "cId": "cs-68a0f6ca-2c5a-5c6e-9af6-35dd858f783f",
+    "cS": "sc9s2JwtODKfHJjURMkOmqCo7iHiqwJBvxmH2XnsHb4=",
+    "name": "AdminApp192933",
+    "alg": "HS256",
+    "nId": "u-373d5565-39e4-55a2-a21e-5e803e965be2",
+    "createdBy": "u-373d5565-39e4-55a2-a21e-5e803e965be2",
+    "lModBy": "u-373d5565-39e4-55a2-a21e-5e803e965be2",
+    "isAdminApp": true,
+    "accountId": "6059f447c38b1378efc99bf2",
+    "__v": 0
+}
+
+

@@ -1,0 +1,156 @@
+{
+    "name": "KoraBot",
+    "envVariables": [
+        {
+            "key": "KACalendarFormat",
+            "value": "{\n                sameDay: '[today] h:mm a',\n                nextDay: '[tomorrow] h:mm a',\n                nextWeek: 'dddd h:mm a',\n                lastDay: '[yesterday] h:mm a',\n                lastWeek: '[last] dddd h:mm a',\n                sameElse: 'dddd, MMMM Do, h:mm a'\n            }",
+            "variableType": "env",
+            "hint": "The calendar format to be used with moment.js calendar() function which includes the time.",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KACalendarFormatDateOnly",
+            "value": "{\n                sameDay: '[today]',\n                nextDay: '[tomorrow]',\n                nextWeek: 'dddd MMM DD',\n                lastDay: '[yesterday]',\n                lastWeek: '[last] dddd',\n                sameElse: 'dddd MMM DD'\n            }",
+            "variableType": "env",
+            "hint": "The calendar format without time to be used with moment.js calendar() function",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KADefaultUser",
+            "value": "{\n\"accessToken\":\"adtW6zm5azbe-UwgWPRWlObMX1GX9s96_OguQnZPqpIZu7UZAhHDCJ0YlhpGcFFN\",\n\"userId\" :\"u-c8c4ff53-e9b4-5471-ae83-e5a896cbbbf1\",\n\"appControlList\" : {\n            \"ENABLE_MOBILE_APP\": 1,\n            \"ENABLE_SYSTEM_TRAY\": 1,\n            \"ENABLE_BROWSER_PLUGIN\": 1,\n            \"ENABLE_MEETINGS\": 1,\n            \"ENABLE_TASK\": 1,\n            \"ENABLE_KNOWLEDGE\": 1,\n            \"ENABLE_ANNOUNCEMENT\": 1,\n            \"ENABLE_EMAIL\": 1,\n            \"ENABLE_DRIVE\": 1,\n            \"ENABLE_SKILL\": 1\n        }\n}",
+            "variableType": "env",
+            "hint": "preferable to use SetTestUser in dev botbuilder",
+            "scope": "prePopulated",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KAMeetingDuration",
+            "value": "30",
+            "variableType": "env",
+            "hint": "default meeting duration in minutes",
+            "scope": "prePopulated",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KAPossibleThreshold",
+            "value": "0.5",
+            "variableType": "env",
+            "hint": "ML threshold to trigger a possible intent match. Used in default dialog disambiguation",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KAProbableThreshold",
+            "value": "0.7",
+            "variableType": "env",
+            "hint": "ML threshold to trigger a probable intent match. Used in default dialog disambiguation",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KAPromptThreshold",
+            "value": "0.3",
+            "variableType": "env",
+            "hint": "ML threshold to trigger a prompting of intents. Used in default dialog disambiguation",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KARecentMeetingTTL",
+            "value": "15",
+            "variableType": "env",
+            "hint": "The TTL in BotUserSession for a meeting recently created by a user.",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KARecentTime",
+            "value": "10080",
+            "variableType": "env",
+            "hint": "Number of minutes to consider recent, 10080 minutes == 7 days",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KAServerBaseURL",
+            "value": "https://qa-app.kora.ai/api/1.1",
+            "variableType": "env",
+            "hint": "Environment specific Kore Assistant server URL.  https://qa-app..kora.ai/api/1.1",
+            "scope": "prePopulated",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KASlotsLimit",
+            "value": "10",
+            "variableType": "env",
+            "hint": "The limit for number of slots returned for availability check",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KATimezone",
+            "value": "America/New_York",
+            "variableType": "env",
+            "hint": "Default time zone",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KAWorkDayEnd",
+            "value": "T22:00",
+            "variableType": "env",
+            "hint": "Default end of the work day",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        },
+        {
+            "key": "KAWorkDayStart",
+            "value": "T07:00",
+            "variableType": "env",
+            "hint": "Default start time of a work day",
+            "scope": "prePopulated",
+            "group": "",
+            "vNameSpace": [
+                "5fa4aeff7bc00d1ae4981d4e"
+            ]
+        }
+    ]
+}

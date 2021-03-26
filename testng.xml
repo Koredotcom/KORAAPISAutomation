@@ -5,9 +5,9 @@
   <parameter name="Enviroment" value="https://koradev-bots.kora.ai"/>
     <classes>
      <class name="platform.api.EnviromentSetup"/>
-     <class name="platform.api.TenantOnboarding"/>
+    <!--  <class name="platform.api.TenantOnboarding"/>
       <class name="platform.api.KnowledgeCollection"/>
-      <class name="platform.api.SearchSkill"/>          
+      <class name="platform.api.SearchSkill"/>  -->         
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

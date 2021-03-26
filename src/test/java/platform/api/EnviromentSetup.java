@@ -106,7 +106,7 @@ public class EnviromentSetup extends Payloads{
 	/*
 	 * Setting up KORA BOT
 	 */
-	@Test(priority = 5, enabled = true)
+	/*@Test(priority = 5, enabled = true)
 	public static void uploadFile() throws InterruptedException
 	{
 		System.out.println("--05----------------uploadFile_botDef---------------------------");   
@@ -335,9 +335,9 @@ public class EnviromentSetup extends Payloads{
 		collectappnbotdetails.put("Dev_role_id",DeveloperRole_id); 				  
 	}
 
-	/*
+	
 	 * As testing practice here Giving developer email address same everytime
-	 */
+	 
 	@Test(priority = 14, enabled = true)
 	public static void AddingDeveloperasOwner() throws InterruptedException
 	{		
@@ -360,6 +360,6 @@ public class EnviromentSetup extends Payloads{
 		}else {
 			System.out.println(responseAddingDeveloperasOwner);
 		}
-	}
+	}*/
 
 }

@@ -15,10 +15,10 @@ public class SearchSkill extends Payloads{
 	public static void createUser() {
 		try {
 			System.out.println("-01-----------------createUser SearchSkill---------------------------");
-			TimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
+			String ssTimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
 			Response response = RestAssured
 					.given().headers(SearchSkill.HeadersWithAPIKey()).log().all() 
-					.body(SearchSkill.createUserPayLoad(TimeinHHMMSS))
+					.body(SearchSkill.createUserPayLoad(ssTimeinHHMMSS))
 					.when()
 					.post(url+internalAccountResource)
 					.then().log().all()
@@ -28,11 +28,9 @@ public class SearchSkill extends Payloads{
 			collectappnbotdetails = new LinkedHashMap<String, String>();			
 			collectappnbotdetails.put("emailId", response.jsonPath().get("emailId").toString());			
 			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
-			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());
-			TimeinHHMMSS=null;
+			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());			
 		}catch(Exception e)
 		{
-			TimeinHHMMSS=null;
 			e.printStackTrace();
 		}		
 	}
@@ -57,9 +55,10 @@ public class SearchSkill extends Payloads{
 			collectappnbotdetails.put("nId", responsecreateAdminApp.jsonPath().get("nId").toString());	
 			collectappnbotdetails.put("accountId", responsecreateAdminApp.jsonPath().get("accountId").toString());
 			collectappnbotdetails.put("userId", responsecreateAdminApp.jsonPath().get("nId").toString());
-			
+			TimeinHHMMSS=null;
 		}catch(Exception e)
 		{
+			TimeinHHMMSS=null;
 			e.printStackTrace();
 		}		
 	}
@@ -74,7 +73,7 @@ public class SearchSkill extends Payloads{
 				.body(SearchSkill.genereateJWTtokenPayLoad(collectappnbotdetails.get("cId"),collectappnbotdetails.get("cS"),collectappnbotdetails.get("nId")))
 				.when()
 				.post(urljwtTokenGenerater)					
-				.then().log().all()
+				.then()
 				.extract().response();			
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
 		collectappnbotdetails.put("jwt",responsejwtToken.jsonPath().get("jwt").toString());				
@@ -99,9 +98,9 @@ public class SearchSkill extends Payloads{
 		Response responsecloningSmapleBot = RestAssured.
 				given()
 				.headers(SearchSkill.headersforcloneBotpayLoad(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("userId"), collectappnbotdetails.get("accountId")))				
-				.when().log().all()  
+				.when()  
 				.get(url+"/api/public/samplebots/"+cloningbot+"/add")  //hrere  ubVersion=1 wont be there 					
-				.then().log().all()
+				.then()
 				.extract().response();
 		Thread.sleep(10000);
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
@@ -118,9 +117,9 @@ public class SearchSkill extends Payloads{
 				given()
 				.headers(SearchSkill.HeaderswithJWTnAccountID(collectappnbotdetails.get("jwt"), collectappnbotdetails.get("accountId")))				
 				.body(SearchSkill.clonedBot_SetuppayLoad(collectappnbotdetails.get("clonnedBotName")))
-				.when().log().all()  
+				.when()  
 				.put(url+"/api/public/bot/"+ collectappnbotdetails.get("clonnedBot_StreamID")+"/setup")  					
-				.then().log().all()
+				.then()
 				.extract().response();
 		Thread.sleep(5000);
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
@@ -140,7 +139,7 @@ public class SearchSkill extends Payloads{
 					.body(SearchSkill.configuringENVvarforSearviceNowpayLoad())
 					.when()
 					.put(url+publicEnableSdk+collectappnbotdetails.get("clonnedBot_StreamID")+"/setup")					
-					.then().log().all()
+					.then()
 					.extract().response();		
 			Assert.assertEquals(String.valueOf(responseconfiguringENVvar.getStatusCode()),"200");
 			System.out.println("configure environment variable Status" +"::"+ responseconfiguringENVvar.getStatusCode()+responseconfiguringENVvar.getStatusLine());
@@ -185,7 +184,7 @@ public class SearchSkill extends Payloads{
 		System.out.println("-08---------------------- enable WEBHOOK ------------importedBot_streamId---------------"); 
 		Response responseadmin = RestAssured.
 				given()
-				.headers(SearchSkill.HeadersWithJWTToken(collectappnbotdetails.get("jwt"))).log().all()
+				.headers(SearchSkill.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))
 				.body(SearchSkill.enableWebHookpayLoad(collectappnbotdetails.get("clonnedBot_StreamID"),collectappnbotdetails.get("BuilderApp_Name"),collectappnbotdetails.get("BuilderApp_sdkClientId"))) 
 				.when()
 				.post(url+publicEnableTRMChannelsResource)					
@@ -206,7 +205,7 @@ public class SearchSkill extends Payloads{
 				.body(SearchSkill.publishbotPayload()).log().all() 
 				.when().log().all()
 				.post(url+publicEnableSdk+collectappnbotdetails.get("clonnedBot_StreamID")+"/publish")					
-				.then().log().all()
+				.then()
 				.extract().response();	
 		Thread.sleep(10000);
 		Assert.assertEquals(String.valueOf(responsPublishBot.getStatusCode()),"200");
@@ -220,10 +219,10 @@ public class SearchSkill extends Payloads{
 		System.out.println("---10--------------------------Get Role------------------------------------"); 
 		Response responsegetRole = RestAssured.
 				given()
-				.headers(SearchSkill.HeadersWithJWTToken(collectappnbotdetails.get("jwt"))).log().all()				
+				.headers(SearchSkill.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))				
 				.when()
 				.get(url+publicGetRolesResource)					
-				.then().log().all()
+				.then()
 				.extract().response();		
 		Assert.assertEquals(String.valueOf(responsegetRole.getStatusCode()),"200");
 		JsonPath jp = responsegetRole.jsonPath();	
@@ -283,9 +282,9 @@ public class SearchSkill extends Payloads{
 				given()
 				.headers(SearchSkill.HeadersWithAPIKey())
 				.body(SearchSkill.genereateJWTtokenPayLoad(collectappnbotdetails.get("BuilderApp_sdkClientId"),collectappnbotdetails.get("BuilderApp_cS"),collectappnbotdetails.get("BuilderApp_UserId")))
-				.when().log().all()
+				.when()
 				.post(urljwtTokenGenerater)					
-				.then().log().all()
+				.then()
 				.extract().response();					
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
 		collectappnbotdetails.put("builderApp_jwt",responsejwtToken.jsonPath().get("jwt").toString());

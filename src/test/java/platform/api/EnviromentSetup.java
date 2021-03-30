@@ -16,10 +16,11 @@ public class EnviromentSetup extends Payloads{
 	public static void createUser() {
 		try {
 			System.out.println("-01-----------------createUser in Env setup---------------------------");
-			TimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
+			String sTimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
+			System.out.println("Timing of Creating new Env "+sTimeinHHMMSS);
 			Response response = RestAssured
 					.given().headers(EnviromentSetup.HeadersWithAPIKey()) 
-					.body(EnviromentSetup.createUserPayLoad(TimeinHHMMSS))
+					.body(EnviromentSetup.createUserPayLoad(sTimeinHHMMSS))
 					.when()
 					.post(url+internalAccountResource)
 					.then().log().all()
@@ -31,10 +32,10 @@ public class EnviromentSetup extends Payloads{
 			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
 			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());				  
 			System.out.println(collectappnbotdetails);
-			TimeinHHMMSS=null;
+		
 		}catch(Exception e)
 		{
-			TimeinHHMMSS=null;
+		
 			e.printStackTrace();
 			
 		}		
@@ -61,8 +62,10 @@ public class EnviromentSetup extends Payloads{
 			collectappnbotdetails.put("accountId", responseadmin.jsonPath().get("accountId").toString());
 			collectappnbotdetails.put("userId", responseadmin.jsonPath().get("nId").toString());
 			System.out.println(collectappnbotdetails);
+			TimeinHHMMSS=null;
 		}catch(Exception e)
 		{
+			TimeinHHMMSS=null;
 			e.printStackTrace();
 		}		
 	}
@@ -77,7 +80,7 @@ public class EnviromentSetup extends Payloads{
 				.body(EnviromentSetup.genereateJWTtokenPayLoad(collectappnbotdetails.get("cId"),collectappnbotdetails.get("cS"),collectappnbotdetails.get("nId")))
 				.when()
 				.post(urljwtTokenGenerater)					
-				.then().log().all()
+				.then()
 				.extract().response();			
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
 		collectappnbotdetails.put("jwt",responsejwtToken.jsonPath().get("jwt").toString());				
@@ -120,7 +123,7 @@ public class EnviromentSetup extends Payloads{
 				.multiPart(botdeffile).multiPart("fileContext", "bulkImport")
 				.when()
 				.post(url+publicuploadFile)					
-				.then().log().all()
+				.then()
 				.extract().response();				
 		Thread.sleep(10000);
 		Assert.assertEquals(String.valueOf(responsejwtTokenbotdef.getStatusCode()),"200");
@@ -134,7 +137,7 @@ public class EnviromentSetup extends Payloads{
 				.multiPart(configfile).multiPart("fileContext", "bulkImport")
 				.when()
 				.post(url+publicuploadFile)					
-				.then().log().all()
+				.then()
 				.extract().response();				
 		Thread.sleep(5000);	
 		Assert.assertEquals(String.valueOf(responsejwtTokenbotconfg.getStatusCode()),"200");
@@ -148,7 +151,7 @@ public class EnviromentSetup extends Payloads{
 				.multiPart(iconfile).multiPart("fileContext", "bulkImport")
 				.when()
 				.post(url+publicuploadFile)					
-				.then().log().all()
+				.then()
 				.extract().response();				
 		Thread.sleep(5000);		
 		Assert.assertEquals(String.valueOf(responsejwtTokenboticon.getStatusCode()),"200");
@@ -166,7 +169,7 @@ public class EnviromentSetup extends Payloads{
 				.body(EnviromentSetup.importBotPayLoad(collectappnbotdetails.get("BotDef_fileId"),collectappnbotdetails.get("BotConfig_fileId"),collectappnbotdetails.get("BotIcon_fileId")))
 				.when()
 				.post(url+publicimportBOTresource)					
-				.then().log().all()
+				.then() 
 				.extract().response();		
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
 		collectappnbotdetails.put("streamRefId",responsejwtToken.jsonPath().get("streamRefId").toString()); 
@@ -181,11 +184,11 @@ public class EnviromentSetup extends Payloads{
 		Response responseimportBotStatus = RestAssured.
 				given()
 				.headers(EnviromentSetup.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))				
-				.when().log().all()
+				.when()
 				.get(url+publicimportBOTstatus+collectappnbotdetails.get("bir_id"))				
-				.then().log().all()
+				.then()
 				.extract().response();
-		Assert.assertEquals(String.valueOf(responseimportBotStatus.getStatusCode()),"200");
+		
 		waitincreamentalLoop=1;
 		doloop: do {
 			waitincreamentalLoop++;
@@ -196,7 +199,8 @@ public class EnviromentSetup extends Payloads{
 			}
 		}
 		while (waitincreamentalLoop <= 5 || (!responseimportBotStatus.jsonPath().get("status").toString().equalsIgnoreCase("success"))) ;
-		collectappnbotdetails.put("importedBot_status",responseimportBotStatus.jsonPath().get("status").toString());
+		Assert.assertEquals(String.valueOf(responseimportBotStatus.getStatusCode()),"200");
+		collectappnbotdetails.put("importedBot_status",responseimportBotStatus.jsonPath().get("status").toString());		
 		collectappnbotdetails.put("importedBot_streamId",responseimportBotStatus.jsonPath().get("streamId").toString());
 		  
 	}
@@ -242,7 +246,7 @@ public class EnviromentSetup extends Payloads{
 				.body(EnviromentSetup.createbuilderAppnonAdminpayLoad(collectappnbotdetails.get("importedBot_streamId"),collectappnbotdetails.get("accountId"),collectappnbotdetails.get("userId")))
 				.when()
 				.post(url+internalClientappResource)					
-				.then().log().all()
+				.then()
 				.extract().response();	
 		Thread.sleep(5000);
 		Assert.assertEquals(String.valueOf(responsbuilderapp.getStatusCode()),"200");		
@@ -280,7 +284,7 @@ public class EnviromentSetup extends Payloads{
 				.body(EnviromentSetup.genereateJWTtokenPayLoad(collectappnbotdetails.get("BuilderApp_sdkClientId"),collectappnbotdetails.get("BuilderApp_cS"),collectappnbotdetails.get("BuilderApp_UserId")))
 				.when()
 				.post(urljwtTokenGenerater)					
-				.then().log().all()
+				.then()
 				.extract().response();			
 
 		Assert.assertEquals(String.valueOf(responsegenereateJWTtokenforNonAmdinApp.getStatusCode()),"200");
@@ -295,7 +299,7 @@ public class EnviromentSetup extends Payloads{
 		Response responsPublishBot = RestAssured.
 				given()
 				.headers(EnviromentSetup.Headersforpublishbot(collectappnbotdetails.get("jwt")))
-				.body(EnviromentSetup.publishbotPayload()).log().all() 
+				.body(EnviromentSetup.publishbotPayload()) 
 				.when()
 				.post(url+publicEnableSdk+collectappnbotdetails.get("importedBot_streamId")+"/publish")					
 				.then()
@@ -315,7 +319,7 @@ public class EnviromentSetup extends Payloads{
 				.headers(EnviromentSetup.HeadersWithJWTToken(collectappnbotdetails.get("jwt"))).log().all()				
 				.when()
 				.get(url+publicGetRolesResource)					
-				.then().log().all()
+				.then() 
 				.extract().response();		
 		Assert.assertEquals(String.valueOf(responsegetRole.getStatusCode()),"200");
 		JsonPath jp = responsegetRole.jsonPath();	
@@ -335,11 +339,7 @@ public class EnviromentSetup extends Payloads{
 		collectappnbotdetails.put("Dev_role_id",DeveloperRole_id); 				  
 	}
 
-	
-	 /**
-	  * @description : As testing practice here Giving developer email address same everytime
-	  * @throws InterruptedException
-	  */
+		
 	 
 	@Test(priority = 14, enabled = true)
 	public static void AddingDeveloperasOwner() throws InterruptedException
@@ -359,7 +359,7 @@ public class EnviromentSetup extends Payloads{
 		String MaptoMomainrsponse=responseAddingDeveloperasOwner.jsonPath().get("msg");
 		if(MaptoMomainrsponse.contains(developeremailaddress +"user created successfully"))
 		{
-			System.out.println(developeremailaddress +":: user created successfully as added as developer");
+			System.out.println(developeremailaddress.toString() +":: user created successfully as added as developer");
 		}else {
 			System.out.println(responseAddingDeveloperasOwner);
 		}

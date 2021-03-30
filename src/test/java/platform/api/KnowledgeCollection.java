@@ -15,10 +15,10 @@ public class KnowledgeCollection extends Payloads{
 	public static void createUser() {
 		try {
 			System.out.println("-01-----------------createUser Knowledge Collection---------------------------");
-			TimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
+			String kTimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
 			Response response = RestAssured
 					.given().headers(KnowledgeCollection.HeadersWithAPIKey()) 
-					.body(KnowledgeCollection.createUserPayLoad(TimeinHHMMSS))
+					.body(KnowledgeCollection.createUserPayLoad(kTimeinHHMMSS))
 					.when()
 					.post(url+internalAccountResource)
 					.then().log().all()
@@ -30,10 +30,10 @@ public class KnowledgeCollection extends Payloads{
 			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
 			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());				  
 			System.out.println(collectappnbotdetails);
-			TimeinHHMMSS=null;
+			
 		}catch(Exception e)
 		{
-			TimeinHHMMSS=null;
+			
 			e.printStackTrace();
 			
 		}		
@@ -59,9 +59,11 @@ public class KnowledgeCollection extends Payloads{
 			collectappnbotdetails.put("nId", responseadmin.jsonPath().get("nId").toString());	
 			collectappnbotdetails.put("accountId", responseadmin.jsonPath().get("accountId").toString());
 			collectappnbotdetails.put("userId", responseadmin.jsonPath().get("nId").toString());
-			System.out.println(collectappnbotdetails);			
+			System.out.println(collectappnbotdetails);		
+			TimeinHHMMSS=null;
 		}catch(Exception e)
 		{
+			TimeinHHMMSS=null;
 			e.printStackTrace();
 		}		
 	}
@@ -76,7 +78,7 @@ public class KnowledgeCollection extends Payloads{
 				.body(KnowledgeCollection.genereateJWTtokenPayLoad(collectappnbotdetails.get("cId"),collectappnbotdetails.get("cS"),collectappnbotdetails.get("nId")))
 				.when()
 				.post(urljwtTokenGenerater)					
-				.then().log().all()
+				.then()
 				.extract().response();			
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
 		collectappnbotdetails.put("jwt",responsejwtToken.jsonPath().get("jwt").toString());				
@@ -103,7 +105,7 @@ public class KnowledgeCollection extends Payloads{
 				.headers(KnowledgeCollection.headersforcloneBotpayLoad(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("userId"), collectappnbotdetails.get("accountId")))				
 				.when().log().all()  
 				.get(url+"/api/public/samplebots/"+cloningbot+"/add")  //hrere  ubVersion=1 wont be there 					
-				.then().log().all()
+				.then() 
 				.extract().response();
 		Thread.sleep(10000);
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
@@ -120,9 +122,9 @@ public class KnowledgeCollection extends Payloads{
 				given()
 				.headers(KnowledgeCollection.HeaderswithJWTnAccountID(collectappnbotdetails.get("jwt"), collectappnbotdetails.get("accountId")))				
 				.body(KnowledgeCollection.clonedBot_SetuppayLoad(collectappnbotdetails.get("clonnedBotName")))
-				.when().log().all()  
+				.when()  
 				.put(url+"/api/public/bot/"+ collectappnbotdetails.get("clonnedBot_StreamID")+"/setup")  					
-				.then().log().all()
+				.then()
 				.extract().response();
 		Thread.sleep(5000);
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBotsetup.getStatusCode()),"200");
@@ -136,11 +138,11 @@ public class KnowledgeCollection extends Payloads{
 		System.out.println("-06----------------------Create Non-Amin Builder app----------importedBot_streamId-----------------"); 
 		Response responsbuilderapp = RestAssured.
 				given()
-				.headers(KnowledgeCollection.HeadersWithAPIKey()).log().all()
+				.headers(KnowledgeCollection.HeadersWithAPIKey())
 				.body(KnowledgeCollection.createbuilderAppnonAdminpayLoad(collectappnbotdetails.get("clonnedBot_StreamID"),collectappnbotdetails.get("accountId"),collectappnbotdetails.get("userId")))
 				.when()
 				.post(url+internalClientappResource)					
-				.then().log().all()
+				.then()
 				.extract().response();	
 		Thread.sleep(5000);
 		Assert.assertEquals(String.valueOf(responsbuilderapp.getStatusCode()),"200");		
@@ -157,7 +159,7 @@ public class KnowledgeCollection extends Payloads{
 		System.out.println("-07---------------------- enableRTM ------------importedBot_streamId---------------"); 
 		Response responseadmin = RestAssured.
 				given()
-				.headers(KnowledgeCollection.HeadersWithJWTToken(collectappnbotdetails.get("jwt"))).log().all()
+				.headers(KnowledgeCollection.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))
 				.body(KnowledgeCollection.enableRTMpayLoad(collectappnbotdetails.get("clonnedBot_StreamID"),collectappnbotdetails.get("BuilderApp_Name"),collectappnbotdetails.get("BuilderApp_sdkClientId"))) 
 				.when()
 				.post(url+publicEnableTRMChannelsResource)					
@@ -175,10 +177,10 @@ public class KnowledgeCollection extends Payloads{
 		System.out.println("--8--------------------------Get Role------------------------------------"); 
 		Response responsegetRole = RestAssured.
 				given()
-				.headers(KnowledgeCollection.HeadersWithJWTToken(collectappnbotdetails.get("jwt"))).log().all()				
+				.headers(KnowledgeCollection.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))				
 				.when()
 				.get(url+publicGetRolesResource)					
-				.then().log().all()
+				.then()
 				.extract().response();		
 		Assert.assertEquals(String.valueOf(responsegetRole.getStatusCode()),"200");
 		JsonPath jp = responsegetRole.jsonPath();	
@@ -213,7 +215,7 @@ public class KnowledgeCollection extends Payloads{
 				.body(KnowledgeCollection.addDeveloperpayLoad(developeremailaddress,collectappnbotdetails.get("Dev_role_id"), collectappnbotdetails.get("clonnedBot_StreamID")))  
 				.when()
 				.post(url+publicadminasUBDevResource)					
-				.then().log().all()
+				.then()
 				.extract().response();
 		Thread.sleep(5000);
 		Assert.assertEquals(String.valueOf(responseAddingDeveloperasOwner.getStatusCode()),"200");
@@ -233,7 +235,7 @@ public class KnowledgeCollection extends Payloads{
 		System.out.println("-10--------------------------Extract FAQ's ------------------------------------"); 
 		Response responseExtractFAQs = RestAssured.
 				given()
-				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt"))).log().all()
+				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))
 				.body(KnowledgeCollection.ExtractFAQsPayload())
 				.when()
 				.post(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/qna/import?language=en")					
@@ -252,7 +254,7 @@ public class KnowledgeCollection extends Payloads{
 		Response responseGetQsofExtract = RestAssured.
 				given()
 				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))				
-				.when().log().all()
+				.when()
 				.get(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/qna/"+collectappnbotdetails.get("KE_ID")+"/questions?language=en")	 				
 				.then().log().all()
 				.extract().response();		
@@ -301,7 +303,7 @@ public class KnowledgeCollection extends Payloads{
 					given()
 					.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))
 					.body(KnowledgeCollection.AddQstoCollectionPayload(collectappnbotdetails.get("Q"+numberofQs+"_Question"),collectappnbotdetails.get("Q"+numberofQs+"_answer"), collectappnbotdetails.get("KT_ID"),collectappnbotdetails.get("clonnedBot_StreamID"),collectappnbotdetails.get("Q"+numberofQs+"_id")))
-					.when().log().all()
+					.when()
 					.post(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/faqs/bulk?language=en")					
 					.then().log().all()
 					.extract().response();		
@@ -327,9 +329,9 @@ public class KnowledgeCollection extends Payloads{
 				given()
 				.headers(KnowledgeCollection.Headersforpublishbot(collectappnbotdetails.get("jwt")))
 				.body(KnowledgeCollection.publishbotPayload()).log().all() 
-				.when().log().all()
+				.when()
 				.post(url+publicEnableSdk+collectappnbotdetails.get("clonnedBot_StreamID")+"/publish")					
-				.then().log().all()
+				.then()
 				.extract().response();	
 		Thread.sleep(10000);
 		Assert.assertEquals(String.valueOf(responsPublishBot.getStatusCode()),"200");
@@ -342,7 +344,7 @@ public class KnowledgeCollection extends Payloads{
 		System.out.println("--15-------------------------GET FAQ's Collection------------------------------------"); 
 		Response responseGetFAQsCollection = RestAssured.
 				given()
-				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt"))).log().all()				
+				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))				
 				.when()
 				.get(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/faqs?ktId="+collectappnbotdetails.get("KT_ID")+"&parentId=idPrefix21&limit=50&offset=0&rnd=n3bfxo&withallchild=true&type=all&language=en")					
 				.then().log().all()
@@ -359,10 +361,10 @@ public class KnowledgeCollection extends Payloads{
 		System.out.println("---16------------------------GET EXTRACTION OF COLLECTION------------------------------------"); 
 		Response responseGetExtractsofCollection = RestAssured.
 				given()
-				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt"))).log().all()				
+				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))				
 				.when()
 				.get(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/qna/history?language=en")					
-				.then().log().all()
+				.then()
 				.extract().response();			  
 		Assert.assertEquals(String.valueOf(responseGetExtractsofCollection.getStatusCode()),"200");
 		JsonPath jp = responseGetExtractsofCollection.jsonPath();		
@@ -386,9 +388,9 @@ public class KnowledgeCollection extends Payloads{
 				given()
 				.headers(KnowledgeCollection.HeadersWithAPIKey())
 				.body(KnowledgeCollection.genereateJWTtokenPayLoad(collectappnbotdetails.get("BuilderApp_sdkClientId"),collectappnbotdetails.get("BuilderApp_cS"),collectappnbotdetails.get("BuilderApp_UserId")))
-				.when().log().all()
+				.when()
 				.post(urljwtTokenGenerater)					
-				.then().log().all()
+				.then()
 				.extract().response();						
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");		
 		collectappnbotdetails.put("builderApp_jwt",responsejwtToken.jsonPath().get("jwt").toString());

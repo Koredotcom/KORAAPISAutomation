@@ -18,10 +18,10 @@ public class TenantOnboarding extends Payloads{
 	public static void createUser() {
 		try {
 			System.out.println("-01-----------------createUser  Tenant Onboarding---------------------------");
-			TimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
+			String toTimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
 			Response response = RestAssured
-					.given().headers(TenantOnboarding.HeadersWithAPIKey()).log().all() 
-					.body(TenantOnboarding.createUserPayLoad(TimeinHHMMSS))
+					.given().headers(TenantOnboarding.HeadersWithAPIKey()) 
+					.body(TenantOnboarding.createUserPayLoad(toTimeinHHMMSS))
 					.when()
 					.post(url+internalAccountResource)
 					.then().log().all()
@@ -32,11 +32,9 @@ public class TenantOnboarding extends Payloads{
 			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
 			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());	
 			System.out.println(collectappnbotdetails);
-			Assert.assertEquals(String.valueOf(response.getStatusCode()),"200");
-			TimeinHHMMSS=null;
+			Assert.assertEquals(String.valueOf(response.getStatusCode()),"200");			
 		}catch(Exception e)
-		{
-			TimeinHHMMSS=null;
+		{			
 			e.printStackTrace();
 		}		
 	}
@@ -47,7 +45,7 @@ public class TenantOnboarding extends Payloads{
 			System.out.println("---02---------------createAdminApp---------------------------");
 			Response responseadmin = RestAssured.
 					given()
-					.headers(TenantOnboarding.HeadersWithAPIKey()).log().all()
+					.headers(TenantOnboarding.HeadersWithAPIKey())
 					.body(TenantOnboarding.createAdminAPPPayLoad(collectappnbotdetails.get("accountId"),collectappnbotdetails.get("userId")))
 					.when()
 					.post(url+internalClientappResource)					
@@ -62,8 +60,10 @@ public class TenantOnboarding extends Payloads{
 			collectappnbotdetails.put("userId", responseadmin.jsonPath().get("nId").toString());
 			Assert.assertEquals(String.valueOf(responseadmin.getStatusCode()),"200");
 			System.out.println(collectappnbotdetails);
+			TimeinHHMMSS=null;
 		}catch(Exception e)
 		{
+			TimeinHHMMSS=null;
 			e.printStackTrace();
 		}		
 	}
@@ -77,7 +77,7 @@ public class TenantOnboarding extends Payloads{
 		System.out.println("-03--------genereateJWTtoken------------------"); 
 		Response responsejwtToken = RestAssured.
 				given()
-				.headers(TenantOnboarding.HeadersWithAPIKey()).log().all()
+				.headers(TenantOnboarding.HeadersWithAPIKey())
 				.body(TenantOnboarding.genereateJWTtokenPayLoad(collectappnbotdetails.get("cId"),collectappnbotdetails.get("cS"),collectappnbotdetails.get("nId")))
 				.when()
 				.post(urljwtTokenGenerater)					
@@ -109,7 +109,7 @@ public class TenantOnboarding extends Payloads{
 				.headers(TenantOnboarding.headersforcloneBotpayLoad(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("userId"), collectappnbotdetails.get("accountId")))				
 				.when()  
 				.get(url+"/api/public/samplebots/"+cloningbot+"/add?ubVersion=1")   					
-				.then().log().all()
+				.then()
 				.extract().response();		
 		Thread.sleep(5000);
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
@@ -128,7 +128,7 @@ public class TenantOnboarding extends Payloads{
 				.body(TenantOnboarding.clonedBot_SetuppayLoad(collectappnbotdetails.get("clonnedBotName")))
 				.when()  
 				.put(url+"/api/public/bot/"+ collectappnbotdetails.get("clonnedBot_StreamID")+"/setup")  					
-				.then().log().all()
+				.then()
 				.extract().response();	
 		Thread.sleep(5000);
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
@@ -163,7 +163,7 @@ public class TenantOnboarding extends Payloads{
 		System.out.println("-07--------------------- enableRTM for UB bot builder app---------------------------"); 
 		Response responseenableRTMforUBbuilderAPP = RestAssured.
 				given()
-				.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt"))).log().all()
+				.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))
 				.body(TenantOnboarding.enableRTMpayLoad(collectappnbotdetails.get("clonnedBot_StreamID"),collectappnbotdetails.get("UB_BuilderApp_Name"),collectappnbotdetails.get("UB_BuilderApp_sdkClientId"))) 
 				.when()
 				.post(url+publicEnableTRMChannelsResource)					
@@ -181,11 +181,11 @@ public class TenantOnboarding extends Payloads{
 		System.out.println("-----08---genereateJWTtokenUB_BuilderApp------------------"); 
 		Response responsejwtToken = RestAssured.
 				given()
-				.headers(TenantOnboarding.HeadersWithAPIKey()).log().all()
+				.headers(TenantOnboarding.HeadersWithAPIKey())
 				.body(TenantOnboarding.genereateJWTtokenPayLoad(collectappnbotdetails.get("UB_BuilderApp_sdkClientId"),collectappnbotdetails.get("UB_BuilderApp_cS"),collectappnbotdetails.get("UB_BuilderApp_UserId")))
 				.when()
 				.post(urljwtTokenGenerater)					
-				.then().log().all()
+				.then()
 				.extract().response();			
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
 		collectappnbotdetails.put("UB_BuilderAPP_jwt",responsejwtToken.jsonPath().get("jwt").toString());
@@ -213,7 +213,7 @@ public class TenantOnboarding extends Payloads{
 				.multiPart(botdeffile).multiPart("fileContext", "bulkImport")
 				.when()
 				.post(url+publicuploadFile)					
-				.then().log().all()
+				.then()
 				.extract().response();				
 		Thread.sleep(10000);
 		Assert.assertEquals(String.valueOf(responseuploadFile.getStatusCode()),"200");													
@@ -226,7 +226,7 @@ public class TenantOnboarding extends Payloads{
 				.multiPart(configfile).multiPart("fileContext", "bulkImport")
 				.when()
 				.post(url+publicuploadFile)					
-				.then().log().all()
+				.then()
 				.extract().response();				
 		Thread.sleep(5000);														
 		collectappnbotdetails.put("BotConfig_fileId",responsejwtTokenbotconfg.jsonPath().get("fileId").toString()); 
@@ -238,7 +238,7 @@ public class TenantOnboarding extends Payloads{
 				.multiPart(iconfile).multiPart("fileContext", "bulkImport")
 				.when()
 				.post(url+publicuploadFile)					
-				.then().log().all()
+				.then()
 				.extract().response();				
 		Thread.sleep(5000);		
 		JsonPath jsonPathEvaluatoradminboticon= responsejwtTokenboticon.jsonPath();											
@@ -271,9 +271,9 @@ public class TenantOnboarding extends Payloads{
 		Response responseimportBotStatus = RestAssured.
 				given()
 				.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))				
-				.when().log().all()
+				.when()
 				.get(url+publicimportBOTstatus+collectappnbotdetails.get("bir_id"))				
-				.then().log().all()
+				.then()
 				.extract().response();
 		Assert.assertEquals(String.valueOf(responseimportBotStatus.getStatusCode()),"200");		
 		waitincreamentalLoop=1;
@@ -297,7 +297,7 @@ public class TenantOnboarding extends Payloads{
 		System.out.println("-12----------------------Create Non-Amin Builder app---------------------------"); 
 		Response responsbuilderapp = RestAssured.
 				given()
-				.headers(TenantOnboarding.HeadersWithAPIKey()).log().all()
+				.headers(TenantOnboarding.HeadersWithAPIKey())
 				.body(TenantOnboarding.createbuilderAppnonAdminpayLoad(collectappnbotdetails.get("importedBot_streamId"),collectappnbotdetails.get("accountId"),collectappnbotdetails.get("userId")))
 				.when()
 				.post(url+internalClientappResource)					
@@ -318,7 +318,7 @@ public class TenantOnboarding extends Payloads{
 		System.out.println("-13---------------------- enableRTM ---------------------------"); 
 		Response responseadmin = RestAssured.
 				given()
-				.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt"))).log().all()
+				.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))
 				.body(TenantOnboarding.enableRTMpayLoad(collectappnbotdetails.get("importedBot_streamId"),collectappnbotdetails.get("BuilderApp_Name"),collectappnbotdetails.get("BuilderApp_sdkClientId"))) 
 				.when()
 				.post(url+publicEnableTRMChannelsResource)					
@@ -335,11 +335,11 @@ public class TenantOnboarding extends Payloads{
 		System.out.println("14--------genereateJWTtokenbuilderapp------------------"); 
 		Response responsejwtToken = RestAssured.
 				given()
-				.headers(TenantOnboarding.HeadersWithAPIKey()).log().all()
+				.headers(TenantOnboarding.HeadersWithAPIKey())
 				.body(TenantOnboarding.genereateJWTtokenPayLoad(collectappnbotdetails.get("BuilderApp_sdkClientId"),collectappnbotdetails.get("BuilderApp_cS"),collectappnbotdetails.get("BuilderApp_UserId")))
 				.when()
 				.post(urljwtTokenGenerater)					
-				.then().log().all()
+				.then()
 				.extract().response();			
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
 		collectappnbotdetails.put("builderApp_jwt",responsejwtToken.jsonPath().get("jwt").toString());
@@ -353,7 +353,7 @@ public class TenantOnboarding extends Payloads{
 		Response responsPublishBot = RestAssured.
 				given()
 				.headers(TenantOnboarding.Headersforpublishbot(collectappnbotdetails.get("jwt")))
-				.body(TenantOnboarding.publishbotPayload()).log().all() 
+				.body(TenantOnboarding.publishbotPayload()) 
 				.when()
 				.post(url+publicEnableSdk+collectappnbotdetails.get("importedBot_streamId")+"/publish")					
 				.then()
@@ -369,8 +369,8 @@ public class TenantOnboarding extends Payloads{
 		System.out.println("---16--------------------Linking Child bot to UB---------------------------"); 
 		Response responseadmin = RestAssured.
 				given()
-				.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("UB_BuilderAPP_jwt"))).log().all()
-				.body(TenantOnboarding.linkChildBotpayLoad(collectappnbotdetails.get("importedBot_streamId"),"KoraBot",collectappnbotdetails.get("builderApp_jwt"))).log().all()
+				.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("UB_BuilderAPP_jwt")))
+				.body(TenantOnboarding.linkChildBotpayLoad(collectappnbotdetails.get("importedBot_streamId"),"KoraBot",collectappnbotdetails.get("builderApp_jwt")))
 				.when().log().all()
 				.post(url+"/api/public/bot/"+collectappnbotdetails.get("clonnedBot_StreamID")+"/universalbot/link")			 		
 				.then().log().all()

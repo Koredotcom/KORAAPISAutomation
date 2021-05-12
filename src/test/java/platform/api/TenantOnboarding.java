@@ -59,7 +59,7 @@ public class TenantOnboarding extends Payloads{
 		}		
 	}
 
-	/*@Test(priority = 16, enabled = true)
+	@Test(priority = 16, enabled = true)
 	public static void createAdminAppinTenantOnboarding() {
 		try {						
 			System.out.println("---02---------------createAdminApp---------------------------");
@@ -90,9 +90,9 @@ public class TenantOnboarding extends Payloads{
 		}		
 	}
 
-	*//**
+	/**
 	 * Token Gnerated with Admin is used for only Public APIS'
-	 *//*
+	 */
 	@Test(priority = 17, enabled = true)
 	public static void genereateJWTtokeninTenantOnboarding()
 	{
@@ -115,11 +115,11 @@ public class TenantOnboarding extends Payloads{
 		}
 	}
 
-	*//**
+	/**
 	 * 
 	 *  This  Steps depends on "configure as wf admin" step after Onboard env level user :: Here are not linking with any bot so we are skipping this step
 	 * @throws InterruptedException 
-	 *//*
+	 */
 	@Test(priority = 18, enabled = true)
 	public static void cloningSmapleBotinTenantOnboarding() throws InterruptedException
 	{
@@ -247,7 +247,7 @@ public class TenantOnboarding extends Payloads{
 	}
 
 	
-	 * Setting up KORA BOT
+	// * Setting up KORA BOT
 	 
 	@Test(priority = 23, enabled = true)
 	public static void uploadFileinTenantOnboarding() throws InterruptedException
@@ -480,6 +480,6 @@ public class TenantOnboarding extends Payloads{
 			e.printStackTrace();
 		}
 
-	}*/
+	}
 
 }

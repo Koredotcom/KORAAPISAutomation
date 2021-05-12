@@ -60,7 +60,7 @@ public class EnviromentSetup extends Payloads{
 		}		
 	}
 
-		/*@Test(priority = 2, enabled = true)
+		@Test(priority = 2, enabled = true)
 		public static void createAdminAppinEnviromentSetup() {
 			try {						
 				System.out.println("---02---------------createAdminApp---------------------------");
@@ -114,10 +114,10 @@ public class EnviromentSetup extends Payloads{
 			}
 		}
 	
-		*//**
+		/**
 		 * 
 		 *  This  Steps depends on "configure as wf admin" step after Onboard env level user :: Here are not linking with any bot so we are skipping this step
-		 *//*
+		 */
 		//	@Test(priority = 4, enabled = true)
 		//	public static void cloningSmapleBotinEnviromentSetup()
 		//	{
@@ -134,9 +134,9 @@ public class EnviromentSetup extends Payloads{
 		//		//
 		//	}
 	
-		
+		/*
 		 * Setting up KORA BOT
-		 
+		 */
 		@Test(priority = 5, enabled = true)
 		public static void uploadFileinEnviromentSetup() throws InterruptedException
 		{
@@ -458,5 +458,5 @@ public class EnviromentSetup extends Payloads{
 				Assert.fail();
 				e.printStackTrace();
 			}
-		}*/
+		}
 }

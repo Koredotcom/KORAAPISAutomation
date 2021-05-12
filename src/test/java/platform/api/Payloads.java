@@ -102,11 +102,11 @@ public class Payloads {
 			writer = new BufferedWriter(new FileWriter(file));
 			writer.write(
 					"<html><head></head>");
-			writer.write("<body><h2>Platfrom API Autmation Daily Execution Reports</h2></body>");
-			writer.write("<body> <table> <table border='1'> <tr> <th> <b>Exection Enviroment	</b> </th> <td> "+executingENV+" </td> <tr> <th><b>URL</b> </th> <td><font color=\"blue\"><u>"+Payloads.url+"</u></font></td> </tr> </body>");
+			writer.write("<body><h2>Platform API Automation Daily Execution Reports</h2></body>");
+			writer.write("<body> <table> <table border='1'> <tr> <th> <b>Environment	</b> </th> <td> "+executingENV+" </td> <tr> <th><b>URL</b> </th> <td><font color=\"blue\"><u>"+Payloads.url+"</u></font></td> </tr> </body>");
 			writer.write("<body><h2> </h2></body>");
 			writer.write("<table> </table>");
-			writer.write("<body>  <table>   <table border='1'>    <tr>     <th>Feature_Name</th>     <th>Pass</th>     <th>Fail</th>     <th>Total</th>    </tr>    <tr>     <td>Enviroment_Setup</td>     <td><font color=\"green\">"+ENV_passcount+"</font>      </td>     <td><font color=\"red\">"+ENV_failcount+"</font>      </td>     <td>"+ENV_total+"</td>    </tr>    <tr>     <td>TenantOnboarding</td>     <td><font color=\"green\">"+Tenant_passcount+"</font>      </td>     <td><font color=\"red\">"+Tenant_failcount+"</font>      </td>     <td>"+Tenant_total+"</td>    </tr>    <tr>     <td>Knowledge_Collection</td>     <td><font color=\"green\">"+KC_passcount+"</font>      </td>     <td><font color=\"red\">"+KC_failcount+"</font>      </td>     <td>"+KC_total+"</td>    </tr>    <tr>     <td>Search_Skill</td>     <td><font color=\"green\">"+SS_passcount+"</font>      </td>     <td><font color=\"red\">"+SS_failcount+"</font>      </td>     <td>"+SS_total+"</td>    </tr> </body>");						
+			writer.write("<body>  <table>   <table border='1'>    <tr>     <th>Feature_Name</th>     <th>Pass</th>     <th>Fail</th>     <th>Total</th>    </tr>    <tr>     <td>Environment_Setup</td>     <td><font color=\"green\">"+ENV_passcount+"</font>      </td>     <td><font color=\"red\">"+ENV_failcount+"</font>      </td>     <td>"+ENV_total+"</td>    </tr>    <tr>     <td>Tenant_Onboarding</td>     <td><font color=\"green\">"+Tenant_passcount+"</font>      </td>     <td><font color=\"red\">"+Tenant_failcount+"</font>      </td>     <td>"+Tenant_total+"</td>    </tr>    <tr>     <td>Knowledge_Collection</td>     <td><font color=\"green\">"+KC_passcount+"</font>      </td>     <td><font color=\"red\">"+KC_failcount+"</font>      </td>     <td>"+KC_total+"</td>    </tr>    <tr>     <td>Search_Skill</td>     <td><font color=\"green\">"+SS_passcount+"</font>      </td>     <td><font color=\"red\">"+SS_failcount+"</font>      </td>     <td>"+SS_total+"</td>    </tr> </body>");						
 			writer.write("<body><h2>     </h2></body>");
 			writer.write("<table> </table>");
 			writer.write("<body>  <table>   <table border='1'>  <th><b>Feature</b></th>               <th><b>Description</b></th>               <th><b>Result</b></th>");
@@ -115,7 +115,7 @@ public class Payloads {
 			int cnt=1;
 			for (Map.Entry<String,String> entry : results_Env.entrySet())    
 			{						
-				String	Feature="Enviroment_Setup";
+				String	Feature="Environment_Setup";
 				String TestcaseDesction= entry.getKey().trim();						
 				String results= entry.getValue().trim();
 
@@ -143,7 +143,7 @@ public class Payloads {
 			for (Map.Entry<String,String> entry1 : results_Tenant.entrySet())    
 			{		
 
-				String	Feature="TenantOnboarding";
+				String	Feature="Tenant_Onboarding";
 				String TestcaseDesction= entry1.getKey().trim();						
 				String results= entry1.getValue().trim();
 

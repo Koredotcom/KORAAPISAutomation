@@ -15,7 +15,7 @@ import io.restassured.response.Response;
 public class EnviromentSetup extends Payloads{
 
 	@AfterMethod
-	public void afterMethodinEnviromentSetup(ITestResult result) {
+	public void afterMethodinEnvironmentSetup(ITestResult result) {
 		System.out.println("method name:" + result.getMethod().getMethodName());
 		if(result.getStatus() == ITestResult.SUCCESS)
 		{
@@ -34,7 +34,7 @@ public class EnviromentSetup extends Payloads{
 	}
 
 	@Test(priority = 1, enabled = true)
-	public static void createUserinEnviromentSetup() {
+	public static void createUserinEnvironmentSetup() {
 		try {
 			System.out.println("-01-----------------createUser in Env setup---------------------------");
 			String sTimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
@@ -60,8 +60,9 @@ public class EnviromentSetup extends Payloads{
 		}		
 	}
 
+	
 		@Test(priority = 2, enabled = true)
-		public static void createAdminAppinEnviromentSetup() {
+		public static void createAdminAppinEnvironmentSetup() {
 			try {						
 				System.out.println("---02---------------createAdminApp---------------------------");
 				Response responseadmin = RestAssured.
@@ -92,7 +93,7 @@ public class EnviromentSetup extends Payloads{
 		}
 	
 		@Test(priority = 3, enabled = true)
-		public static void genereateJWTtokeninEnviromentSetup()
+		public static void genereateJWTtokeninEnvironmentSetup()
 		{
 			try {
 				System.out.println("-03--------genereateJWTtoken------------------"); 
@@ -119,7 +120,7 @@ public class EnviromentSetup extends Payloads{
 		 *  This  Steps depends on "configure as wf admin" step after Onboard env level user :: Here are not linking with any bot so we are skipping this step
 		 */
 		//	@Test(priority = 4, enabled = true)
-		//	public static void cloningSmapleBotinEnviromentSetup()
+		//	public static void cloningSmapleBotinEnvironmentSetup()
 		//	{
 		//		System.out.println("-04--------cloningSmapleBot------------------"); 
 		//		Response responsecloningSmapleBot = 
@@ -138,7 +139,7 @@ public class EnviromentSetup extends Payloads{
 		 * Setting up KORA BOT
 		 */
 		@Test(priority = 5, enabled = true)
-		public static void uploadFileinEnviromentSetup() throws InterruptedException
+		public static void uploadFileinEnvironmentSetup() throws InterruptedException
 		{
 			try {
 				System.out.println("--05----------------uploadFile_botDef---------------------------");   
@@ -197,7 +198,7 @@ public class EnviromentSetup extends Payloads{
 		}
 	
 		@Test(priority = 6, enabled = true)
-		public static void importBotinEnviromentSetup() throws InterruptedException
+		public static void importBotinEnvironmentSetup() throws InterruptedException
 		{
 			try {
 				System.out.println("-06--------------------------ImportBot------------------------------------"); 
@@ -221,7 +222,7 @@ public class EnviromentSetup extends Payloads{
 		}
 	
 		@Test(priority = 7, enabled = true)
-		public static void importBotStatusinEnviromentSetup() throws InterruptedException
+		public static void importBotStatusinEnvironmentSetup() throws InterruptedException
 		{
 			try {
 				System.out.println("-07----------------------ImportBot_Status---------------------------"); 		
@@ -256,7 +257,7 @@ public class EnviromentSetup extends Payloads{
 		}
 	
 		@Test(priority = 8, enabled = true)
-		public static void configuringENVvarinEnviromentSetup() throws InterruptedException
+		public static void configuringENVvarinEnvironmentSetup() throws InterruptedException
 		{
 			try {
 				if(collectappnbotdetails.get("importedBot_status").equalsIgnoreCase("success"))
@@ -275,9 +276,9 @@ public class EnviromentSetup extends Payloads{
 					collectappnbotdetails.put("configure environment variable Status",responseconfiguringENVvar.getStatusCode()+responseconfiguringENVvar.getStatusLine());
 					if(collectappnbotdetails.get("configure environment variable Status").contains("401 Unauthorized"))
 					{
-						EnviromentSetup.genereateJWTtokeninEnviromentSetup();
+						EnviromentSetup.genereateJWTtokeninEnvironmentSetup();
 						System.out.println("-----------------------Generating JWT token Again after expiring--------------------------");
-						EnviromentSetup.configuringENVvarinEnviromentSetup();
+						EnviromentSetup.configuringENVvarinEnvironmentSetup();
 	
 					}
 				}else
@@ -293,7 +294,7 @@ public class EnviromentSetup extends Payloads{
 		}
 	
 		@Test(priority = 9, enabled = true)
-		public static void createbuilderAppnonAdmininEnviromentSetup() throws InterruptedException
+		public static void createbuilderAppnonAdmininEnvironmentSetup() throws InterruptedException
 		{
 			try {
 				System.out.println("-09----------------------Create Non-Amin Builder app---------------------------"); 
@@ -321,7 +322,7 @@ public class EnviromentSetup extends Payloads{
 		}
 	
 		@Test(priority = 10, enabled = true)
-		public static void enableRTMinEnviromentSetup() throws InterruptedException
+		public static void enableRTMinEnvironmentSetup() throws InterruptedException
 		{
 			try {
 				System.out.println("-10---------------------- enableRTM ---------------------------"); 
@@ -345,7 +346,7 @@ public class EnviromentSetup extends Payloads{
 		}
 	
 		@Test(priority = 11, enabled = true)
-		public static void genereateJWTtokenforNonAmdinAppinEnviromentSetup()
+		public static void genereateJWTtokenforNonAmdinAppinEnvironmentSetup()
 		{
 			try {
 				System.out.println("-11--------genereateJWTtoken for non Admin app------------------"); 
@@ -369,7 +370,7 @@ public class EnviromentSetup extends Payloads{
 		}
 	
 		@Test(priority = 12, enabled = true)
-		public static void publishbotinEnviromentSetup() throws InterruptedException
+		public static void publishbotinEnvironmentSetup() throws InterruptedException
 		{
 			try {
 				System.out.println("--12--------------------- Publish Bot ---------------------------");
@@ -393,7 +394,7 @@ public class EnviromentSetup extends Payloads{
 		}	
 	
 		@Test(priority = 13, enabled = true)
-		public static void getRoleinEnviromentSetup() throws InterruptedException
+		public static void getRoleinEnvironmentSetup() throws InterruptedException
 		{
 			try {
 				System.out.println("-13--------------------------Get Role------------------------------------"); 
@@ -429,7 +430,7 @@ public class EnviromentSetup extends Payloads{
 		}
 	
 		@Test(priority = 14, enabled = true)
-		public static void AddingDeveloperasOwnerinEnviromentSetup() throws InterruptedException
+		public static void AddingDeveloperasOwnerinEnvironmentSetup() throws InterruptedException
 		{	
 			try {
 				System.out.println("-----14----------------------Adding Developer as Owner MAP to Owner------------------------------------"); 

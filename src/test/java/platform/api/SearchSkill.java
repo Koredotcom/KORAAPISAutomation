@@ -1,5 +1,6 @@
 package platform.api;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
@@ -7,12 +8,32 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 import org.testng.Assert;
+import org.testng.ITestResult;
+
 import java.util.LinkedHashMap;
 
 public class SearchSkill extends Payloads{
 
+	@AfterMethod
+	public void afterMethodSearchSkill(ITestResult result) {
+		System.out.println("method name:" + result.getMethod().getMethodName());
+		if(result.getStatus() == ITestResult.SUCCESS)
+		{
+			results_SS.put(result.getMethod().getMethodName(), "Pass");
+		}
+		else if(result.getStatus() == ITestResult.FAILURE)
+		{
+			System.out.println("Failed ***********");
+			results_SS.put(result.getMethod().getMethodName(), "Fail");
+		}	 
+		if (results_SS.get(result.getMethod().getMethodName()).equalsIgnoreCase("pass")) {
+			SS_passcount++;
+		} else if (results_SS.get(result.getMethod().getMethodName()).equalsIgnoreCase("fail")) {
+			SS_failcount++;		
+		}		
+	}
 	@Test(priority = 49, enabled = true)
-	public static void createUser() {
+	public static void createUserinSearchSkill() {
 		try {
 			System.out.println("-01-----------------createUser SearchSkill---------------------------");
 			String ssTimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
@@ -24,11 +45,12 @@ public class SearchSkill extends Payloads{
 					.then().log().all()
 					.extract().response();	
 			Thread.sleep(5000);
-			Assert.assertEquals(String.valueOf(response.getStatusCode()),"200");
+			
 			collectappnbotdetails = new LinkedHashMap<String, String>();			
 			collectappnbotdetails.put("emailId", response.jsonPath().get("emailId").toString());			
 			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
-			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());			
+			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());
+			Assert.assertEquals(String.valueOf(response.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -36,7 +58,7 @@ public class SearchSkill extends Payloads{
 	}
 
 	@Test(priority = 50, enabled = true)
-	public static void createAdminApp() {
+	public static void createAdminAppinSearchSkill() {
 		try {						
 			System.out.println("---02---------------createAdminApp---------------------------");
 			Response responsecreateAdminApp = RestAssured.
@@ -48,7 +70,7 @@ public class SearchSkill extends Payloads{
 					.then().log().all()
 					.extract().response();	
 			Thread.sleep(5000);										
-			Assert.assertEquals(String.valueOf(responsecreateAdminApp.getStatusCode()),"200");
+			
 			collectappnbotdetails.put("Name",responsecreateAdminApp.jsonPath().get("name").toString());
 			collectappnbotdetails.put("cId", responsecreateAdminApp.jsonPath().get("cId").toString());
 			collectappnbotdetails.put("cS", responsecreateAdminApp.jsonPath().get("cS").toString());
@@ -56,6 +78,7 @@ public class SearchSkill extends Payloads{
 			collectappnbotdetails.put("accountId", responsecreateAdminApp.jsonPath().get("accountId").toString());
 			collectappnbotdetails.put("userId", responsecreateAdminApp.jsonPath().get("nId").toString());
 			TimeinHHMMSS=null;
+			Assert.assertEquals(String.valueOf(responsecreateAdminApp.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			TimeinHHMMSS=null;
@@ -64,8 +87,9 @@ public class SearchSkill extends Payloads{
 	}
 
 	@Test(priority = 51, enabled = true)
-	public static void genereateJWTtoken()
+	public static void genereateJWTtokeninSearchSkill()
 	{
+		try {
 		System.out.println("-03--------genereateJWTtoken------------------"); 
 		Response responsejwtToken = RestAssured.
 				given()
@@ -75,8 +99,14 @@ public class SearchSkill extends Payloads{
 				.post(urljwtTokenGenerater)					
 				.then()
 				.extract().response();			
+		
+		collectappnbotdetails.put("jwt",responsejwtToken.jsonPath().get("jwt").toString());
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
-		collectappnbotdetails.put("jwt",responsejwtToken.jsonPath().get("jwt").toString());				
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -85,8 +115,9 @@ public class SearchSkill extends Payloads{
 	 * @throws InterruptedException 
 	 */
 	@Test(priority = 52, enabled = true)
-	public static void cloningSmapleBot() throws InterruptedException
+	public static void cloningSmapleBotinSearchSkill() throws InterruptedException
 	{	
+		try {
 		System.out.println("-04--------cloning SearchSkill BOT------------------");
 		if (url.contains("koradev-bots.kora.ai")) {				
 			cloningbot=	devServiceNowBOT;
@@ -103,15 +134,22 @@ public class SearchSkill extends Payloads{
 				.then()
 				.extract().response();
 		Thread.sleep(10000);
-		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
+		
 		collectappnbotdetails.put("clonnedBot_StreamID",responsecloningSmapleBot.jsonPath().get("_id").toString());									
 		collectappnbotdetails.put("clonnedBotName",responsecloningSmapleBot.jsonPath().get("name").toString());
+		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Test(priority = 53, enabled = true)
-	public static void clonedBotSetup() throws InterruptedException
+	public static void clonedBotSetupinSearchSkill() throws InterruptedException
 	{
+		try {
 		System.out.println("-05--------Setting SearchSkill BOT Setup------------------"); 
 		Response responsecloningSmapleBot = RestAssured.
 				given()
@@ -122,18 +160,27 @@ public class SearchSkill extends Payloads{
 				.then()
 				.extract().response();
 		Thread.sleep(5000);
+		
+		System.out.println("Clonned bot Setup Status ::" +responsecloningSmapleBot.getStatusCode());
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
-		System.out.println("Clonned bot Setup Status ::" +responsecloningSmapleBot.getStatusCode());	
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}
 
 
 	@Test(priority = 54, enabled = true)
-	public static void configuringENVvar() throws InterruptedException
+	public static void configuringENVvarinSearchSkill() throws InterruptedException
 	{
+		try {
+	
+			Response responseconfiguringENVvar = null;
 		if(collectappnbotdetails.get("clonnedBot_StreamID").equalsIgnoreCase("success"))
 		{
 			System.out.println("----06-------------------configure environment variable--------------------------"); 
-			Response responseconfiguringENVvar = RestAssured.
+			 responseconfiguringENVvar = RestAssured.
 					given()
 					.headers(SearchSkill.HeaderswithJWTnAccountID(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("accountId")))
 					.body(SearchSkill.configuringENVvarforSearviceNowpayLoad())
@@ -141,25 +188,31 @@ public class SearchSkill extends Payloads{
 					.put(url+publicEnableSdk+collectappnbotdetails.get("clonnedBot_StreamID")+"/setup")					
 					.then()
 					.extract().response();		
-			Assert.assertEquals(String.valueOf(responseconfiguringENVvar.getStatusCode()),"200");
+			
 			System.out.println("configure environment variable Status" +"::"+ responseconfiguringENVvar.getStatusCode()+responseconfiguringENVvar.getStatusLine());
 			collectappnbotdetails.put("configure environment variable Status",responseconfiguringENVvar.getStatusCode()+responseconfiguringENVvar.getStatusLine());
 			if(collectappnbotdetails.get("configure environment variable Status").contains("401 Unauthorized"))
 			{
-				SearchSkill.genereateJWTtoken();
+				SearchSkill.genereateJWTtokeninSearchSkill();
 				System.out.println("-----------------------Generating JWT token Again after expiring--------------------------");
-				SearchSkill.configuringENVvar();
+				SearchSkill.configuringENVvarinSearchSkill();
 			}
 		}else
 		{
 			System.out.println("----------------- ImportBot_Status  Failed  ------------------");
 		}
-
+		Assert.assertEquals(String.valueOf(responseconfiguringENVvar.getStatusCode()),"200");
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}
 	
 	@Test(priority = 55, enabled = true)
-	public static void createbuilderAppnonAdmin() throws InterruptedException
+	public static void createbuilderAppnonAdmininSearchSkill() throws InterruptedException
 	{
+		try {
 		System.out.println("-07----------------------Create Non-Amin Builder app----------importedBot_streamId-----------------"); 
 		Response responsbuilderapp = RestAssured.
 				given()
@@ -169,18 +222,24 @@ public class SearchSkill extends Payloads{
 				.post(url+internalClientappResource)					
 				.then().log().all()
 				.extract().response();	
-		Thread.sleep(5000);
-		Assert.assertEquals(String.valueOf(responsbuilderapp.getStatusCode()),"200");		
+		Thread.sleep(5000);				
 		collectappnbotdetails.put("BuilderApp_Name",responsbuilderapp.jsonPath().get("name").toString());
 		collectappnbotdetails.put("BuilderApp_sdkClientId", responsbuilderapp.jsonPath().get("cId").toString());
 		collectappnbotdetails.put("BuilderApp_cS", responsbuilderapp.jsonPath().get("cS").toString());
-		collectappnbotdetails.put("BuilderApp_UserId", responsbuilderapp.jsonPath().get("nId").toString());	
+		collectappnbotdetails.put("BuilderApp_UserId", responsbuilderapp.jsonPath().get("nId").toString());
+		Assert.assertEquals(String.valueOf(responsbuilderapp.getStatusCode()),"200");
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 						
 	}
 
 	@Test(priority = 56, enabled = true)
-	public static void enableWebHook() throws InterruptedException 
+	public static void enableWebHookinSearchSkill() throws InterruptedException 
 	{
+		try {
 		System.out.println("-08---------------------- enable WEBHOOK ------------importedBot_streamId---------------"); 
 		Response responseadmin = RestAssured.
 				given()
@@ -190,14 +249,20 @@ public class SearchSkill extends Payloads{
 				.post(url+publicEnableTRMChannelsResource)					
 				.then().log().all()
 				.extract().response();	
-		Thread.sleep(5000);
+		Thread.sleep(5000);		
+		System.out.println(" Status code Enable WebHook "+responseadmin.jsonPath().get("status"));
 		Assert.assertEquals(String.valueOf(responseadmin.getStatusCode()),"200");
-		System.out.println(" Status code Enable WebHook "+responseadmin.jsonPath().get("status"));			
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}
 
 	@Test(priority = 57, enabled = true)
-	public static void publishbot() throws InterruptedException
+	public static void publishbotinSearchSkill() throws InterruptedException
 	{
+		try {
 		System.out.println("--09-------------------- Publish Bot ---------------------------");
 		Response responsPublishBot = RestAssured.
 				given()
@@ -207,15 +272,21 @@ public class SearchSkill extends Payloads{
 				.post(url+publicEnableSdk+collectappnbotdetails.get("clonnedBot_StreamID")+"/publish")					
 				.then()
 				.extract().response();	
-		Thread.sleep(10000);
-		Assert.assertEquals(String.valueOf(responsPublishBot.getStatusCode()),"200");
+		Thread.sleep(10000);		
 		System.out.println("Publish bot Status code "+responsPublishBot.jsonPath().get("status"));
+		Assert.assertEquals(String.valueOf(responsPublishBot.getStatusCode()),"200");
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}
  
 
 	@Test(priority = 58, enabled = true)
-	public static void getRole() throws InterruptedException
+	public static void getRoleinSearchSkill() throws InterruptedException
 	{
+		try {
 		System.out.println("---10--------------------------Get Role------------------------------------"); 
 		Response responsegetRole = RestAssured.
 				given()
@@ -224,7 +295,7 @@ public class SearchSkill extends Payloads{
 				.get(url+publicGetRolesResource)					
 				.then()
 				.extract().response();		
-		Assert.assertEquals(String.valueOf(responsegetRole.getStatusCode()),"200");
+		
 		JsonPath jp = responsegetRole.jsonPath();	
 		int numberofroles = jp.getInt("roles.size()");
 		String DeveloperRole_id= "";
@@ -240,8 +311,13 @@ public class SearchSkill extends Payloads{
 			}
 		}
 
-		collectappnbotdetails.put("Dev_role_id",DeveloperRole_id); 		
-		
+		collectappnbotdetails.put("Dev_role_id",DeveloperRole_id);
+		Assert.assertEquals(String.valueOf(responsegetRole.getStatusCode()),"200");
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -249,8 +325,9 @@ public class SearchSkill extends Payloads{
 	 * ?? Here we have to give linked botID
 	 */
 	@Test(priority = 59, enabled = true)
-	public static void AddingDeveloperasOwner() throws InterruptedException
+	public static void AddingDeveloperasOwnerinSearchSkill() throws InterruptedException
 	{
+		try {
 		System.out.println("-----11----------------------Adding Developer as Owner MAP to Owner------------------------------------"); 
 		Response responseAddingDeveloperasOwner = RestAssured.
 				given()
@@ -261,7 +338,7 @@ public class SearchSkill extends Payloads{
 				.then().log().all()
 				.extract().response();
 		Thread.sleep(5000);
-		Assert.assertEquals(String.valueOf(responseAddingDeveloperasOwner.getStatusCode()),"200");
+		
 		System.out.println("Adding Developer as Owner Response ::"+responseAddingDeveloperasOwner.asString());
 		String MaptoMomainrsponse=responseAddingDeveloperasOwner.jsonPath().get("msg");
 		
@@ -271,12 +348,19 @@ public class SearchSkill extends Payloads{
 		}else {
 			System.out.println(responseAddingDeveloperasOwner.jsonPath().toString());
 		}
+		Assert.assertEquals(String.valueOf(responseAddingDeveloperasOwner.getStatusCode()),"200");
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}	 
 
 	
 	@Test(priority = 60, enabled = true)
-	public static void genereateJWTtokenforNonAmdinApp()
+	public static void genereateJWTtokenforNonAmdinAppinSearchSkill()
 	{
+		try {
 		System.out.println("------12---genereateJWTtoken for non Admin app------------------"); 
 		Response responsejwtToken = RestAssured.
 				given()
@@ -285,15 +369,20 @@ public class SearchSkill extends Payloads{
 				.when()
 				.post(urljwtTokenGenerater)					
 				.then()
-				.extract().response();					
-		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
+				.extract().response();							
 		collectappnbotdetails.put("builderApp_jwt",responsejwtToken.jsonPath().get("jwt").toString());
-				
+		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}
 	
 	@Test(priority = 61, enabled = true)
-	public static void triggerWebHook() throws InterruptedException
+	public static void triggerWebHookinSearchSkill() throws InterruptedException
 	{
+		try {
 		System.out.println("-13---------------------- trigger WebHook toEngage with bot ---------------------------"); 
 		Response responsetriggerWebHook = RestAssured.
 				given()
@@ -304,6 +393,12 @@ public class SearchSkill extends Payloads{
 				.then().log().all()
 				.extract().response();	
 		Thread.sleep(5000);
-		Assert.assertEquals(String.valueOf(responsetriggerWebHook.getStatusCode()),"200");					
+		Assert.assertEquals(String.valueOf(responsetriggerWebHook.getStatusCode()),"200");	
+		}catch(Exception e)
+		{
+			Assert.fail();
+			e.printStackTrace();
+		}
 	}
+		
 }

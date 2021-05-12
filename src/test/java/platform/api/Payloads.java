@@ -1,12 +1,20 @@
 package platform.api;
 
+import java.awt.Desktop;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.junit.AfterClass;
 import org.testng.ITestContext;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
@@ -39,20 +47,196 @@ public class Payloads {
 	public static String qa1ServiceNowBOT= "st-51cdbe92-4a23-54e4-8a53-2dfd89ba93b4";
 	public static String Adminpassword="Kore@12345";
 	public static int waitincreamentalLoop;
-	
+
 	public static String url="";
-//	public static String url="https://staging.korebots.com";	
-//	public static String url="https://qa1-bots.kore.ai";
-	public static String urlKC=url+"/api/public/stream/";
+	//	public static String url="https://staging.korebots.com";	
+	//	public static String url="https://qa1-bots.kore.ai";
+	//	public static String url="https://koradev-bots.kora.ai";
+	public static String urlKC="/api/public/stream/";
 	public static String cloningbot="";
 	public static String TimeinHHMMSS = null;
-	
-	@BeforeSuite()
+	public static Map<String, String> results_Env = new LinkedHashMap<String, String>();	
+	public static Map<String, String> results_Tenant = new LinkedHashMap<String, String>();
+	public static Map<String, String> results_KC = new LinkedHashMap<String, String>();
+	public static Map<String, String> results_SS = new LinkedHashMap<String, String>();
+
+	static int ENV_passcount =0;
+	static int ENV_failcount =0;
+	static int Tenant_passcount =0;
+	static int Tenant_failcount =0;
+	static int KC_passcount =0;
+	static int KC_failcount =0;
+	static int SS_passcount =0;
+	static int SS_failcount =0;
+
+	@BeforeSuite
 	public void extractEnviromentURL(ITestContext ctx) {
 		String urlfromxmal = ctx.getCurrentXmlTest().getParameter("Enviroment");
 		System.out.println("Executing in folowing enviroment ::"+urlfromxmal);
 		url=urlfromxmal;
 	}
+
+	@AfterSuite
+	public void GeerateHTMLReport()
+	{
+		String dir = System.getProperty("user.dir");
+		BufferedWriter writer;
+		File file;		
+		String executingENV=null;
+		int ENV_total=ENV_passcount+ENV_failcount;
+		int Tenant_total=Tenant_passcount+Tenant_failcount;
+		int KC_total=KC_passcount+KC_failcount;
+		int SS_total=SS_passcount+SS_failcount;
+		if(url.contains("dev"))
+		{			
+			executingENV="DEV";
+		}else if(url.contains("qa"))
+		{
+			executingENV="QA";
+		}else {
+			System.out.println("Pldase give valid URL ");
+		}
+
+		try {
+			file = new File(dir+"/TCResults.html");
+			writer = new BufferedWriter(new FileWriter(file));
+			writer.write(
+					"<html><head></head>");
+			writer.write("<body><h2>Platfrom API Autmation Daily Execution Reports</h2></body>");
+			writer.write("<body> <table> <table border='1'> <tr> <th> <b>Exection Enviroment	</b> </th> <td> "+executingENV+" </td> <tr> <th><b>URL</b> </th> <td><font color=\"blue\"><u>"+Payloads.url+"</u></font></td> </tr> </body>");
+			writer.write("<body><h2> </h2></body>");
+			writer.write("<table> </table>");
+			writer.write("<body>  <table>   <table border='1'>    <tr>     <th>Feature_Name</th>     <th>Pass</th>     <th>Fail</th>     <th>Total</th>    </tr>    <tr>     <td>Enviroment_Setup</td>     <td><font color=\"green\">"+ENV_passcount+"</font>      </td>     <td><font color=\"red\">"+ENV_failcount+"</font>      </td>     <td>"+ENV_total+"</td>    </tr>    <tr>     <td>TenantOnboarding</td>     <td><font color=\"green\">"+Tenant_passcount+"</font>      </td>     <td><font color=\"red\">"+Tenant_failcount+"</font>      </td>     <td>"+Tenant_total+"</td>    </tr>    <tr>     <td>Knowledge_Collection</td>     <td><font color=\"green\">"+KC_passcount+"</font>      </td>     <td><font color=\"red\">"+KC_failcount+"</font>      </td>     <td>"+KC_total+"</td>    </tr>    <tr>     <td>Search_Skill</td>     <td><font color=\"green\">"+SS_passcount+"</font>      </td>     <td><font color=\"red\">"+SS_failcount+"</font>      </td>     <td>"+SS_total+"</td>    </tr> </body>");						
+			writer.write("<body><h2>     </h2></body>");
+			writer.write("<table> </table>");
+			writer.write("<body>  <table>   <table border='1'>  <th><b>Feature</b></th>               <th><b>Description</b></th>               <th><b>Result</b></th>");
+
+			System.out.println("in map split");
+			int cnt=1;
+			for (Map.Entry<String,String> entry : results_Env.entrySet())    
+			{						
+				String	Feature="Enviroment_Setup";
+				String TestcaseDesction= entry.getKey().trim();						
+				String results= entry.getValue().trim();
+
+				if(results.equalsIgnoreCase("PASS")){
+					results = "<font color="+"green"+"><b>Pass</b></font>";
+				}else if(results.equalsIgnoreCase("FAIL")){
+					results = "<font color="+"red"+"><b>Fail</b></font>";
+				}			
+				writer.write("<tr>");
+				writer.write("<tr>");
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(Feature);
+				writer.write("</td> ");
+
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(TestcaseDesction);
+				writer.write("</td> ");
+
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(results);
+				writer.write("</td>");
+
+				writer.write("</tr> ");
+			}
+			for (Map.Entry<String,String> entry1 : results_Tenant.entrySet())    
+			{		
+
+				String	Feature="TenantOnboarding";
+				String TestcaseDesction= entry1.getKey().trim();						
+				String results= entry1.getValue().trim();
+
+				if(results.equalsIgnoreCase("PASS")){
+					results = "<font color="+"green"+"><b>Pass</b></font>";
+				}else if(results.equalsIgnoreCase("FAIL")){
+					results = "<font color="+"red"+"><b>Fail</b></font>";
+				}			
+				writer.write("<tr>");
+				writer.write("<tr>");
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(Feature);
+				writer.write("</td> ");
+
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(TestcaseDesction);
+				writer.write("</td> ");
+
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(results);
+				writer.write("</td>");
+
+				writer.write("</tr> ");
+			}
+
+			for (Map.Entry<String,String> entry2 : results_KC.entrySet())    
+			{		
+				String	Feature="Knowledge_Collection";
+				String TestcaseDesction= entry2.getKey().trim();						
+				String results= entry2.getValue().trim();
+
+				if(results.equalsIgnoreCase("PASS")){
+					results = "<font color="+"green"+"><b>Pass</b></font>";
+				}else if(results.equalsIgnoreCase("FAIL")){
+					results = "<font color="+"red"+"><b>Fail</b></font>";
+				}			
+				writer.write("<tr>");
+				writer.write("<tr>");
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(Feature);
+				writer.write("</td> ");
+
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(TestcaseDesction);
+				writer.write("</td> ");
+
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(results);
+				writer.write("</td>");
+
+				writer.write("</tr> ");
+			}
+
+			for (Map.Entry<String,String> entry3 : results_SS.entrySet())    
+			{		
+
+				String	Feature="Search_Skill";
+				String TestcaseDesction= entry3.getKey().trim();						
+				String results= entry3.getValue().trim();
+
+				if(results.equalsIgnoreCase("PASS")){
+					results = "<font color="+"green"+"><b>Pass</b></font>";
+				}else if(results.equalsIgnoreCase("FAIL")){
+					results = "<font color="+"red"+"><b>Fail</b></font>";
+				}			
+				writer.write("<tr>");
+				writer.write("<tr>");
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(Feature);
+				writer.write("</td> ");
+
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(TestcaseDesction);
+				writer.write("</td> ");
+
+				writer.write("<td><font-family:"+"Calibri (Body)>");
+				writer.write(results);
+				writer.write("</td>");
+
+				writer.write("</tr> ");
+			}
+
+			writer.write("</tr></table>" + "</body>" + "</html>");
+			//	writer.write("</html>");
+			writer.close();
+			Desktop.getDesktop().browse(file.toURI());
+		} catch (IOException e) {
+			System.out.println("IO EXCEPTION-----" + e);
+		}
+
+		System.out.println("----------END---------------");
+	}
+
 
 	public static String fntoreturntimeinHHMMSS()
 	{
@@ -161,14 +345,14 @@ public class Payloads {
 	public static String createUserPayLoad(String sTimeinHHMMSS)
 	{						
 		return "{\n" + 
-		"\"emailId\": \"korausr"+sTimeinHHMMSS+"@usr"+sTimeinHHMMSS+".com\",\n" + 
-		"\"firstName\": \"koraFname"+sTimeinHHMMSS+"\",\n" + 
-		"\"lastName\": \"Admin user\",\n" + 
-		"\"isFromBt\": \"true\",\n" + 
-		"\"refererPath\": \"botbuilder\",\n" + 
-		"\"displayName\": \"koraqa2 com Admin user\",\n" + 
-		"\"password\": \""+Payloads.Adminpassword+"\"\n" + 
-		"}";
+				"\"emailId\": \"korausr"+sTimeinHHMMSS+"@usr"+sTimeinHHMMSS+".com\",\n" + 
+				"\"firstName\": \"koraFname"+sTimeinHHMMSS+"\",\n" + 
+				"\"lastName\": \"Admin user\",\n" + 
+				"\"isFromBt\": \"true\",\n" + 
+				"\"refererPath\": \"botbuilder\",\n" + 
+				"\"displayName\": \"koraqa2 com Admin user\",\n" + 
+				"\"password\": \""+Payloads.Adminpassword+"\"\n" + 
+				"}";
 	}
 
 
@@ -511,7 +695,7 @@ public class Payloads {
 				"  \"group\": \"\"\n" + 
 				"}";
 	}
-	
+
 	public static String configureAgentTransferpayLoad( ) // Same as  enableSDKpayLoad
 	{
 		return "";
@@ -588,7 +772,7 @@ public class Payloads {
 	public static String ExtractFAQsPayload()  
 	{
 		return "{\n" + 
-				"     \"fileUrl\": \"https://seller.flipkart.com/slp/faqs\",\n" + 
+				"     \"fileUrl\": \"https://www.icicibank.com/nri-banking/money_transfer/faq/m2i-rewards-program/loyalty-program.page?\",\n" + 
 				"     \"name\": \"flipkat\"\n" + 
 				"}";
 	}

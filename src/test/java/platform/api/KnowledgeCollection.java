@@ -3,6 +3,8 @@ package platform.api;
 
 import java.util.LinkedHashMap;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
@@ -10,9 +12,26 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
 public class KnowledgeCollection extends Payloads{
-
+		
+	@AfterMethod
+	public void afterMethodKnowledgeCollection(ITestResult result) {
+		if(result.getStatus() == ITestResult.SUCCESS)
+		{
+			results_KC.put(result.getMethod().getMethodName(), "Pass");
+		}
+		else if(result.getStatus() == ITestResult.FAILURE)
+		{
+			System.out.println("Failed ***********");
+			results_KC.put(result.getMethod().getMethodName(), "Fail");
+		}	 
+		if (results_KC.get(result.getMethod().getMethodName()).equalsIgnoreCase("pass")) {
+			KC_passcount++;
+		} else if (results_KC.get(result.getMethod().getMethodName()).equalsIgnoreCase("fail")) {
+			KC_failcount++;		
+		}		
+	}
 	@Test(priority = 31, enabled = true)
-	public static void createUser() {
+	public static void createUserinKnowledgeCollection() {
 		try {
 			System.out.println("-01-----------------createUser Knowledge Collection---------------------------");
 			String kTimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
@@ -20,27 +39,24 @@ public class KnowledgeCollection extends Payloads{
 					.given().headers(KnowledgeCollection.HeadersWithAPIKey()) 
 					.body(KnowledgeCollection.createUserPayLoad(kTimeinHHMMSS))
 					.when()
-					.post(url+internalAccountResource)
+					.post(urlKC+internalAccountResource)
 					.then().log().all()
 					.extract().response();	
-			Thread.sleep(5000);
-			Assert.assertEquals(String.valueOf(response.getStatusCode()),"200");
+			Thread.sleep(5000);					  
 			collectappnbotdetails = new LinkedHashMap<String, String>();			
 			collectappnbotdetails.put("emailId", response.jsonPath().get("emailId").toString());			
 			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
-			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());				  
-			System.out.println(collectappnbotdetails);
-			
+			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());				  			
+			Assert.assertEquals(String.valueOf(response.getStatusCode()),"200");
 		}catch(Exception e)
-		{
-			
+		{			
 			e.printStackTrace();
 			
 		}		
 	}
 
 	@Test(priority = 32, enabled = true)
-	public static void createAdminApp() {
+	public static void createAdminAppinKnowledgeCollection() {
 		try {						
 			System.out.println("---02---------------createAdminApp---------------------------");
 			Response responseadmin = RestAssured.
@@ -51,16 +67,15 @@ public class KnowledgeCollection extends Payloads{
 					.post(url+internalClientappResource)					
 					.then().log().all()
 					.extract().response();	
-			Thread.sleep(5000);										
-			Assert.assertEquals(String.valueOf(responseadmin.getStatusCode()),"200");
+			Thread.sleep(5000);													
 			collectappnbotdetails.put("Name",responseadmin.jsonPath().get("name").toString());
 			collectappnbotdetails.put("cId", responseadmin.jsonPath().get("cId").toString());
 			collectappnbotdetails.put("cS", responseadmin.jsonPath().get("cS").toString());
 			collectappnbotdetails.put("nId", responseadmin.jsonPath().get("nId").toString());	
 			collectappnbotdetails.put("accountId", responseadmin.jsonPath().get("accountId").toString());
-			collectappnbotdetails.put("userId", responseadmin.jsonPath().get("nId").toString());
-			System.out.println(collectappnbotdetails);		
+			collectappnbotdetails.put("userId", responseadmin.jsonPath().get("nId").toString());			
 			TimeinHHMMSS=null;
+			Assert.assertEquals(String.valueOf(responseadmin.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			TimeinHHMMSS=null;
@@ -69,8 +84,9 @@ public class KnowledgeCollection extends Payloads{
 	}
 
 	@Test(priority = 33, enabled = true)
-	public static void genereateJWTtoken()
+	public static void genereateJWTtokeninKnowledgeCollection()
 	{
+		try {
 		System.out.println("-03--------genereateJWTtoken------------------"); 
 		Response responsejwtToken = RestAssured.
 				given()
@@ -79,9 +95,14 @@ public class KnowledgeCollection extends Payloads{
 				.when()
 				.post(urljwtTokenGenerater)					
 				.then()
-				.extract().response();			
+				.extract().response();					
+		collectappnbotdetails.put("jwt",responsejwtToken.jsonPath().get("jwt").toString());
 		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
-		collectappnbotdetails.put("jwt",responsejwtToken.jsonPath().get("jwt").toString());				
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 	/**
@@ -90,8 +111,9 @@ public class KnowledgeCollection extends Payloads{
 	 * @throws InterruptedException 
 	 */
 	@Test(priority = 34, enabled = true)
-	public static void cloningSmapleBot() throws InterruptedException
+	public static void cloningSmapleBotinKnowledgeCollection() throws InterruptedException
 	{	
+		try {
 		System.out.println("-04--------cloning KnowledgeCollection BOT------------------");
 		if (url.contains("koradev-bots.kora.ai")) {				
 			cloningbot=	devKnowledgeCollectionBOT;
@@ -107,16 +129,22 @@ public class KnowledgeCollection extends Payloads{
 				.get(url+"/api/public/samplebots/"+cloningbot+"/add")  //hrere  ubVersion=1 wont be there 					
 				.then() 
 				.extract().response();
-		Thread.sleep(10000);
-		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
+		Thread.sleep(10000);		
 		collectappnbotdetails.put("clonnedBot_StreamID",responsecloningSmapleBot.jsonPath().get("_id").toString());									
 		collectappnbotdetails.put("clonnedBotName",responsecloningSmapleBot.jsonPath().get("name").toString());
+		Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 		
 	}
 
 	@Test(priority = 35, enabled = true)
-	public static void clonedBotSetup() throws InterruptedException
+	public static void clonedBotSetupinKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("-05--------cloned BOT Setup------------------"); 
 		Response responsecloningSmapleBotsetup = RestAssured.
 				given()
@@ -126,15 +154,21 @@ public class KnowledgeCollection extends Payloads{
 				.put(url+"/api/public/bot/"+ collectappnbotdetails.get("clonnedBot_StreamID")+"/setup")  					
 				.then()
 				.extract().response();
-		Thread.sleep(5000);
+		Thread.sleep(5000);		
+		System.out.println("Clonned bot Setup Status ::" +responsecloningSmapleBotsetup.getStatusCode());
 		Assert.assertEquals(String.valueOf(responsecloningSmapleBotsetup.getStatusCode()),"200");
-		System.out.println("Clonned bot Setup Status ::" +responsecloningSmapleBotsetup.getStatusCode());	
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 
 	@Test(priority = 36, enabled = true)
-	public static void createbuilderAppnonAdmin() throws InterruptedException
+	public static void createbuilderAppnonAdmininKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("-06----------------------Create Non-Amin Builder app----------importedBot_streamId-----------------"); 
 		Response responsbuilderapp = RestAssured.
 				given()
@@ -144,18 +178,23 @@ public class KnowledgeCollection extends Payloads{
 				.post(url+internalClientappResource)					
 				.then()
 				.extract().response();	
-		Thread.sleep(5000);
-		Assert.assertEquals(String.valueOf(responsbuilderapp.getStatusCode()),"200");		
+		Thread.sleep(5000);				
 		collectappnbotdetails.put("BuilderApp_Name",responsbuilderapp.jsonPath().get("name").toString());
 		collectappnbotdetails.put("BuilderApp_sdkClientId", responsbuilderapp.jsonPath().get("cId").toString());
 		collectappnbotdetails.put("BuilderApp_cS", responsbuilderapp.jsonPath().get("cS").toString());
 		collectappnbotdetails.put("BuilderApp_UserId", responsbuilderapp.jsonPath().get("nId").toString());	
-						
+		Assert.assertEquals(String.valueOf(responsbuilderapp.getStatusCode()),"200");		
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 	@Test(priority = 37, enabled = true)
-	public static void enableRTM() throws InterruptedException
+	public static void enableRTMinKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("-07---------------------- enableRTM ------------importedBot_streamId---------------"); 
 		Response responseadmin = RestAssured.
 				given()
@@ -165,15 +204,21 @@ public class KnowledgeCollection extends Payloads{
 				.post(url+publicEnableTRMChannelsResource)					
 				.then().log().all()
 				.extract().response();	
-		Thread.sleep(5000);
+		Thread.sleep(5000);		
+		System.out.println(" Status code Enable RTM "+responseadmin.jsonPath().get("status"));
 		Assert.assertEquals(String.valueOf(responseadmin.getStatusCode()),"200");
-		System.out.println(" Status code Enable RTM "+responseadmin.jsonPath().get("status"));			
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 
 	@Test(priority = 38, enabled = true)
-	public static void getRole() throws InterruptedException
+	public static void getRoleinKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("--8--------------------------Get Role------------------------------------"); 
 		Response responsegetRole = RestAssured.
 				given()
@@ -182,7 +227,7 @@ public class KnowledgeCollection extends Payloads{
 				.get(url+publicGetRolesResource)					
 				.then()
 				.extract().response();		
-		Assert.assertEquals(String.valueOf(responsegetRole.getStatusCode()),"200");
+		
 		JsonPath jp = responsegetRole.jsonPath();	
 		int numberofroles = jp.getInt("roles.size()");
 		String DeveloperRole_id= "";
@@ -198,7 +243,12 @@ public class KnowledgeCollection extends Payloads{
 			}
 		}
 		collectappnbotdetails.put("Dev_role_id",DeveloperRole_id); 		
-		
+		Assert.assertEquals(String.valueOf(responsegetRole.getStatusCode()),"200");
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 	/*
@@ -206,8 +256,9 @@ public class KnowledgeCollection extends Payloads{
 	 * ?? Here we have to give linked botID
 	 */
 	@Test(priority = 39, enabled = true)
-	public static void AddingDeveloperasOwner() throws InterruptedException
+	public static void AddingDeveloperasOwnerinKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("-----9----------------------Adding Developer as Owner MAP to Owner------------------------------------"); 
 		Response responseAddingDeveloperasOwner = RestAssured.
 				given()
@@ -217,8 +268,7 @@ public class KnowledgeCollection extends Payloads{
 				.post(url+publicadminasUBDevResource)					
 				.then()
 				.extract().response();
-		Thread.sleep(5000);
-		Assert.assertEquals(String.valueOf(responseAddingDeveloperasOwner.getStatusCode()),"200");
+		Thread.sleep(5000);		
 		System.out.println("Adding Developer as Owner Response ::"+responseAddingDeveloperasOwner.asString());
 		String MaptoMomainrsponse=responseAddingDeveloperasOwner.jsonPath().get("msg");
 		if(MaptoMomainrsponse.contains(developeremailaddress +"created"))
@@ -227,51 +277,69 @@ public class KnowledgeCollection extends Payloads{
 		}else {
 			System.out.println(responseAddingDeveloperasOwner.jsonPath().toString());
 		}
+		Assert.assertEquals(String.valueOf(responseAddingDeveloperasOwner.getStatusCode()),"200");
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}	 
 
 	@Test(priority = 40, enabled = true)
-	public static void ExtractFAQs() throws InterruptedException
+	public static void ExtractFAQsinKnowledgeCollection() throws InterruptedException
 	{
-		System.out.println("-10--------------------------Extract FAQ's ------------------------------------"); 
+		try {
+		System.out.println("-10--------------------------Extract FAQ's Knowldge ID ------------------------------------"); 
 		Response responseExtractFAQs = RestAssured.
 				given()
 				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))
 				.body(KnowledgeCollection.ExtractFAQsPayload())
 				.when()
-				.post(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/qna/import?language=en")					
+				.post(url+urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/qna/import?language=en")					
 				.then().log().all()
-				.extract().response();		
-		Thread.sleep(60000);//poll for status ??
+				.extract().response();				
+		System.out.println(responseExtractFAQs.jsonPath());		
+		collectappnbotdetails.put("KE_ID",responseExtractFAQs.jsonPath().get("_id").toString());
 		Assert.assertEquals(String.valueOf(responseExtractFAQs.getStatusCode()),"200");
-		collectappnbotdetails.put("KE_ID",responseExtractFAQs.jsonPath().get("_id").toString());		
-		
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 	@Test(priority = 41, enabled = true)
-	public static void GetQsofExtract() throws InterruptedException
+	public static void GetQsofExtractinKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("-11----------------GET Questions of Extract --"); 
 		Response responseGetQsofExtract = RestAssured.
 				given()
 				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))				
 				.when()
-				.get(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/qna/"+collectappnbotdetails.get("KE_ID")+"/questions?language=en")	 				
+				.get(url+urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/qna/"+collectappnbotdetails.get("KE_ID")+"/questions")	 				
 				.then().log().all()
-				.extract().response();		
+				.extract().response();			
+		Thread.sleep(10000);		
+		JsonPath jp = responseGetQsofExtract.jsonPath();	
+		System.out.println(jp.toString());
+		collectappnbotdetails.put("Q1_id",jp.get("extractions._id[1]").toString().trim());		
+		collectappnbotdetails.put("Q1_Question",jp.get("extractions.question[1]").toString().trim());
+		collectappnbotdetails.put("Q1_answer",jp.get("extractions.answer[1]").toString().trim());
+		collectappnbotdetails.put("Q2_id",jp.get("extractions._id[2]").toString().trim());		
+		collectappnbotdetails.put("Q2_Question",jp.get("extractions.question[2]").toString().trim());
+		collectappnbotdetails.put("Q2_answer",jp.get("extractions.answer[2]").toString().trim());		
+		System.out.println(collectappnbotdetails);
 		Assert.assertEquals(String.valueOf(responseGetQsofExtract.getStatusCode()),"200");
-		JsonPath jp = responseGetQsofExtract.jsonPath();		
-		collectappnbotdetails.put("Q1_id",jp.get("extractions._id[11]").toString().trim());		
-		collectappnbotdetails.put("Q1_Question",jp.get("extractions.question[11]").toString().trim());
-		collectappnbotdetails.put("Q1_answer",jp.get("extractions.answer[11]").toString().trim());
-		collectappnbotdetails.put("Q2_id",jp.get("extractions._id[12]").toString().trim());		
-		collectappnbotdetails.put("Q2_Question",jp.get("extractions.question[12]").toString().trim());
-		collectappnbotdetails.put("Q2_answer",jp.get("extractions.answer[12]").toString().trim());
-		
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
 	}
-
-
+	}
+	
 	@Test(priority = 42, enabled = true)
-	public static void GetKTofTaskofCollection() throws InterruptedException
+	public static void GetKTofTaskofCollectioninKnowledgeCollection() throws InterruptedException
 	{
 		try {
 			System.out.println("--------------------12-------GET  Knowledge Task of A Collection------------------------------------"); 
@@ -279,22 +347,23 @@ public class KnowledgeCollection extends Payloads{
 					given()
 					.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt"))).log().all()				
 					.when()
-					.get(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/knowledgeTasks?language=en&state=configured")					
+					.get(url+urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/knowledgeTasks?language=en&state=configured")					
 					.then().log().all()
 					.extract().response();			  
 			Thread.sleep(10000);
-			Assert.assertEquals(String.valueOf(responseGetKTofTaskofCollection.getStatusCode()),"200");			
+						
 			String KT_ID=responseGetKTofTaskofCollection.jsonPath().get("_id[0]").toString();
 			collectappnbotdetails.put("KT_ID",KT_ID);		
-			
+			Assert.assertEquals(String.valueOf(responseGetKTofTaskofCollection.getStatusCode()),"200");
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Test(priority = 43, enabled = true)
-	public static void AddQstoCollection() throws InterruptedException
+	public static void AddQstoCollectioninKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		int maxqs=2;	
 		for(int numberofQs=1;numberofQs<=maxqs;numberofQs++)
 		{
@@ -302,28 +371,34 @@ public class KnowledgeCollection extends Payloads{
 			Response responseAddQstoCollections = RestAssured.
 					given()
 					.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))
-					.body(KnowledgeCollection.AddQstoCollectionPayload(collectappnbotdetails.get("Q"+numberofQs+"_Question"),collectappnbotdetails.get("Q"+numberofQs+"_answer"), collectappnbotdetails.get("KT_ID"),collectappnbotdetails.get("clonnedBot_StreamID"),collectappnbotdetails.get("Q"+numberofQs+"_id")))
+					.body(KnowledgeCollection.AddQstoCollectionPayload(collectappnbotdetails.get("Q"+numberofQs+"_Question"),collectappnbotdetails.get("Q"+numberofQs+"_answer"), collectappnbotdetails.get("KT_ID"),collectappnbotdetails.get("clonnedBot_StreamID"),collectappnbotdetails.get("Q"+numberofQs+"_id"))).log().all()
 					.when()
-					.post(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/faqs/bulk?language=en")					
+					.post(url+urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/faqs/bulk?language=en")					
 					.then().log().all()
 					.extract().response();		
 			Thread.sleep(10000);		
-			System.out.println(responseAddQstoCollections.asString()); //Success
-			Assert.assertEquals(String.valueOf(responseAddQstoCollections.getStatusCode()),"200");
+			System.out.println(responseAddQstoCollections.asString()); 			
 			if(responseAddQstoCollections.asString().equalsIgnoreCase("Success"))
 			{
-				System.out.println(" Add Question to collection is succesffuly done  Question"+numberofQs);
+				System.out.println(" Add Question to collection is succesffuly done and Numer of  Questions are "+numberofQs);
 
 			}else
 			{
 				System.out.println(" Add Question to collection is FAIL");
 			}
+			Assert.assertEquals(String.valueOf(responseAddQstoCollections.getStatusCode()),"200");
 		}
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 	@Test(priority = 44, enabled = true)
-	public static void publishbot() throws InterruptedException
+	public static void publishbotinKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("--14--------------------- Publish Bot ---------------------------");
 		Response responsPublishBot = RestAssured.
 				given()
@@ -333,40 +408,55 @@ public class KnowledgeCollection extends Payloads{
 				.post(url+publicEnableSdk+collectappnbotdetails.get("clonnedBot_StreamID")+"/publish")					
 				.then()
 				.extract().response();	
-		Thread.sleep(10000);
-		Assert.assertEquals(String.valueOf(responsPublishBot.getStatusCode()),"200");
+		Thread.sleep(10000);		
 		System.out.println("Publish bot Status code "+responsPublishBot.jsonPath().get("status"));
+		Assert.assertEquals(String.valueOf(responsPublishBot.getStatusCode()),"200");
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 	@Test(priority = 45, enabled = true)
-	public static void GetFAQsCollection() throws InterruptedException
+	public static void GetFAQsCollectioninKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("--15-------------------------GET FAQ's Collection------------------------------------"); 
 		Response responseGetFAQsCollection = RestAssured.
 				given()
 				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))				
 				.when()
-				.get(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/faqs?ktId="+collectappnbotdetails.get("KT_ID")+"&parentId=idPrefix21&limit=50&offset=0&rnd=n3bfxo&withallchild=true&type=all&language=en")					
+				.get(url+urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/faqs?ktId="+collectappnbotdetails.get("KT_ID")+"&parentId=idPrefix21&limit=50&offset=0&rnd=n3bfxo&withallchild=true&type=all&language=en")					
 				.then().log().all()
 				.extract().response();			  
-		Assert.assertEquals(String.valueOf(responseGetFAQsCollection.getStatusCode()),"200");
+		
 		JsonPath jp = responseGetFAQsCollection.jsonPath();		
 		collectappnbotdetails.put("QuestionsFetched",jp.get("faqs.questionPayload.question").toString());		
 		System.out.println("Questions Fetched FAQ's Collection :"+collectappnbotdetails.get("QuestionsFetched"));
+		Assert.assertEquals(String.valueOf(responseGetFAQsCollection.getStatusCode()),"200");
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 	@Test(priority = 46, enabled = true)
-	public static void GetExtractsofCollection() throws InterruptedException
+	public static void GetExtractsofCollectioninKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("---16------------------------GET EXTRACTION OF COLLECTION------------------------------------"); 
 		Response responseGetExtractsofCollection = RestAssured.
 				given()
 				.headers(KnowledgeCollection.HeadersWithKAKCHook(collectappnbotdetails.get("jwt")))				
 				.when()
-				.get(urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/qna/history?language=en")					
+				.get(url+urlKC+collectappnbotdetails.get("clonnedBot_StreamID")+"/qna/history?language=en")					
 				.then()
-				.extract().response();			  
-		Assert.assertEquals(String.valueOf(responseGetExtractsofCollection.getStatusCode()),"200");
+				.extract().response();
+		Thread.sleep(5000);
+		
+		
 		JsonPath jp = responseGetExtractsofCollection.jsonPath();		
 		collectappnbotdetails.put("GetExtractsofCollection",jp.get("metaqnas.status[0]").toString());
 		if(collectappnbotdetails.get("GetExtractsofCollection").equalsIgnoreCase("success"))
@@ -378,11 +468,18 @@ public class KnowledgeCollection extends Payloads{
 		}else {
 			System.out.println("failed to Extract History of QnA " );
 		}
+		Assert.assertEquals(String.valueOf(responseGetExtractsofCollection.getStatusCode()),"200");
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}		
 
 	@Test(priority = 47, enabled = true)
-	public static void genereateJWTtokenforNonAmdinApp()
+	public static void genereateJWTtokenforNonAmdinAppinKnowledgeCollection()
 	{
+		try {
 		System.out.println("---------genereateJWTtoken for non Admin app------------------"); 
 		Response responsejwtToken = RestAssured.
 				given()
@@ -391,15 +488,21 @@ public class KnowledgeCollection extends Payloads{
 				.when()
 				.post(urljwtTokenGenerater)					
 				.then()
-				.extract().response();						
-		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");		
+				.extract().response();										
 		collectappnbotdetails.put("builderApp_jwt",responsejwtToken.jsonPath().get("jwt").toString());
-				
+		Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
+			
 	}
 
 	@Test(priority = 48, enabled = true)
-	public static void findIntent() throws InterruptedException
+	public static void findIntentinKnowledgeCollection() throws InterruptedException
 	{
+		try {
 		System.out.println("--18--------------------- findIntent  ---------------");
 		Response responsefindIntent = RestAssured.
 				given()
@@ -408,9 +511,14 @@ public class KnowledgeCollection extends Payloads{
 				.when().log().all()
 				.post(url+findIntent+collectappnbotdetails.get("clonnedBot_StreamID")+"/findIntent")					
 				.then()
-				.extract().response();	
-		Assert.assertEquals(String.valueOf(responsefindIntent.getStatusCode()),"200");		
+				.extract().response();					
 		System.out.println("findIntent "+responsefindIntent.asString());
+		Assert.assertEquals(String.valueOf(responsefindIntent.getStatusCode()),"200");
+	}catch(Exception e)
+	{
+		Assert.fail();
+		e.printStackTrace();
+	}
 	}
 
 
@@ -433,6 +541,6 @@ public class KnowledgeCollection extends Payloads{
 //		}
 
 
-
+	
 
 }

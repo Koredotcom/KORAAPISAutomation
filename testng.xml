@@ -2,8 +2,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
   <test thread-count="5" name="Test">
-  <parameter name="Enviroment" value="https://koradev-bots.kora.ai"/>
-  <!--  <parameter name="Enviroment" value="https://bots.kora.ai"/> -->
+ <!--  <parameter name="Enviroment" value="https://koradev-bots.kora.ai"/>
+   <parameter name="Enviroment" value="https://bots.kora.ai"/>-->
+  		<parameter name="Enviroment" value="https://qa1-bots.kore.ai"/> 
     <classes>
      <class name="platform.api.EnviromentSetup"/>
     <class name="platform.api.TenantOnboarding"/>

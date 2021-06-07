@@ -3,10 +3,10 @@
 <suite name="Suite">
 	<test thread-count="5" name="Test">
 	
-	<parameter name="Enviroment" value="https://qa1-bots.kore.ai" />
+	<!-- <parameter name="Enviroment" value="https://qa1-bots.kore.ai" /> -->
 
-		<!--<parameter name="Enviroment" value="https://koradev-bots.kora.ai"/> 
-			<parameter name="Enviroment" value="https://bots.kora.ai"/> -->
+		<parameter name="Enviroment" value="https://koradev-bots.kora.ai"/> 
+		<!--	<parameter name="Enviroment" value="https://bots.kora.ai"/> -->
 		<classes>
 			<class name="platform.api.EnviromentSetup" />
 			<class name="platform.api.TenantOnboarding" />

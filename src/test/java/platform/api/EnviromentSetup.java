@@ -41,10 +41,10 @@ public class EnviromentSetup extends Payloads{
 			System.out.println("Timing of Creating new Env "+sTimeinHHMMSS);
 			Response response = RestAssured
 					.given().headers(EnviromentSetup.HeadersWithAPIKey()) 
-					.body(EnviromentSetup.createUserPayLoad(sTimeinHHMMSS))
+					.body(EnviromentSetup.createUserPayLoad(sTimeinHHMMSS)).log().all()
 					.when()
 					.post(url+internalAccountResource)
-					.then().log().all()
+					.then()
 					.extract().response();	
 			Thread.sleep(5000);			
 			collectappnbotdetails = new LinkedHashMap<String, String>();			

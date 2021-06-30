@@ -36,9 +36,9 @@ public class TenantOnboarding extends Payloads{
 	@Test(priority = 15, enabled = true)
 	public static void createUserinTenantOnboarding() {
 		try {
-			System.out.println("-01-----------------createUser  Tenant Onboarding---------------------------");
+			System.out.println("-15-----------------createUser  Tenant Onboarding---------------------------");
 			String toTimeinHHMMSS=Payloads.fntoreturntimeinHHMMSS();
-			Response response = RestAssured
+			Response responsecutnt = RestAssured
 					.given().headers(TenantOnboarding.HeadersWithAPIKey()) 
 					.body(TenantOnboarding.createUserPayLoad(toTimeinHHMMSS))
 					.when()
@@ -47,11 +47,11 @@ public class TenantOnboarding extends Payloads{
 					.extract().response();	
 			Thread.sleep(5000);
 			collectappnbotdetails = new LinkedHashMap<String, String>();			
-			collectappnbotdetails.put("emailId", response.jsonPath().get("emailId").toString());			
-			collectappnbotdetails.put("accountId", response.jsonPath().get("accountId").toString());
-			collectappnbotdetails.put("userId", response.jsonPath().get("userId").toString());	
+			collectappnbotdetails.put("emailId", responsecutnt.jsonPath().get("emailId").toString());			
+			collectappnbotdetails.put("accountId", responsecutnt.jsonPath().get("accountId").toString());
+			collectappnbotdetails.put("userId", responsecutnt.jsonPath().get("userId").toString());	
 			System.out.println(collectappnbotdetails);
-			Assert.assertEquals(String.valueOf(response.getStatusCode()),"200");			
+			Assert.assertEquals(String.valueOf(responsecutnt.getStatusCode()),"200");			
 		}catch(Exception e)
 		{			
 			Assert.fail();
@@ -62,8 +62,8 @@ public class TenantOnboarding extends Payloads{
 	@Test(priority = 16, enabled = true)
 	public static void createAdminAppinTenantOnboarding() {
 		try {						
-			System.out.println("---02---------------createAdminApp---------------------------");
-			Response responseadmin = RestAssured.
+			System.out.println("---16---------------createAdminApp---------------------------");
+			Response responseadmintnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithAPIKey())
 					.body(TenantOnboarding.createAdminAPPPayLoad(collectappnbotdetails.get("accountId"),collectappnbotdetails.get("userId")))
@@ -72,16 +72,16 @@ public class TenantOnboarding extends Payloads{
 					.then().log().all()
 					.extract().response();	
 			Thread.sleep(5000);										
-			collectappnbotdetails.put("Name",responseadmin.jsonPath().get("name").toString());
-			collectappnbotdetails.put("cId", responseadmin.jsonPath().get("cId").toString());
-			collectappnbotdetails.put("cS", responseadmin.jsonPath().get("cS").toString());
-			collectappnbotdetails.put("nId", responseadmin.jsonPath().get("nId").toString());	
-			collectappnbotdetails.put("accountId", responseadmin.jsonPath().get("accountId").toString());
-			collectappnbotdetails.put("userId", responseadmin.jsonPath().get("nId").toString());
+			collectappnbotdetails.put("Name",responseadmintnt.jsonPath().get("name").toString());
+			collectappnbotdetails.put("cId", responseadmintnt.jsonPath().get("cId").toString());
+			collectappnbotdetails.put("cS", responseadmintnt.jsonPath().get("cS").toString());
+			collectappnbotdetails.put("nId", responseadmintnt.jsonPath().get("nId").toString());	
+			collectappnbotdetails.put("accountId", responseadmintnt.jsonPath().get("accountId").toString());
+			collectappnbotdetails.put("userId", responseadmintnt.jsonPath().get("nId").toString());
 
 			System.out.println(collectappnbotdetails);
 			TimeinHHMMSS=null;
-			Assert.assertEquals(String.valueOf(responseadmin.getStatusCode()),"200");
+			Assert.assertEquals(String.valueOf(responseadmintnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			TimeinHHMMSS=null;
@@ -97,8 +97,8 @@ public class TenantOnboarding extends Payloads{
 	public static void genereateJWTtokeninTenantOnboarding()
 	{
 		try {
-			System.out.println("-03--------genereateJWTtoken------------------"); 
-			Response responsejwtToken = RestAssured.
+			System.out.println("-17--------genereateJWTtoken------------------"); 
+			Response responsejwtTokentnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithAPIKey())
 					.body(TenantOnboarding.genereateJWTtokenPayLoad(collectappnbotdetails.get("cId"),collectappnbotdetails.get("cS"),collectappnbotdetails.get("nId")))
@@ -106,8 +106,8 @@ public class TenantOnboarding extends Payloads{
 					.post(urljwtTokenGenerater)					
 					.then().log().all()
 					.extract().response();					
-			collectappnbotdetails.put("jwt",responsejwtToken.jsonPath().get("jwt").toString());
-			Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
+			collectappnbotdetails.put("jwt",responsejwtTokentnt.jsonPath().get("jwt").toString());
+			Assert.assertEquals(String.valueOf(responsejwtTokentnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -124,7 +124,7 @@ public class TenantOnboarding extends Payloads{
 	public static void cloningSmapleBotinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("-04--------cloning UB BOT------------------");
+			System.out.println("-18--------cloning UB BOT------------------");
 			if (url.contains("koradev-bots.kora.ai")) {
 				cloningbot=	devUniversalBOT;				
 			} else if (url.contains("qa1-bots.kore.ai")) {
@@ -133,7 +133,7 @@ public class TenantOnboarding extends Payloads{
 				System.out.println(" Given URL "+ url+" is neither koradev-bots.kora.ai nor qa1-bots.kora.ai");
 			}
 
-			Response responsecloningSmapleBot = RestAssured.
+			Response responsecloningSmapleBottnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.headersforcloneBotpayLoad(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("userId"), collectappnbotdetails.get("accountId")))				
 					.when()  
@@ -141,9 +141,9 @@ public class TenantOnboarding extends Payloads{
 					.then()
 					.extract().response();		
 			Thread.sleep(5000);		
-			collectappnbotdetails.put("clonnedBot_StreamID",responsecloningSmapleBot.jsonPath().get("_id").toString());									
-			collectappnbotdetails.put("clonnedBotName",responsecloningSmapleBot.jsonPath().get("name").toString());
-			Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
+			collectappnbotdetails.put("clonnedBot_StreamID",responsecloningSmapleBottnt.jsonPath().get("_id").toString());									
+			collectappnbotdetails.put("clonnedBotName",responsecloningSmapleBottnt.jsonPath().get("name").toString());
+			Assert.assertEquals(String.valueOf(responsecloningSmapleBottnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -155,8 +155,8 @@ public class TenantOnboarding extends Payloads{
 	public static void clonedBotSetupinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("-05--------cloned BOT Setup------------------"); 
-			Response responsecloningSmapleBot = RestAssured.
+			System.out.println("-19--------cloned BOT Setup------------------"); 
+			Response responsecloningSmapleBottnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeaderswithJWTnAccountID(collectappnbotdetails.get("jwt"), collectappnbotdetails.get("accountId")))				
 					.body(TenantOnboarding.clonedBot_SetuppayLoad(collectappnbotdetails.get("clonnedBotName")))
@@ -165,8 +165,8 @@ public class TenantOnboarding extends Payloads{
 					.then()
 					.extract().response();	
 			Thread.sleep(5000);		
-			System.out.println("Clonned bot Setup Status ::" +responsecloningSmapleBot.getStatusCode());
-			Assert.assertEquals(String.valueOf(responsecloningSmapleBot.getStatusCode()),"200");
+			System.out.println("Clonned bot Setup Status ::" +responsecloningSmapleBottnt.getStatusCode());
+			Assert.assertEquals(String.valueOf(responsecloningSmapleBottnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -178,8 +178,8 @@ public class TenantOnboarding extends Payloads{
 	public static void createbuilderAppnforUBinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("-06----------------------Create Non-Amin Builder app  for UB---------------------------"); 
-			Response responsbuilderapp = RestAssured.
+			System.out.println("-20----------------------Create Non-Amin Builder app  for UB---------------------------"); 
+			Response responsbuilderapptnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithAPIKey())
 					.body(TenantOnboarding.createbuilderAppnonAdminpayLoad(collectappnbotdetails.get("clonnedBot_StreamID"),collectappnbotdetails.get("accountId"),collectappnbotdetails.get("userId")))
@@ -188,11 +188,11 @@ public class TenantOnboarding extends Payloads{
 					.then().log().all()
 					.extract().response();	
 			Thread.sleep(5000);				
-			collectappnbotdetails.put("UB_BuilderApp_Name",responsbuilderapp.jsonPath().get("name").toString());
-			collectappnbotdetails.put("UB_BuilderApp_sdkClientId", responsbuilderapp.jsonPath().get("cId").toString());
-			collectappnbotdetails.put("UB_BuilderApp_cS", responsbuilderapp.jsonPath().get("cS").toString());
-			collectappnbotdetails.put("UB_BuilderApp_UserId", responsbuilderapp.jsonPath().get("nId").toString());
-			Assert.assertEquals(String.valueOf(responsbuilderapp.getStatusCode()),"200");
+			collectappnbotdetails.put("UB_BuilderApp_Name",responsbuilderapptnt.jsonPath().get("name").toString());
+			collectappnbotdetails.put("UB_BuilderApp_sdkClientId", responsbuilderapptnt.jsonPath().get("cId").toString());
+			collectappnbotdetails.put("UB_BuilderApp_cS", responsbuilderapptnt.jsonPath().get("cS").toString());
+			collectappnbotdetails.put("UB_BuilderApp_UserId", responsbuilderapptnt.jsonPath().get("nId").toString());
+			Assert.assertEquals(String.valueOf(responsbuilderapptnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -204,8 +204,8 @@ public class TenantOnboarding extends Payloads{
 	public static void enableRTMforUBbuilderAPPinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("-07--------------------- enableRTM for UB bot builder app---------------------------"); 
-			Response responseenableRTMforUBbuilderAPP = RestAssured.
+			System.out.println("-21--------------------- enableRTM for UB bot builder app---------------------------"); 
+			Response responseenableRTMforUBbuilderAPPtnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))
 					.body(TenantOnboarding.enableRTMpayLoad(collectappnbotdetails.get("clonnedBot_StreamID"),collectappnbotdetails.get("UB_BuilderApp_Name"),collectappnbotdetails.get("UB_BuilderApp_sdkClientId"))) 
@@ -214,8 +214,8 @@ public class TenantOnboarding extends Payloads{
 					.then().log().all()
 					.extract().response();	
 			Thread.sleep(5000);
-			System.out.println(" Status code Enable RTM for UB bot"+responseenableRTMforUBbuilderAPP.asString());
-			Assert.assertEquals(String.valueOf(responseenableRTMforUBbuilderAPP.getStatusCode()),"200");
+			System.out.println(" Status code Enable RTM for UB bot"+responseenableRTMforUBbuilderAPPtnt.asString());
+			Assert.assertEquals(String.valueOf(responseenableRTMforUBbuilderAPPtnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -228,8 +228,8 @@ public class TenantOnboarding extends Payloads{
 	public static void genereateJWTtokenUB_BuilderAppinTenantOnboarding()
 	{
 		try {
-			System.out.println("-----08---genereateJWTtokenUB_BuilderApp------------------"); 
-			Response responsejwtToken = RestAssured.
+			System.out.println("-----22---genereateJWTtokenUB_BuilderApp------------------"); 
+			Response responsejwtTokenbuilderapptnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithAPIKey())
 					.body(TenantOnboarding.genereateJWTtokenPayLoad(collectappnbotdetails.get("UB_BuilderApp_sdkClientId"),collectappnbotdetails.get("UB_BuilderApp_cS"),collectappnbotdetails.get("UB_BuilderApp_UserId")))
@@ -237,8 +237,8 @@ public class TenantOnboarding extends Payloads{
 					.post(urljwtTokenGenerater)					
 					.then()
 					.extract().response();
-			collectappnbotdetails.put("UB_BuilderAPP_jwt",responsejwtToken.jsonPath().get("jwt").toString());
-			Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");		
+			collectappnbotdetails.put("UB_BuilderAPP_jwt",responsejwtTokenbuilderapptnt.jsonPath().get("jwt").toString());
+			Assert.assertEquals(String.valueOf(responsejwtTokenbuilderapptnt.getStatusCode()),"200");		
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -253,7 +253,7 @@ public class TenantOnboarding extends Payloads{
 	public static void uploadFileinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("--09----------------uploadFile_botDef---------------------------");   
+			System.out.println("--23----------------uploadFile_botDef---------------------------");   
 			File botdeffile = new File("Korabot/botDefinition.json");
 			File configfile = new File("Korabot/config.json");
 			File iconfile = new File("Korabot/icon.png");
@@ -262,7 +262,7 @@ public class TenantOnboarding extends Payloads{
 			//		File configfile = new File("ABIMYIT/config.json");
 			//		File iconfile = new File("ABIMYIT/icon.png");
 
-			Response responseuploadFile = RestAssured.
+			Response responseuploadFiletnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithJWTTokenforUpload(collectappnbotdetails.get("jwt")))
 					.multiPart(botdeffile).multiPart("fileContext", "bulkImport")
@@ -272,10 +272,10 @@ public class TenantOnboarding extends Payloads{
 					.extract().response();				
 			Thread.sleep(10000);
 
-			collectappnbotdetails.put("BotDef_fileId",responseuploadFile.jsonPath().get("fileId").toString()); 		
+			collectappnbotdetails.put("BotDef_fileId",responseuploadFiletnt.jsonPath().get("fileId").toString()); 		
 
 			System.out.println("------------------uploadFile_config---------------------------");
-			Response responsejwtTokenbotconfg = RestAssured.
+			Response responsejwtTokenbotconfgtnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithJWTTokenforUpload(collectappnbotdetails.get("jwt")))
 					.multiPart(configfile).multiPart("fileContext", "bulkImport")
@@ -284,10 +284,10 @@ public class TenantOnboarding extends Payloads{
 					.then()
 					.extract().response();				
 			Thread.sleep(5000);														
-			collectappnbotdetails.put("BotConfig_fileId",responsejwtTokenbotconfg.jsonPath().get("fileId").toString()); 
+			collectappnbotdetails.put("BotConfig_fileId",responsejwtTokenbotconfgtnt.jsonPath().get("fileId").toString()); 
 
 			System.out.println("------------------uploadFile_icon---------------------------");
-			Response responsejwtTokenboticon = RestAssured.
+			Response responsejwtTokenboticontnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithJWTTokenforUpload(collectappnbotdetails.get("jwt")))
 					.multiPart(iconfile).multiPart("fileContext", "bulkImport")
@@ -296,9 +296,9 @@ public class TenantOnboarding extends Payloads{
 					.then()
 					.extract().response();				
 			Thread.sleep(5000);		
-			JsonPath jsonPathEvaluatoradminboticon= responsejwtTokenboticon.jsonPath();											
+			JsonPath jsonPathEvaluatoradminboticon= responsejwtTokenboticontnt.jsonPath();											
 			collectappnbotdetails.put("BotIcon_fileId",jsonPathEvaluatoradminboticon.get("fileId").toString());
-			Assert.assertEquals(String.valueOf(responseuploadFile.getStatusCode()),"200");
+			Assert.assertEquals(String.valueOf(responsejwtTokenboticontnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -310,8 +310,8 @@ public class TenantOnboarding extends Payloads{
 	public static void importBotinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("-10--------------------------ImportBot------------------------------------"); 
-			Response responsejwtToken = RestAssured.
+			System.out.println("-24--------------------------ImportBot------------------------------------"); 
+			Response responsejwtTokentenant = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))
 					.body(TenantOnboarding.importBotPayLoad(collectappnbotdetails.get("BotDef_fileId"),collectappnbotdetails.get("BotConfig_fileId"),collectappnbotdetails.get("BotIcon_fileId")))
@@ -319,9 +319,9 @@ public class TenantOnboarding extends Payloads{
 					.post(url+publicimportBOTresource)					
 					.then().log().all()
 					.extract().response();											
-			collectappnbotdetails.put("streamRefId",responsejwtToken.jsonPath().get("streamRefId").toString()); 
-			collectappnbotdetails.put("bir_id",responsejwtToken.jsonPath().get("_id").toString());
-			Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
+			collectappnbotdetails.put("streamRefId",responsejwtTokentenant.jsonPath().get("streamRefId").toString()); 
+			collectappnbotdetails.put("bir_id",responsejwtTokentenant.jsonPath().get("_id").toString());
+			Assert.assertEquals(String.valueOf(responsejwtTokentenant.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -334,8 +334,8 @@ public class TenantOnboarding extends Payloads{
 	public static void importBotStatusinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("-11----------------------ImportBot_Status---------------------------"); 
-			Response responseimportBotStatus = RestAssured.
+			System.out.println("-25----------------------ImportBot_Status---------------------------"); 
+			Response responseimportBotStatustnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))				
 					.when()
@@ -347,15 +347,15 @@ public class TenantOnboarding extends Payloads{
 			doloop: do {
 				waitincreamentalLoop++;
 				Thread.sleep(10000);
-				if(responseimportBotStatus.jsonPath().get("status").toString().equalsIgnoreCase("success"));
+				if(responseimportBotStatustnt.jsonPath().get("status").toString().equalsIgnoreCase("success"));
 				{
 					break doloop;
 				}
 			}
-			while (waitincreamentalLoop <= 5 || (!responseimportBotStatus.jsonPath().get("status").toString().equalsIgnoreCase("success"))) ;
-			collectappnbotdetails.put("importedBot_status",responseimportBotStatus.jsonPath().get("status").toString());
-			collectappnbotdetails.put("importedBot_streamId",responseimportBotStatus.jsonPath().get("streamId").toString());
-			Assert.assertEquals(String.valueOf(responseimportBotStatus.getStatusCode()),"200");
+			while (waitincreamentalLoop <= 5 || (!responseimportBotStatustnt.jsonPath().get("status").toString().equalsIgnoreCase("success"))) ;
+			collectappnbotdetails.put("importedBot_status",responseimportBotStatustnt.jsonPath().get("status").toString());
+			collectappnbotdetails.put("importedBot_streamId",responseimportBotStatustnt.jsonPath().get("streamId").toString());
+			Assert.assertEquals(String.valueOf(responseimportBotStatustnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -367,8 +367,8 @@ public class TenantOnboarding extends Payloads{
 	public static void createbuilderAppNONAdmininTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("-12----------------------Create Non-Amin Builder app---------------------------"); 
-			Response responsbuilderapp = RestAssured.
+			System.out.println("-26----------------------Create Non-Amin Builder app---------------------------"); 
+			Response responsbuilderappnonadmintnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithAPIKey())
 					.body(TenantOnboarding.createbuilderAppnonAdminpayLoad(collectappnbotdetails.get("importedBot_streamId"),collectappnbotdetails.get("accountId"),collectappnbotdetails.get("userId")))
@@ -377,12 +377,11 @@ public class TenantOnboarding extends Payloads{
 					.then().log().all()
 					.extract().response();	
 			Thread.sleep(5000);
-
-			collectappnbotdetails.put("BuilderApp_Name",responsbuilderapp.jsonPath().get("name").toString());
-			collectappnbotdetails.put("BuilderApp_sdkClientId", responsbuilderapp.jsonPath().get("cId").toString());
-			collectappnbotdetails.put("BuilderApp_cS", responsbuilderapp.jsonPath().get("cS").toString());
-			collectappnbotdetails.put("BuilderApp_UserId", responsbuilderapp.jsonPath().get("nId").toString());
-			Assert.assertEquals(String.valueOf(responsbuilderapp.getStatusCode()),"200");
+			collectappnbotdetails.put("BuilderApp_Name",responsbuilderappnonadmintnt.jsonPath().get("name").toString());
+			collectappnbotdetails.put("BuilderApp_sdkClientId", responsbuilderappnonadmintnt.jsonPath().get("cId").toString());
+			collectappnbotdetails.put("BuilderApp_cS", responsbuilderappnonadmintnt.jsonPath().get("cS").toString());
+			collectappnbotdetails.put("BuilderApp_UserId", responsbuilderappnonadmintnt.jsonPath().get("nId").toString());
+			Assert.assertEquals(String.valueOf(responsbuilderappnonadmintnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -394,7 +393,7 @@ public class TenantOnboarding extends Payloads{
 	public static void enableRTMinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("-13---------------------- enableRTM ---------------------------"); 
+			System.out.println("-27---------------------- enableRTM ---------------------------"); 
 			Response responseadmin = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))
@@ -417,8 +416,8 @@ public class TenantOnboarding extends Payloads{
 	public static void genereateJWTtokenbuilderappinTenantOnboarding()
 	{
 		try {
-			System.out.println("14--------genereateJWTtokenbuilderapp------------------"); 
-			Response responsejwtToken = RestAssured.
+			System.out.println("---28-----genereateJWTtokenbuilderapp------------------"); 
+			Response responsejwtTokentntsecond = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithAPIKey())
 					.body(TenantOnboarding.genereateJWTtokenPayLoad(collectappnbotdetails.get("BuilderApp_sdkClientId"),collectappnbotdetails.get("BuilderApp_cS"),collectappnbotdetails.get("BuilderApp_UserId")))
@@ -426,22 +425,22 @@ public class TenantOnboarding extends Payloads{
 					.post(urljwtTokenGenerater)					
 					.then()
 					.extract().response();
-			collectappnbotdetails.put("builderApp_jwt",responsejwtToken.jsonPath().get("jwt").toString());
-			Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
+			collectappnbotdetails.put("builderApp_jwt",responsejwtTokentntsecond.jsonPath().get("jwt").toString());
+			Assert.assertEquals(String.valueOf(responsejwtTokentntsecond.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
 			e.printStackTrace();
 		}
-
 	}
 
 	@Test(priority = 29, enabled = true)
 	public static void publishbotStandardBotinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("--15--------------------- Publish Bot standard bot---------------------------");
-			Response responsPublishBot = RestAssured.
+			System.out.println("--29--------------------- Publish Bot standard bot---------------------------");
+			Thread.sleep(5000);
+			Response responsPublishBottenantonboarding = RestAssured.
 					given()
 					.headers(TenantOnboarding.Headersforpublishbot(collectappnbotdetails.get("jwt")))
 					.body(TenantOnboarding.publishbotPayload()) 
@@ -450,8 +449,8 @@ public class TenantOnboarding extends Payloads{
 					.then()
 					.extract().response();	
 			Thread.sleep(5000);
-			System.out.println("Publish bot Status  "+responsPublishBot.jsonPath().get("status"));
-			Assert.assertEquals(String.valueOf(responsPublishBot.getStatusCode()),"200");
+			System.out.println("Publish bot Status  "+responsPublishBottenantonboarding.jsonPath().get("status"));
+			Assert.assertEquals(String.valueOf(responsPublishBottenantonboarding.getStatusCode()),"200");
 		}catch(Exception e)
 		{
 			Assert.fail();
@@ -463,8 +462,8 @@ public class TenantOnboarding extends Payloads{
 	public static void linkChildBotinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("---16--------------------Linking Child bot to UB---------------------------"); 
-			Response responseadmin = RestAssured.
+			System.out.println("---30--------------------Linking Child bot to UB---------------------------"); 
+			Response responseadminlnkchildbottnt = RestAssured.
 					given()
 					.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("UB_BuilderAPP_jwt")))
 					.body(TenantOnboarding.linkChildBotpayLoad(collectappnbotdetails.get("importedBot_streamId"),"KoraBot",collectappnbotdetails.get("builderApp_jwt")))
@@ -473,7 +472,7 @@ public class TenantOnboarding extends Payloads{
 					.then().log().all()
 					.extract().response();	
 			Thread.sleep(5000);
-			Assert.assertEquals(String.valueOf(responseadmin.getStatusCode()),"200");			
+			Assert.assertEquals(String.valueOf(responseadminlnkchildbottnt.getStatusCode()),"200");			
 		}catch(Exception e)
 		{
 			Assert.fail();

@@ -65,7 +65,7 @@ public class EnviromentSetup extends Payloads{
 		public static void createAdminAppinEnvironmentSetup() {
 			try {						
 				System.out.println("---02---------------createAdminApp---------------------------");
-				Response responseadmin = RestAssured.
+				Response responseadminenv = RestAssured.
 						given()
 						.headers(EnviromentSetup.HeadersWithAPIKey()).log().all()
 						.body(EnviromentSetup.createAdminAPPPayLoad(collectappnbotdetails.get("accountId"),collectappnbotdetails.get("userId")))
@@ -75,15 +75,15 @@ public class EnviromentSetup extends Payloads{
 						.extract().response();	
 				Thread.sleep(5000);
 	
-				collectappnbotdetails.put("Name",responseadmin.jsonPath().get("name").toString());
-				collectappnbotdetails.put("cId", responseadmin.jsonPath().get("cId").toString());
-				collectappnbotdetails.put("cS", responseadmin.jsonPath().get("cS").toString());
-				collectappnbotdetails.put("nId", responseadmin.jsonPath().get("nId").toString());	
-				collectappnbotdetails.put("accountId", responseadmin.jsonPath().get("accountId").toString());
-				collectappnbotdetails.put("userId", responseadmin.jsonPath().get("nId").toString());
+				collectappnbotdetails.put("Name",responseadminenv.jsonPath().get("name").toString());
+				collectappnbotdetails.put("cId", responseadminenv.jsonPath().get("cId").toString());
+				collectappnbotdetails.put("cS", responseadminenv.jsonPath().get("cS").toString());
+				collectappnbotdetails.put("nId", responseadminenv.jsonPath().get("nId").toString());	
+				collectappnbotdetails.put("accountId", responseadminenv.jsonPath().get("accountId").toString());
+				collectappnbotdetails.put("userId", responseadminenv.jsonPath().get("nId").toString());
 				System.out.println(collectappnbotdetails);
 				TimeinHHMMSS=null;
-				Assert.assertEquals(String.valueOf(responseadmin.getStatusCode()),"200");
+				Assert.assertEquals(String.valueOf(responseadminenv.getStatusCode()),"200");
 			}catch(Exception e)
 			{
 				TimeinHHMMSS=null;
@@ -97,7 +97,7 @@ public class EnviromentSetup extends Payloads{
 		{
 			try {
 				System.out.println("-03--------genereateJWTtoken------------------"); 
-				Response responsejwtToken = RestAssured.
+				Response responsejwtTokenv = RestAssured.
 						given()
 						.headers(EnviromentSetup.HeadersWithAPIKey()).log().all()
 						.body(EnviromentSetup.genereateJWTtokenPayLoad(collectappnbotdetails.get("cId"),collectappnbotdetails.get("cS"),collectappnbotdetails.get("nId")))
@@ -106,8 +106,8 @@ public class EnviromentSetup extends Payloads{
 						.then()
 						.extract().response();			
 	
-				collectappnbotdetails.put("jwt",responsejwtToken.jsonPath().get("jwt").toString());
-				Assert.assertEquals(String.valueOf(responsejwtToken.getStatusCode()),"200");
+				collectappnbotdetails.put("jwt",responsejwtTokenv.jsonPath().get("jwt").toString());
+				Assert.assertEquals(String.valueOf(responsejwtTokenv.getStatusCode()),"200");
 			}catch(Exception e)
 			{
 				Assert.fail();
@@ -232,8 +232,7 @@ public class EnviromentSetup extends Payloads{
 						.when()
 						.get(url+publicimportBOTstatus+collectappnbotdetails.get("bir_id"))				
 						.then()
-						.extract().response();
-	
+						.extract().response();	
 				waitincreamentalLoop=1;
 				doloop: do {
 					waitincreamentalLoop++;
@@ -326,7 +325,7 @@ public class EnviromentSetup extends Payloads{
 		{
 			try {
 				System.out.println("-10---------------------- enableRTM ---------------------------"); 
-				Response responseadmin = RestAssured.
+				Response responseEnableRTMenv = RestAssured.
 						given()
 						.headers(EnviromentSetup.HeadersWithJWTToken(collectappnbotdetails.get("jwt"))).log().all()
 						.body(EnviromentSetup.enableRTMpayLoad(collectappnbotdetails.get("importedBot_streamId"),collectappnbotdetails.get("BuilderApp_Name"),collectappnbotdetails.get("BuilderApp_sdkClientId"))) 
@@ -334,10 +333,10 @@ public class EnviromentSetup extends Payloads{
 						.post(url+publicEnableTRMChannelsResource)					
 						.then().log().all()
 						.extract().response();	
-				Thread.sleep(5000);
+				Thread.sleep(10000);
 	
-				System.out.println(" Status code Enable RTM "+responseadmin.jsonPath().get("status"));
-				Assert.assertEquals(String.valueOf(responseadmin.getStatusCode()),"200");
+				System.out.println(" Status code Enable RTM "+responseEnableRTMenv.jsonPath().get("status"));
+				Assert.assertEquals(String.valueOf(responseEnableRTMenv.getStatusCode()),"200");
 			}catch(Exception e)
 			{
 				Assert.fail();
@@ -357,9 +356,7 @@ public class EnviromentSetup extends Payloads{
 						.when()
 						.post(urljwtTokenGenerater)					
 						.then()
-						.extract().response();			
-	
-	
+						.extract().response();					
 				collectappnbotdetails.put("builderApp_jwt",responsegenereateJWTtokenforNonAmdinApp.jsonPath().get("jwt").toString());
 				Assert.assertEquals(String.valueOf(responsegenereateJWTtokenforNonAmdinApp.getStatusCode()),"200");
 			}catch(Exception e)

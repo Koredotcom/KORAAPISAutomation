@@ -71,8 +71,8 @@ public class Payloads {
 
 	@BeforeSuite
 	public void extractEnviromentURL(ITestContext ctx) {
-		String urlfromxmal = ctx.getCurrentXmlTest().getParameter("Enviroment");
-		System.out.println("Executing in folowing enviroment ::"+urlfromxmal);
+		String urlfromxmal = ctx.getCurrentXmlTest().getParameter("Environment");
+		System.out.println("Executing in folowing Environment ::"+urlfromxmal);
 		url=urlfromxmal;
 	}
 
@@ -771,10 +771,21 @@ public class Payloads {
 
 	public static String ExtractFAQsPayload()  
 	{
+		
+		//https://seller.flipkart.com/sell-online/faq		
+		//https://seller.flipkart.com/slp/faqs
+		//
 		return "{\n" + 
 				"     \"fileUrl\": \"https://www.icicibank.com/nri-banking/money_transfer/faq/m2i-rewards-program/loyalty-program.page?\",\n" + 
-				"     \"name\": \"flipkat\"\n" + 
+				"     \"name\": \"icicibank\"\n" + 
 				"}";
+		
+//		return"{\n" + 
+//				"     \"fileUrl\": \"https://seller.flipkart.com/slp/faqs\",\n" + 
+//				"     \"fileId\": \"\",\n" + 
+//				"     \"fileName\": \"\",\n" + 
+//				"     \"name\": \"Extract930\"\n" + 
+//				"}";
 	}
 
 	public static String AddQstoCollectionPayload(String question,String answer,String knowledgeTaskId,String BotID,String qsId)

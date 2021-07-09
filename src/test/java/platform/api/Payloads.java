@@ -71,6 +71,13 @@ public class Payloads {
 
 	@BeforeSuite
 	public void extractEnviromentURL(ITestContext ctx) {
+		System.out.println("------------------------??? "+System.getProperty("ENV"));
+		System.out.println("------------------------??? "+System.getProperty("Env"));
+		
+		System.out.println("------------------------??? "+System.getenv("ENV"));
+		
+		System.out.println("------------------------??? "+System.getenv("BUILD NUMBER"));
+		
 		String urlfromxmal = ctx.getCurrentXmlTest().getParameter("Environment");
 		System.out.println("Executing in folowing Environment ::"+urlfromxmal);
 		url=urlfromxmal;

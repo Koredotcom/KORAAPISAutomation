@@ -45,13 +45,15 @@ public class Payloads {
 	public static String qa1UniversalBOT="st-bce61471-1ba6-5507-b947-7c25050316db";
 	public static String qa1KnowledgeCollectionBOT= "st-cd95f308-f819-5ebe-961f-952030056ea6";
 	public static String qa1ServiceNowBOT= "st-51cdbe92-4a23-54e4-8a53-2dfd89ba93b4";
+	
+	public static String stagingUniversalBOT="st-69f7b9b0-c449-5ac3-8ced-1ceb0c5b9553";	
+	public static String stagingServiceNowBOT= "st-5357119e-cde0-5f0d-989a-eca1006f3a54";
+	public static String stagingKnowledgeCollectionBOT= "st-19ac63cf-395f-5ae2-87fe-b178b4b6f8ef";
+	
 	public static String Adminpassword="Kore@12345";
 	public static int waitincreamentalLoop;
 
 	public static String url="";
-	//	public static String url="https://staging.korebots.com";	
-	//	public static String url="https://qa1-bots.kore.ai";
-	//	public static String url="https://koradev-bots.kora.ai";
 	public static String urlKC="/api/public/stream/";
 	public static String cloningbot="";
 	public static String TimeinHHMMSS = null;
@@ -68,8 +70,7 @@ public class Payloads {
 	static int KC_failcount =0;
 	static int SS_passcount =0;
 	static int SS_failcount =0;
-	
-	
+
 	public static String env = "";
 	public static String buildNum = "null";
 
@@ -88,7 +89,7 @@ public class Payloads {
 			
 			url= "https://koradev-bots.kora.ai";
 			
-		}else if (env.equalsIgnoreCase("QA")){
+		}else if (env.equalsIgnoreCase("QA1")){
 			
 			url= "https://qa1-bots.kore.ai";
 			
@@ -805,14 +806,15 @@ public class Payloads {
 	public static String ExtractFAQsPayload()  
 	{
 		
-		//https://seller.flipkart.com/sell-online/faq		
-		//https://seller.flipkart.com/slp/faqs
-		//
+		// https://seller.flipkart.com/sell-online/faq		
+		// https://seller.flipkart.com/slp/faqs
+		// https://www.axisbank.com/bank-smart/internet-banking/faqs
+		// https://www.icicibank.com/nri-banking/money_transfer/faq/m2i-rewards-program/loyalty-program.page?\
 		return "{\n" + 
-				"     \"fileUrl\": \"https://www.icicibank.com/nri-banking/money_transfer/faq/m2i-rewards-program/loyalty-program.page?\",\n" + 
+				"     \"fileUrl\": \"https://www.icicibank.com/nri-banking/money_transfer/faq/m2i-rewards-program/loyalty-program.page\",\n" + 
 				"     \"name\": \"icicibank\"\n" + 
 				"}";
-		
+		//https://www.axisbank.com/bank-smart/internet-banking/faqs
 //		return"{\n" + 
 //				"     \"fileUrl\": \"https://seller.flipkart.com/slp/faqs\",\n" + 
 //				"     \"fileId\": \"\",\n" + 

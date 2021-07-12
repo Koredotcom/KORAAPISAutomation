@@ -60,7 +60,6 @@ public class EnviromentSetup extends Payloads{
 		}		
 	}
 
-	
 		@Test(priority = 2, enabled = true)
 		public static void createAdminAppinEnvironmentSetup() {
 			try {						
@@ -73,8 +72,7 @@ public class EnviromentSetup extends Payloads{
 						.post(url+internalClientappResource)					
 						.then().log().all()
 						.extract().response();	
-				Thread.sleep(5000);
-	
+				Thread.sleep(5000);	
 				collectappnbotdetails.put("Name",responseadminenv.jsonPath().get("name").toString());
 				collectappnbotdetails.put("cId", responseadminenv.jsonPath().get("cId").toString());
 				collectappnbotdetails.put("cS", responseadminenv.jsonPath().get("cS").toString());
@@ -117,7 +115,7 @@ public class EnviromentSetup extends Payloads{
 	
 		/**
 		 * 
-		 *  This  Steps depends on "configure as wf admin" step after Onboard env level user :: Here are not linking with any bot so we are skipping this step
+		 *  This  Steps depends on "configure as wf admin" step after On board env level user :: Here are not linking with any bot so we are skipping this step
 		 */
 		//	@Test(priority = 4, enabled = true)
 		//	public static void cloningSmapleBotinEnvironmentSetup()
@@ -156,8 +154,6 @@ public class EnviromentSetup extends Payloads{
 						.then()
 						.extract().response();				
 				Thread.sleep(10000);
-	
-	
 				collectappnbotdetails.put("BotDef_fileId",responsejwtTokenbotdef.jsonPath().get("fileId").toString()); 		
 	
 				System.out.println("------------------uploadFile_config---------------------------");
@@ -206,7 +202,7 @@ public class EnviromentSetup extends Payloads{
 						given()
 						.headers(EnviromentSetup.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))
 						.body(EnviromentSetup.importBotPayLoad(collectappnbotdetails.get("BotDef_fileId"),collectappnbotdetails.get("BotConfig_fileId"),collectappnbotdetails.get("BotIcon_fileId")))
-						.when()
+						.when().log().all()
 						.post(url+publicimportBOTresource)					
 						.then() 
 						.extract().response();		
@@ -229,7 +225,7 @@ public class EnviromentSetup extends Payloads{
 				Response responseimportBotStatus = RestAssured.
 						given()
 						.headers(EnviromentSetup.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))				
-						.when()
+						.when().log().all()
 						.get(url+publicimportBOTstatus+collectappnbotdetails.get("bir_id"))				
 						.then()
 						.extract().response();	

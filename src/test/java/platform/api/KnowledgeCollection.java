@@ -6,7 +6,6 @@ import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -30,6 +29,7 @@ public class KnowledgeCollection extends Payloads{
 			KC_failcount++;		
 		}		
 	}
+	
 	@Test(priority = 31, enabled = true)
 	public static void createUserinKnowledgeCollection() {
 		try {
@@ -94,7 +94,7 @@ public class KnowledgeCollection extends Payloads{
 					.body(KnowledgeCollection.genereateJWTtokenPayLoad(collectappnbotdetails.get("cId"),collectappnbotdetails.get("cS"),collectappnbotdetails.get("nId")))
 					.when()
 					.post(urljwtTokenGenerater)					
-					.then()
+					.then().log().all()
 					.extract().response();					
 			collectappnbotdetails.put("jwt",responsejwtTokenfirstkc.jsonPath().get("jwt").toString());
 			Assert.assertEquals(String.valueOf(responsejwtTokenfirstkc.getStatusCode()),"200");
@@ -118,16 +118,18 @@ public class KnowledgeCollection extends Payloads{
 			if (url.contains("koradev-bots.kora.ai")) {				
 				cloningbot=	devKnowledgeCollectionBOT;
 			} else if (url.contains("qa1-bots.kore.ai")) {			
-				cloningbot=	qa1KnowledgeCollectionBOT;			
+				cloningbot=	qa1KnowledgeCollectionBOT;
+			}else if (url.contains("staging-bots.korebots.com")) {			
+				cloningbot=	stagingKnowledgeCollectionBOT;	
 			} else {
 				System.out.println(" Given URL "+ url+" is neither koradev-bots.kora.ai nor qa1-bots.kora.ai");
 			}
 			Response responsecloningSmapleBotkc = RestAssured.
 					given()
-					.headers(KnowledgeCollection.headersforcloneBotpayLoad(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("userId"), collectappnbotdetails.get("accountId")))				
-					.when()
+					.headers(KnowledgeCollection.headersforcloneBotpayLoad(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("userId"), collectappnbotdetails.get("accountId"))).log().all()				
+					.when().log().all()
 					.get(url+"/api/public/samplebots/"+cloningbot+"/add")  //hrere  ubVersion=1 wont be there 					
-					.then() 
+					.then().log().all() 
 					.extract().response();
 			Thread.sleep(10000);		
 			collectappnbotdetails.put("clonnedBot_StreamID",responsecloningSmapleBotkc.jsonPath().get("_id").toString());									
@@ -365,7 +367,7 @@ public class KnowledgeCollection extends Payloads{
 	{
 		try {
 			int maxqs=2;	
-			for(int numberofQs=1;numberofQs<=maxqs;numberofQs++)
+			for(int numberofQs=1;numberofQs<2;numberofQs++)
 			{
 				System.out.println("--43-----------------------Add Questions : "+maxqs+ "to collection------------------------------------"); 
 				Response responseAddQstoCollectionskc = RestAssured.

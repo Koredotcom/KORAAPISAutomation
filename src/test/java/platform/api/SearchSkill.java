@@ -122,16 +122,18 @@ public class SearchSkill extends Payloads{
 			if (url.contains("koradev-bots.kora.ai")) {				
 				cloningbot=	devServiceNowBOT;
 			} else if (url.contains("qa1-bots.kore.ai")) {			
-				cloningbot=	qa1ServiceNowBOT;			
+				cloningbot=	qa1ServiceNowBOT;		
+			}else if (url.contains("staging-bots.korebots.com")) {
+				cloningbot=stagingServiceNowBOT;
 			} else {
 				System.out.println(" Given URL "+ url+" is neither koradev-bots.kora.ai nor qa1-bots.kora.ai");
 			}
 			Response responsecloningSmapleBotinss = RestAssured.
 					given()
 					.headers(SearchSkill.headersforcloneBotpayLoad(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("userId"), collectappnbotdetails.get("accountId")))				
-					.when()  
+					.when().log().all()  
 					.get(url+"/api/public/samplebots/"+cloningbot+"/add")  //hrere  ubVersion=1 wont be there 					
-					.then()
+					.then().log().all()
 					.extract().response();
 			Thread.sleep(10000);
 
@@ -153,14 +155,13 @@ public class SearchSkill extends Payloads{
 			System.out.println("-53-------Setting SearchSkill BOT Setup------------------"); 
 			Response responsecloningSmapleBotss = RestAssured.
 					given()
-					.headers(SearchSkill.HeaderswithJWTnAccountID(collectappnbotdetails.get("jwt"), collectappnbotdetails.get("accountId"))).log().all()				
+					.headers(SearchSkill.HeaderswithJWTnAccountID(collectappnbotdetails.get("jwt"), collectappnbotdetails.get("accountId")))				
 					.body(SearchSkill.clonedBot_SetuppayLoad(collectappnbotdetails.get("clonnedBotName")))
 					.when()  
 					.put(url+"/api/public/bot/"+ collectappnbotdetails.get("clonnedBot_StreamID")+"/setup")  					
-					.then().log().all()
+					.then()
 					.extract().response();
 			Thread.sleep(5000);
-
 			System.out.println("Clonned bot Setup Status ::" +responsecloningSmapleBotss.getStatusCode());
 			Assert.assertEquals(String.valueOf(responsecloningSmapleBotss.getStatusCode()),"200");
 		}catch(Exception e)

@@ -129,16 +129,18 @@ public class TenantOnboarding extends Payloads{
 				cloningbot=	devUniversalBOT;				
 			} else if (url.contains("qa1-bots.kore.ai")) {
 				cloningbot=	qa1UniversalBOT;			
+			}else if (url.contains("staging-bots.korebots.com")) {
+				cloningbot=	stagingUniversalBOT;
 			} else {
-				System.out.println(" Given URL "+ url+" is neither koradev-bots.kora.ai nor qa1-bots.kora.ai");
+				System.out.println(" Given URL "+ url+" is neither koradev-bots.kora.ai nor qa1-bots.kora.ai or Staging Env");
 			}
 
 			Response responsecloningSmapleBottnt = RestAssured.
 					given()
-					.headers(TenantOnboarding.headersforcloneBotpayLoad(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("userId"), collectappnbotdetails.get("accountId")))				
-					.when()  
+					.headers(TenantOnboarding.headersforcloneBotpayLoad(collectappnbotdetails.get("jwt"),collectappnbotdetails.get("userId"), collectappnbotdetails.get("accountId"))).log().all()				
+					.when().log().all()  
 					.get(url+"/api/public/samplebots/"+cloningbot+"/add")   					
-					.then()
+					.then().log().all()
 					.extract().response();		
 			Thread.sleep(5000);		
 			collectappnbotdetails.put("clonnedBot_StreamID",responsecloningSmapleBottnt.jsonPath().get("_id").toString());									

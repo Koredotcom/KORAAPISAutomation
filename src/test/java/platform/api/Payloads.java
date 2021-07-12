@@ -68,15 +68,45 @@ public class Payloads {
 	static int KC_failcount =0;
 	static int SS_passcount =0;
 	static int SS_failcount =0;
+	
+	
+	public static String env = "";
+	public static String buildNum = "null";
 
 	@BeforeSuite
 	public void extractEnviromentURL(ITestContext ctx) {
-		System.out.println("------------------------??? "+System.getenv("ENV"));
-		System.out.println("------------------------??? "+System.getenv("BUILD_NUMBER"));
 		
-		String urlfromxmal = ctx.getCurrentXmlTest().getParameter("Environment");
-		System.out.println("Executing in folowing Environment ::"+urlfromxmal);
-		url=urlfromxmal;
+		env = System.getenv("ENV");
+		buildNum = System.getenv("BUILD_NUMBER");
+		System.out.println("------------------------??? "+env);
+		System.out.println("------------------------??? "+buildNum);
+		
+	//	String urlfromxmal = ctx.getCurrentXmlTest().getParameter("Environment");
+		System.out.println("Current execution is in :=============== :"+env);
+		
+		if (env.equalsIgnoreCase("DEV")){
+			
+			url= "https://koradev-bots.kora.ai";
+			
+		}else if (env.equalsIgnoreCase("QA")){
+			
+			url= "https://qa1-bots.kore.ai";
+			
+		}else if (env.equalsIgnoreCase("STAGING")){
+			
+			url= "https://staging-bots.korebots.com";
+			
+		}else if (env.equalsIgnoreCase("PROD")){
+			
+			url= "null";
+			
+		}else {
+			url= "null";
+			System.out.println("Please provide valid environment to run.. : ============"+url);
+		}
+		
+		System.out.println("Executing in folowing Environment ::"+url);
+		
 	}
 
 	@AfterSuite

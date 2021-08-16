@@ -248,9 +248,9 @@ public class TenantOnboarding extends Payloads{
 		}
 	}
 
-	
+
 	// * Setting up KORA BOT
-	 
+
 	@Test(priority = 23, enabled = true)
 	public static void uploadFileinTenantOnboarding() throws InterruptedException
 	{
@@ -303,8 +303,9 @@ public class TenantOnboarding extends Payloads{
 			Assert.assertEquals(String.valueOf(responsejwtTokenboticontnt.getStatusCode()),"200");
 		}catch(Exception e)
 		{
-			Assert.fail();
 			e.printStackTrace();
+			Assert.fail();
+
 		}
 	}
 
@@ -336,25 +337,28 @@ public class TenantOnboarding extends Payloads{
 	public static void importBotStatusinTenantOnboarding() throws InterruptedException
 	{
 		try {
-			System.out.println("-25----------------------ImportBot_Status---------------------------"); 
-			Response responseimportBotStatustnt = RestAssured.
-					given()
-					.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))				
-					.when()
-					.get(url+publicimportBOTstatus+collectappnbotdetails.get("bir_id"))				
-					.then()
-					.extract().response();
-
+			System.out.println("-25----------------------ImportBot_Status---------------------------");
+			Response responseimportBotStatustnt = null ;
+			String importstatus="pending";	
 			waitincreamentalLoop=1;
-			doloop: do {
+			exitwhileloop:	while(importstatus.equals("pending")){
 				waitincreamentalLoop++;
+				responseimportBotStatustnt = RestAssured.
+						given()
+						.headers(TenantOnboarding.HeadersWithJWTToken(collectappnbotdetails.get("jwt")))				
+						.when()
+						.get(url+publicimportBOTstatus+collectappnbotdetails.get("bir_id"))				
+						.then()
+						.extract().response();
 				Thread.sleep(10000);
-				if(responseimportBotStatustnt.jsonPath().get("status").toString().equalsIgnoreCase("success"));
+				importstatus=responseimportBotStatustnt.jsonPath().get("status").toString();
+				System.out.println("--------importstatus-------"+importstatus);
+				if(importstatus.equalsIgnoreCase("success")||waitincreamentalLoop > 5 )
 				{
-					break doloop;
+					break exitwhileloop;
 				}
 			}
-			while (waitincreamentalLoop <= 5 || (!responseimportBotStatustnt.jsonPath().get("status").toString().equalsIgnoreCase("success"))) ;
+			System.out.println("--------"+responseimportBotStatustnt.jsonPath().get("status").toString()+"------");			
 			collectappnbotdetails.put("importedBot_status",responseimportBotStatustnt.jsonPath().get("status").toString());
 			collectappnbotdetails.put("importedBot_streamId",responseimportBotStatustnt.jsonPath().get("streamId").toString());
 			Assert.assertEquals(String.valueOf(responseimportBotStatustnt.getStatusCode()),"200");

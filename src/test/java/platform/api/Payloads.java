@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -77,11 +78,12 @@ public class Payloads {
 	@BeforeSuite
 	public void extractEnviromentURL(ITestContext ctx) {
 		
-		env = System.getenv("ENV");
+//		env = "QA1";//System.getenv("ENV");
+//		env = "DEV";//System.getenv("ENV");
+	env = "STAGING";//System.getenv("ENV");
 		buildNum = System.getenv("BUILD_NUMBER");
 		System.out.println("------------------------??? "+env);
-		System.out.println("------------------------??? "+buildNum);
-		
+		System.out.println("------------------------??? "+buildNum);		
 	//	String urlfromxmal = ctx.getCurrentXmlTest().getParameter("Environment");
 		System.out.println("Current execution is in :=============== :"+env);
 		
@@ -126,17 +128,24 @@ public class Payloads {
 			executingENV="DEV";
 		}else if(url.contains("qa"))
 		{
-			executingENV="QA";
-		}else {
-			System.out.println("Pldase give valid URL ");
+			executingENV="QA1";
+		}else if(url.contains("staging"))
+		{
+			executingENV="STAGING";
+		}
+		else {
+			System.out.println("Pldase give a valid URL ");
 		}
 
+		Format formatter = new SimpleDateFormat("dd-MMM-yy");
+	    String todaysDate = formatter.format(new Date());
+	    
 		try {
 			file = new File(dir+"/TCResults.html");
 			writer = new BufferedWriter(new FileWriter(file));
 			writer.write(
 					"<html><head></head>");
-			writer.write("<body><h2>Platform API Automation Daily Execution Reports</h2></body>");
+			writer.write("<body><h2>Platform API Automation Daily Execution Reports ("+executingENV+") "+todaysDate+"</h2></body>");
 			writer.write("<body> <table> <table border='1'> <tr> <th> <b>Environment	</b> </th> <td> "+executingENV+" </td> <tr> <th><b>URL</b> </th> <td><font color=\"blue\"><u>"+Payloads.url+"</u></font></td> </tr> </body>");
 			writer.write("<body><h2> </h2></body>");
 			writer.write("<table> </table>");
@@ -811,7 +820,7 @@ public class Payloads {
 		// https://www.axisbank.com/bank-smart/internet-banking/faqs
 		// https://www.icicibank.com/nri-banking/money_transfer/faq/m2i-rewards-program/loyalty-program.page?\
 		return "{\n" + 
-				"     \"fileUrl\": \"https://www.icicibank.com/nri-banking/money_transfer/faq/m2i-rewards-program/loyalty-program.page\",\n" + 
+				"     \"fileUrl\": \"https://www.icicibank.com/nri-banking/money_transfer/faq/m2i-rewards-program/loyalty-program.page?\",\n" + 
 				"     \"name\": \"icicibank\"\n" + 
 				"}";
 		//https://www.axisbank.com/bank-smart/internet-banking/faqs
